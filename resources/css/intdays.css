@@ -1,0 +1,42 @@
+body{
+    background-color: #ffffff;
+}
+
+.navbar-right{
+    margin-right: 0px !important;
+    padding-left: 16px;
+}
+
+.welcomenav {
+    border-bottom: 1px solid;
+    border-color: #000;
+    padding: 2%;
+    margin-bottom: 20px;
+    color: #12a9c9;
+}
+
+.intro {
+    margin-bottom: 20px;
+    padding: 2%;
+}
+
+#page-wrapper{
+    min-height: auto !important;
+}
+
+@media (min-width: 768px) {
+    .page-wrapper-fullpage{
+        margin: 0 0 0 0 !important;
+        border: none !important;
+    }
+}
+
+@media (min-width: 798px) {
+    .page-wrapper-fullpage{
+        padding: 0px calc((100vw - 768px) / 2) 0 calc((100vw - 768px) / 2) !important;
+    }
+}
+
+.nav-custom-left > li{
+    float: left;
+}
