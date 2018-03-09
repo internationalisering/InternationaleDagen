@@ -11,9 +11,9 @@ class Edition_model extends CI_Model {
         return $query->row();
     }
     
-    function getCurrentEdition(){
-        $this->db->where('startdate <= CURDATE()');
-        $this->db->where('enddate >= CURDATE()');
+    function getLastEdition(){
+        $this->db->order_by('id', 'DESC');
+        $this->db->limit(1);
         $query = $this->db->get('Edition');
         return $query->row();
     }

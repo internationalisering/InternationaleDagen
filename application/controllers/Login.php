@@ -7,7 +7,7 @@ class Login extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index(){
+	public function index (){
 		if($this->authex->checkLoginRedirectToHome()){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'logout/template_menu', 'template_pagina' => 'logout/logout_login');
@@ -35,15 +35,13 @@ class Login extends CI_Controller {
 					}
 				}
 				
-				if(isset($error)){
+				if (isset($error)) {
 					$data['error'] = $error;
 					$this->template->load('template/template_master', $partials, $data);
 				}
-			}else{
+			} else {
 				$this->template->load('template/template_master', $partials, $data);
 			}
 		}
-		
-		// Login on mobile margin-top fix
 	}
 }
