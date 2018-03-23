@@ -86,10 +86,11 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '84.193.202.247',
+	'port' => 3306,
 	'username' => 'intdays',
 	'password' => 'P@ssw0rd!753',
 	'database' => 'intdays',
-	'dbdriver' => 'mysql',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
