@@ -6,7 +6,7 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="<?= site_url(); ?>/logout">Logout</a></li>
     </ul>
     <!-- /.navbar-top-links -->
 </nav>

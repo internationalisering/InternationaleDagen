@@ -6,10 +6,10 @@
     </div>
     <div class="btn-toolbar pull-right" style="margin-bottom: 10px">
         <div class="btn-group">
-            <a href="/gebruiker/edit/<?php echo $user->id; ?>" class="btn btn-default">Edit User</a>
+            <a href="<?=site_url() ?>/gebruiker/edit/<?php echo $user->id; ?>" class="btn btn-default">Edit User</a>
         </div>
         <div class="btn-group">
-            <a href="/gebruiker/remove/<?php echo $user->id; ?>" class="btn btn-danger">Delete User</a>
+            <a href="<?=site_url() ?>/gebruiker/remove/<?php echo $user->id; ?>" class="btn btn-danger">Delete User</a>
         </div>
     </div>
     <div class="row">

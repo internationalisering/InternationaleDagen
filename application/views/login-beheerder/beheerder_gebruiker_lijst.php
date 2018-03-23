@@ -7,10 +7,10 @@
     <?php $this->notifications->buildNotification(); ?>
     <div class="btn-toolbar pull-right" style="margin-bottom: 10px">
         <div class="btn-group">
-            <a href="/gebruiker/new" class="btn btn-primary">New User</a>
+            <a href="<?= site_url(); ?>/gebruiker/new" class="btn btn-primary">New User</a>
         </div>
         <div class="btn-group">
-            <a href="/gebruiker/import" class="btn btn-primary">Import Users</a>
+            <a href="<?= site_url(); ?>/gebruiker/import" class="btn btn-primary">Import Users</a>
         </div>
     </div>
     <div class="row">
@@ -34,7 +34,7 @@
                             <td>' . $user->achternaam . '</td>
                             <td>' . $user->email . '</td>
                             <td>' . $user->type->naam . '</td>
-                            <td class="center"><a href="/gebruiker/view/' . $user->id . '"><i class="far fa-search"></i></a> <a href="/gebruiker/edit/' . $user->id . '"><i class="far fa-edit"></i></a> <a href="/gebruiker/remove/' . $user->id . '"><i class="far fa-trash"></i></a></td>
+                            <td class="center"><a href="/gebruiker/view/' . $user->id . '"><i class="far fa-search"></i></a> <a href=" '. site_url() .'/gebruiker/edit/' . $user->id . '"><i class="far fa-edit"></i></a> <a href="' . site_url()  . '/gebruiker/remove/' . $user->id . '"><i class="far fa-trash"></i></a></td>
                         </tr>
                         ';
                     }

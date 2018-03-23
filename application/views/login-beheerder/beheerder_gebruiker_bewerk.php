@@ -9,10 +9,10 @@
         echo '
             <div class="btn-toolbar pull-right" style="margin-bottom: 10px">
                 <div class="btn-group">
-                    <a href="/gebruiker/view/' . $user->id . '" class="btn btn-default">View User</a>
+                    <a href="'. site_url() . '/gebruiker/view/' . $user->id . '" class="btn btn-default">View User</a>
                 </div>
                 <div class="btn-group">
-                    <a href="/gebruiker/remove/' . $user->id . '" class="btn btn-danger">Delete User</a>
+                    <a href="'. site_url() . '/gebruiker/remove/' . $user->id . '" class="btn btn-danger">Delete User</a>
                 </div>
             </div>
         ';
@@ -128,7 +128,7 @@
                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Save</button>
                 </div>
                 <div class="btn-group">
-                    <a href="/gebruiker" class="btn btn-default">Cancel</a>
+                    <a href="<?=site_url() ?>/gebruiker" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>
