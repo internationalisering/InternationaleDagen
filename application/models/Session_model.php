@@ -7,7 +7,7 @@ class Session_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Session');
+        $query = $this->db->get('sessie');
         return $query->row();
     }
 }

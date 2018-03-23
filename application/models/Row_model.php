@@ -7,8 +7,17 @@ class Row_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Row');
+        $query = $this->db->get('rij');
         return $query->row();
+    }
+    
+    
+    function getByEdition($edition)
+    {
+        $this->db->where('editieId', $edition->id);
+        $query = $this->db->get('rij');
+        return $query->result();
+        
     }
 }
 ?>

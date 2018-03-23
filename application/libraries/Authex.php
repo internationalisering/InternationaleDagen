@@ -50,7 +50,7 @@ class Authex {
     
     function checkLoginRedirectToHome(){
         if($this->isLoggedIn()){
-            redirect('/home/' . strtolower($this->getUserInfo()->type->name));
+            redirect('/home/' . strtolower($this->getUserInfo()->type->naam));
             return false;
         }else{
             return true;
@@ -81,7 +81,7 @@ class Authex {
         
         if($user == null){
             return -1;
-        }else if($user->active == 0){
+        }else if($user->actief == 0){
             return -2;
         }else{
             $CI->user_model->updateLastLogin($user->id);

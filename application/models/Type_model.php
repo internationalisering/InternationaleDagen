@@ -7,8 +7,13 @@ class Type_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Type');
+        $query = $this->db->get('type');
         return $query->row();
+    }
+    
+    function getAllTypes(){
+        $query = $this->db->get('type');
+        return $query->result();
     }
 }
 ?>

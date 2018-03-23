@@ -8,25 +8,41 @@ class User_model extends CI_Model {
     function get($id){
         // geef gebruiker-object met opgegeven $id   
         $this->db->where('id', $id);
-        $query = $this->db->get('User');
+        $query = $this->db->get('gebruiker');
         $user = $query->row();
         
-        $this->load->model("type_model");
-        
-        $user->type = $this->type_model->get($user->typeId);
+        if(isset($user->typeId)){
+            $this->load->model("type_model");
+            
+            $user->type = $this->type_model->get($user->typeId);
+        }
         
         return $user;
+    }
+    
+    function getAllUsers(){
+        $this->load->model("type_model");
+        
+        $this->db->where('actief', 1);
+        $query = $this->db->get('gebruiker');
+        $result = $query->result();
+        
+        foreach ($result as $r){
+            $r->type = $this->type_model->get($r->typeId);
+        }
+        
+        return $result;
     }
 
     function getUser($email, $password){
         // geef gebruiker-object met $email en $wachtwoord EN geactiveerd = 1
         $this->db->where('email', $email);
-        $query = $this->db->get('User');
+        $query = $this->db->get('gebruiker');
         
         if($query->num_rows() == 1){
             $user = $query->row();
             // controleren of het wachtwoord overeenkomt
-            if(password_verify($password, $user->password)){
+            if(password_verify($password, $user->wachtwoord)){
                 return $user;
             }else{
                 return null;
@@ -39,9 +55,31 @@ class User_model extends CI_Model {
     function updateLastLogin($id){
         // pas tijd laatstAangemeld aan
         $user = new stdClass();
-        $user->lastLogin = date("Y-m-d H-i-s");
+        $user->laatsteLogin = date("Y-m-d H-i-s");
         $this->db->where('id', $id);
-        $this->db->update('User', $user);
+        $this->db->update('gebruiker', $user);
+    }
+    
+    function insert($user){
+        $this->db->insert('gebruiker', $user);
+        return $this->db->insert_id();
+    }
+    
+    function update($user){
+        $this->db->where('id', $user->id);
+        $this->db->update('gebruiker', $user);
+    }
+    
+    function checkUserEmail($email){
+        // geef gebruiker-object met $email en geactiveerd = 1
+        $this->db->where('email', $email);
+        $query = $this->db->get('gebruiker');
+        
+        if($query->num_rows() == 1){
+            return "1";
+        }else{
+            return null;
+        }
     }
 }
 ?>

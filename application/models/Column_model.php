@@ -7,8 +7,15 @@ class Column_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Column');
+        $query = $this->db->get('kolom');
         return $query->row();
+    }
+    
+    function getByRowId($rowId)
+    {
+        $this->db->where('rijId', $rowId);
+        return $this->db->get('kolom')->result();
+        
     }
 }
 ?>

@@ -7,7 +7,7 @@ class Login extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index (){
+	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'logout/template_menu', 'template_pagina' => 'logout/logout_login');
