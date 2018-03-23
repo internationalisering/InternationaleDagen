@@ -6,7 +6,7 @@
     <!-- /.navbar-header -->
 
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login">Login</a></li>
+        <li><a href="<?= site_url(); ?>/login">Login</a></li>
     </ul>
     <!-- /.navbar-top-links -->
 </nav>

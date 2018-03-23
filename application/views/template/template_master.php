@@ -11,29 +11,29 @@
     
     
     <!-- Bootstrap Core CSS -->
-    <link href="/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/bootstrap.css" rel="stylesheet">
     
     <!-- Font-Awesome CSS -->
-    <link href="/resources/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/font-awesome.min.css" rel="stylesheet">
     
     <!-- MetisMenu CSS -->
-    <link href="/resources/css/metisMenu.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/metisMenu.css" rel="stylesheet">
     
     <!-- DataTables CSS -->
-    <link href="/resources/css/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="/resources/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/dataTables.responsive.css" rel="stylesheet">
     
     <!-- Custom CSS -->
-    <link href="/resources/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/sb-admin-2.css" rel="stylesheet">
     
     <!-- Morris Charts CSS -->
-    <link href="/resources/css/morris.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/morris.css" rel="stylesheet">
     
     <!-- International Days CSS -->
-    <link href="/resources/css/intdays.css" rel="stylesheet">
+    <link href="<?= base_url(); ?>/resources/css/intdays.css" rel="stylesheet">
     
     <!-- jQuery -->
-    <script src="/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -49,28 +49,28 @@
 </footer>
     
     <!-- Font Awesome 5 Pro -->
-    <script src="/resources/js/fontawesome-all.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/fontawesome-all.min.js"></script>
     
     <!-- Bootstrap Core JavaScript -->
-    <script src="/resources/js/bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/bootstrap.min.js"></script>
     
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="/resources/js/metisMenu.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/metisMenu.min.js"></script>
     
     <!-- Morris Charts JavaScript -->
-    <script src="/resources/js/raphael.min.js"></script>
-    <script src="/resources/js/morris.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/raphael.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/morris.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
-    <script src="/resources/js/sb-admin-2.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/sb-admin-2.js"></script>
     
     <!-- DataTables JavaScript -->
-    <script src="/resources/js/jquery.dataTables.min.js"></script>
-    <script src="/resources/js/dataTables.bootstrap.min.js"></script>
-    <script src="/resources/js/dataTables.responsive.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/jquery.dataTables.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/dataTables.bootstrap.min.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/dataTables.responsive.js"></script>
     
     <!-- International Days JavaScript -->
-    <script src="/resources/js/intdays.js"></script>
+    <script src="<?= base_url(); ?>/resources/js/intdays.js"></script>
 </body>
 
 </html>
