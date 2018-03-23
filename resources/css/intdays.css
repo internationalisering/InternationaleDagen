@@ -40,3 +40,19 @@ body{
 .nav-custom-left > li{
     float: left;
 }
+
+footer {
+    position: fixed;
+    left:0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    background-color: #f8f8f8;
+    border-top: 1px solid #e7e7e7;
+}
+
+#wrapper {
+    margin-bottom: 35px;
+}
