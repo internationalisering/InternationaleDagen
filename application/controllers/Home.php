@@ -16,7 +16,6 @@ class Home extends CI_Controller {
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'logout/template_menu', 
 			'template_pagina' => 'logout/logout_home');
-			var_dump($_SESSION);
 			
 			$this->template->load('template/template_master', $partials, $data);
 		}
