@@ -79,6 +79,7 @@ $db['default'] = array(
 	'username' => 'intdays',
 	'password' => 'P@ssw0rd!753',
 	'database' => 'intdays',
+	'port' => 3306,
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
