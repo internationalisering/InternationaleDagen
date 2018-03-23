@@ -121,7 +121,7 @@ class Gebruiker extends CI_Controller {
 		}
 	}
 	
-	public function new(){
+	public function create(){
 		if($this->authex->checkLoginRedirectByType(4)){
 			$submit = $this->input->post('submit');
 			

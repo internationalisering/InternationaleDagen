@@ -7,8 +7,8 @@ class Homepagina extends CI_Controller {
         parent::__construct();
     }
 	
-	public function webPaginaVeranderen() {
-	    if($this->authex->checkLoginRedirectToHome()){
+	public function index() {
+	    if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
 			 
 			$data['titel'] = 'Webpagina aanpassen';
