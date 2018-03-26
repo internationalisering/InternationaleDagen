@@ -17,12 +17,14 @@
                         <?php
                     }
                     ?>
-                    <form role="form" method="POST" action="<?= site_url(); ?>/reset/email">
+                    <form role="form" method="POST" action="<?= site_url(); ?>/reset/pass">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <input class="form-control" placeholder="Confirm Password" name="confirmpassword" type="password" value="">
+                                <input class="hidden" name="code" value="<?php echo $code;  ?>">
                             </div>
-                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Send email</button>
+                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Reset Password</button>
                         </fieldset>
                     </form>
                 </div>

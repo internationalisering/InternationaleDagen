@@ -70,13 +70,29 @@ class User_model extends CI_Model {
         $this->db->update('gebruiker', $user);
     }
     
-    function checkUserEmail($email){
-        // geef gebruiker-object met $email en geactiveerd = 1
+    function getUserFromEmail($email){
+        // geef gebruiker-object met $email 
         $this->db->where('email', $email);
+           
         $query = $this->db->get('gebruiker');
         
         if($query->num_rows() == 1){
-            return "1";
+            $user = $query->row();
+            return $user;
+        }else{
+            return null;
+        }
+    }
+    
+    function getUserFromPwdCode($code){
+        // geef gebruiker-object met $code
+        $this->db->where('pwdCode', $code);
+           
+        $query = $this->db->get('gebruiker');
+        
+        if($query->num_rows() == 1){
+            $user = $query->row();
+            return $user;
         }else{
             return null;
         }
