@@ -80,7 +80,6 @@ class Reset extends CI_Controller {
                                                 $user->pwdCode = null;
                                                 $user->wachtwoord = $hash;
                                                 $this->user_model->update($user);
-                                                $this->notifications->createNotification("Your password has been changed!");
                                     }
                                 }
                         
