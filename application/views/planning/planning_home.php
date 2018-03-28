@@ -42,6 +42,7 @@
     float: right;
     right: 0;
     bottom: 0;
+    cursor: pointer;
 }
 
 .child-activity 
@@ -77,19 +78,31 @@
 <script>
 
 $(document).ready(function()
-{
+{   
+
+
     $('.child-tick').click(function(obj)
     {
         var columnId = $(this).data('column-id');
-        alert('Column id aangeklikt: '+columnId);
+
+
+         $.ajax({
+            url: site_url() + "/planning/viewColumn/" + columnId, 
+            success: function(result){
+            $('#modal-content').html(result);
+            $('#modal').modal();
+
+        }});
+
+
     })
 });
 
 
 
-</script>
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal">Open Modal</button>
 
+
+</script>
 
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
@@ -194,7 +207,7 @@ $(document).ready(function()
                         }
                             
                         ?>       
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
