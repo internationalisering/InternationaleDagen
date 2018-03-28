@@ -7,7 +7,7 @@ class Language_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Language');
+        $query = $this->db->get('taal');
         return $query->row();
     }
 }
