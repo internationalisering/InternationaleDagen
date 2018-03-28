@@ -7,14 +7,14 @@ class Column_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('kolom');
+        $query = $this->db->get('planningKolom');
         return $query->row();
     }
     
     function getByRowId($rowId)
     {
-        $this->db->where('rijId', $rowId);
-        return $this->db->get('kolom')->result();
+        $this->db->where('planningRijId', $rowId);
+        return $this->db->get('planningKolom')->result();
         
     }
 }

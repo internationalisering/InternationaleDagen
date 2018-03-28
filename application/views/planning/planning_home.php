@@ -52,7 +52,7 @@
                             
                             foreach($row->columns as $column)
                             {
-                                if($row->id == $column->rijId) // Kolom rij id komt overeen met rij id?
+                                if($row->id == $column->planningRijId) // Kolom rij id komt overeen met rij id?
                                 {
                                     
                                     ?> 
