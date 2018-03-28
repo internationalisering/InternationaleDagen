@@ -7,7 +7,7 @@ class Row_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('rij');
+        $query = $this->db->get('planningRij');
         return $query->row();
     }
     
@@ -15,7 +15,7 @@ class Row_model extends CI_Model {
     function getByEdition($edition)
     {
         $this->db->where('editieId', $edition->id);
-        $query = $this->db->get('rij');
+        $query = $this->db->get('planningRij');
         return $query->result();
         
     }
