@@ -11,13 +11,12 @@ class Homepagina extends CI_Controller {
 	    if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
 			 
-			$data['titel'] = 'Webpagina aanpassen';
-			
+			$data['titel'] = 'Beheer edities';
 			
 			$data['edition'] = $this->edition_model->getLastEdition();
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
-			$partials = array('template_menu' => 'homepagina_bewerken/homepagina_bewerk_menu', 
-			'template_pagina' => 'homepagina_bewerken/homepagina_bewerk_home');
+			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu', 
+			'template_pagina' => 'login-beheerder/homepagina_bewerk_home');
 			
 			$this->template->load('template/template_master', $partials, $data);
 		}
@@ -25,6 +24,6 @@ class Homepagina extends CI_Controller {
 	}
 	
 	public function edit() {
-		
+
 	}
 }
