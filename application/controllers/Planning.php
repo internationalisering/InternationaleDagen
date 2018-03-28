@@ -16,7 +16,8 @@ class Planning extends CI_Controller {
 			$this->load->model('class_model');
 			$this->load->model('edition_model');
 			$this->load->model('column_model');
-			
+			$this->load->model('user_model');
+
 			$data['titel'] = 'Calendar | International Days';
 			
 			
@@ -35,6 +36,9 @@ class Planning extends CI_Controller {
 					if($kolom->sessieId != null)
 					{
 						$kolom->session = $this->session_model->get($kolom->sessieId);
+
+						// Voor elke sessie de gebruiker ophalen 
+						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
 					}
 				}
 			}
