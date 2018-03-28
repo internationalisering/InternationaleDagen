@@ -61,13 +61,28 @@ class User_model extends CI_Model {
     }
     
     function insert($user){
+        if($user->email == "" || $user->voornaam == "" || $user->achternaam == ""){
+            return -1;
+        }else if($this->getUserFromEmail($user->email) != null){
+            return -2;
+        }
+        
         $this->db->insert('gebruiker', $user);
         return $this->db->insert_id();
     }
     
     function update($user){
+        $check = $this->getUserFromEmail($user->email);
+        
+        if($user->email == "" || $user->voornaam == "" || $user->achternaam == ""){
+            return -1;
+        }else if($check != null && $check->id != $user->id){
+            return -2;
+        }
+        
         $this->db->where('id', $user->id);
         $this->db->update('gebruiker', $user);
+        return 1;
     }
     
     function getUserFromEmail($email){

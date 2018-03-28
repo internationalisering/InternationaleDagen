@@ -62,11 +62,27 @@ class Gebruiker extends CI_Controller {
 				    $user->land = $this->input->post('land');
 				    $user->typeId = $this->input->post('typeId');
 					
-					$this->user_model->update($user);
+					$update = $this->user_model->update($user);
 					
-					$this->notifications->createNotification("The user <b>$user->voornaam $user->achternaam</b> is succesfully changed!");
-					
-					redirect('/gebruiker');
+					if($update >= 1){
+						$this->notifications->createNotification("The user <b>$user->voornaam $user->achternaam</b> is succesfully changed!");
+						
+						redirect('/gebruiker');
+					}else{
+						if($update == -1){
+							$this->notifications->createNotification("You must submit at least a first name, last name and email!", "danger", false);
+						}else if($update == -2){
+							$this->notifications->createNotification("The email adres is already used by another user!", "danger", false);
+						}
+						
+						$data['titel'] = 'International Days';
+			    	    $data['types'] = $this->type_model->getAllTypes();
+			    	    $data['user'] = $user;
+			    	    $data['h1'] = "New User";
+			    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
+			    		
+			    		$this->template->load('template/template_master', $partials, $data);
+					}
 			    }else{
 			    	$data['titel'] = 'International Days';
 		    	    $data['types'] = $this->type_model->getAllTypes();
@@ -141,11 +157,27 @@ class Gebruiker extends CI_Controller {
 			    $user->land = $this->input->post('land');
 			    $user->typeId = $this->input->post('typeId');
 				
-				$this->user_model->insert($user);
+				$insert = $this->user_model->insert($user);
 				
-				$this->notifications->createNotification("The user <b>$user->voornaam $user->achternaam</b> is succesfully created!");
-				
-				redirect('/gebruiker');
+				if($insert >= 1){
+					$this->notifications->createNotification("The user <b>$user->voornaam $user->achternaam</b> is succesfully created!");
+					
+					redirect('/gebruiker');
+				}else{
+					if($insert == -1){
+						$this->notifications->createNotification("You must submit at least a first name, last name and email!", "danger", false);
+					}else if($insert == -2){
+						$this->notifications->createNotification("The email adres is already used by another user!", "danger", false);
+					}
+					
+					$data['titel'] = 'International Days';
+		    	    $data['types'] = $this->type_model->getAllTypes();
+		    	    $data['user'] = $user;
+		    	    $data['h1'] = "New User";
+		    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
+		    		
+		    		$this->template->load('template/template_master', $partials, $data);
+				}
 		    }else{
 		    	$this->load->model('type_model');
 		    	
