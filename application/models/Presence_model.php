@@ -7,8 +7,19 @@ class Presence_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Presence');
+        $query = $this->db->get('aanwezigheid');
         return $query->row();
+    }
+
+    function isIngeschreven($kolomId, $gebruikerId)
+    {
+    	$this->db->where('planningKolomId', $kolomId);
+    	$this->db->where('gebruikerId', $gebruikerId);
+
+    	$result = $this->db->get('aanwezigheid')->row();
+
+    	return (isset($result) ? true : false);
+
     }
 }
 ?>
