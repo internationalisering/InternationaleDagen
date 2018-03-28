@@ -20,21 +20,26 @@ class Reset extends CI_Controller {
 			
 			if($email == null){
 					$error = "Fill in an email!";
-					} else {
-                                            $this->load->model('user_model');
+			} else {
+                                        $this->load->model('user_model');
 					
-                                            $user = $this->user_model->getUserFromEmail($email);
+                                        $user = $this->user_model->getUserFromEmail($email);
         
-                                            if($user == null){
+                                        if($user == null){
                                                 $error = "Email is incorrect!";
-                                            } else {
+                                        } else {
                                                 $code = bin2hex(openssl_random_pseudo_bytes(64));
-                                                $user->pwdCode = $code;
-                                                $this->user_model->update($user);
-                                                //sendEmail();
-                                                $error = $code;
-                                            }
+                                                $codeUser = $this->user_model->getUserFromPwdCode($code);
+                                                while($codeUser != null){
+                                                    $code = bin2hex(openssl_random_pseudo_bytes(64));
+                                                    $codeUser = $this->user_model->getUserFromPwdCode($code);
+                                                }
+                                                    $user->pwdCode = $code;
+                                                    $this->user_model->update($user);
+                                                    sendEmail($email, "Reset Password International Days" , "Please use this verificationlink to change your password: https://intdays.brendsimons.be//reset/reset/" . $code);
+                                                    $error = $code;
                                         }
+                                }
 			if (isset($error)) {
                                         $data['titel'] = 'International Days';
 					$partials = array('template_menu' => 'reset-password/template_menu', 'template_pagina' => 'reset-password/reset_email');
