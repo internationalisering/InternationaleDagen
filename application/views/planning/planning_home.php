@@ -78,10 +78,17 @@
 
 $(document).ready(function()
 {
-    alert('ok');
+    $('.child-tick').click(function(obj)
+    {
+        var columnId = $(this).data('column-id');
+        alert('Column id aangeklikt: '+columnId);
+    })
 });
 
+
+
 </script>
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal">Open Modal</button>
 
 
 <div id="page-wrapper" class="page-wrapper-fullpage">
@@ -129,6 +136,7 @@ $(document).ready(function()
                                         <hr>
                                     </div>
                                     <?php 
+
 
 
                                     foreach($row->columns as $column)
