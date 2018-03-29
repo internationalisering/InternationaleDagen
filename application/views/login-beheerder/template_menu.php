@@ -120,16 +120,16 @@
                     <a href="/"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>gebruiker"><i class="fas fa-users"></i> Manage Users</a>
+                    <a href="<?= site_url(); ?>/gebruiker"><i class="fas fa-users"></i> Manage Users</a>
                 </li>
                 
-                <!--Link naar homepagina bewerken moet hier nog komen-->
+                
                 
                 <li>
-                    <a href="<?= site_url(); ?>homepagina"></i> Edit Homepage</a>
+                    <a href="<?= site_url(); ?>/home/homepagina_view"></i> Edit Homepage</a>
                 </li>
                 
-                <!---->
+                
                 
                 <li>
                     

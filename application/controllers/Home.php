@@ -56,4 +56,34 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
+
+	public function homepagina_view() {
+	    if($this->authex->checkLoginRedirectByType(4)){
+			$this->load->model('edition_model');
+			 
+			$data['titel'] = 'Hompagina bewerken';
+			
+			$data['edition'] = $this->edition_model->getLastEdition();
+			$data['verantwoordelijke'] = 'Vincent Duchateau';
+			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu', 
+			'template_pagina' => 'login-beheerder/homepagina_bewerk_home');
+			
+			$this->template->load('template/template_master', $partials, $data);
+		}
+	}
+
+	public function homepagina_update() {
+		if($this->authex->checkLoginRedirectByType(4)){
+			$this->load->model('edition_model');
+			 
+			$data['titel'] = 'Homepagina bewerken';
+			
+			$data['edition'] = $this->edition_model->getLastEdition();
+			$data['verantwoordelijke'] = 'Vincent Duchateau';
+			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu', 
+			'template_pagina' => 'login-beheerder/homepagina_bewerk_home');
+			
+			$this->template->load('template/template_master', $partials, $data);
+		}
+	}
 }
