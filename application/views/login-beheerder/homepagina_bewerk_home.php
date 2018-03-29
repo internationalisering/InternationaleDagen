@@ -15,7 +15,7 @@
     </div>
     
     </div>
-    <div class="row intro text" contenteditable="true">
+    <div class="row intro text" contenteditable="true" name="paginaInhoud">
         <div class="col-lg-12 col-md-12">
             <?php
             
