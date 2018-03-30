@@ -29,7 +29,7 @@ class Planning extends CI_Controller {
 
 
 			$user = $this->authex->getUserInfo();
-			
+
 
 			foreach($data['rows'] as $row)
 			{
@@ -62,22 +62,30 @@ class Planning extends CI_Controller {
 
 	public function viewColumn($columnId=null)
 	{
-		if($columnId == null) die;
-		$this->load->model('column_model');
-		$this->load->model('session_model');
-		$this->load->model('presence_model');
+		if($this->authex->isLoggedIn())
+		{
+			if($columnId == null) die;
+			$this->load->model('column_model');
+			$this->load->model('session_model');
+			$this->load->model('presence_model');
+			$this->load->model('feedback_model');
 
 
-		$data = array();
+			$data = array();
+			$user = $this->authex->getUserInfo();
 
-		$data['column'] = $this->column_model->get($columnId);
-		$data['column']->sessie = $this->session_model->get($data['column']->sessieId);
-		
 
-		$data['ingeschreven'] = $this->presence_model->isEnrolled( $data['column']->id, $this->authex->getUserInfo()->id);
-		$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 
-		$this->load->view('planning/planning_ajax_student.php', $data);
+			$data['column'] = $this->column_model->get($columnId);
+			$data['column']->sessie = $this->session_model->get($data['column']->sessieId);
+			
+
+			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
+			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
+
+			$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
+			$this->load->view('planning/planning_ajax_student.php', $data);
+		}
 	}
 
 	public function enroll($columnId=null)
@@ -117,6 +125,23 @@ class Planning extends CI_Controller {
 
 			$this->presence_model->withdraw($columnId, $user->id);
 			die("1");
+		}
+	}
+
+	public function feedback($sessionId)
+	{
+		$user = $this->authex->getUserInfo();
+		$this->load->model('feedback_model');
+
+		if($this->authex->isLoggedIn())
+		{
+			$feedback = $this->input->post('feedback');
+
+			if($feedback != null)
+			{
+				$this->feedback_model->set($sessionId, $userId, $feedback);
+				
+			}
 		}
 	}
 }

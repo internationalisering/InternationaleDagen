@@ -83,6 +83,10 @@
     display:inline-block;
     width:15%;
 }
+.feedback
+{
+    display: none;
+}
 </style>
 
 <script>
@@ -160,8 +164,20 @@ function setEnrolled(columnId, bool)
     });
 }
 
+function feedback()
+{
+    $('.feedback').slideDown();
+}
 
+function feedbackSubmit()
+{
+    
+ 
+    $('.feedback').slideUp();
 
+}
+
+//function 
 
 
 
