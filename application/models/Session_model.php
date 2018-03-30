@@ -26,5 +26,15 @@ class Session_model extends CI_Model {
         
         return $result;
     }
+    function insert($sessie){
+        $this->db->insert('sessie', $sessie);
+        return 1;
+    }
+    
+    function update($sessie){
+        $this->db->where('id', $sessie->id);
+        $this->db->update('sessie', $sessie);
+        return 1;
+    }
 }
 ?>
