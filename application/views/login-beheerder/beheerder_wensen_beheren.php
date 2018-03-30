@@ -17,9 +17,11 @@ function createQuestionLi($q){
     echo '<span class="wq-type" hidden>' . $q->formTypeId . '</span>';
     echo '<b class="wq-question">' . $q->naam . '</b><br>';
     
+    echo '<ul class="wq-options">';
     foreach($q->answerList as $al){
-        echo $al->antwoord . '<br>';
+        echo "<li>$al->antwoord</li>";
     }
+    echo '</ul>';
     
     echo '</li>';
 }
