@@ -1,5 +1,5 @@
 <?php
-class WishQuestion_model extends CI_Model {
+class FormType_model extends CI_Model {
     
     function __construct() {
         parent::__construct();
@@ -7,7 +7,7 @@ class WishQuestion_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('WishQuestion');
+        $query = $this->db->get('formType');
         return $query->row();
     }
 }

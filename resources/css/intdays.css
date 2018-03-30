@@ -56,3 +56,21 @@ footer {
 #wrapper {
     margin-bottom: 35px;
 }
+
+.manage-wishes .wish-questions{
+    list-style-type: none;
+    padding: 0;
+}
+
+.manage-wishes .wish-questions li{
+    width: 100%;
+    border: 1px dashed black;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 5px 5px 5px 15px;
+}
+
+.manage-wishes .wish-questions li.inactive{
+    border-color: gray;
+    color: gray;
+}
