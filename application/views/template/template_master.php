@@ -37,6 +37,18 @@
     
     <!-- jQuery -->
     <script src="<?= base_url(); ?>/resources/js/jquery-3.3.1.min.js"></script>
+    <script>
+        function base_url()
+        {
+            return "<?= base_url() ?>";
+        }
+
+        function site_url()
+        {
+            return "<?= site_url() ?>";
+        }
+
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -77,6 +89,29 @@
     
     <!-- International Days JavaScript -->
     <script src="<?= base_url(); ?>/resources/js/intdays.js"></script>
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div id='modal-content' class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <p>Some text in the modal.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
 </body>
 
 </html>

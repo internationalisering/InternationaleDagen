@@ -1,97 +1,213 @@
 <!-- TIJDELIJKE STYLE! Moet naar style.css... -->
-<style>
-    .activity-column 
-    {
-        background-color: blue;
-        color:white;
-        
-    }
-    
-    
+
+    <style>
+
+.flexbox
+{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.child
+{
+  display: inline-block;
+  font-size: 20px;
+  color: #FFF;
+  text-align: center;
+  background: #3794fe;
+  border-radius: 6px;
+  padding: 0px;
+  margin: 12px;
+  flex: 1;
+  font-family: "Open Sans", Arial;
+
+}
+.session-title 
+{
+    font-size: 20px;  
+
+}
+
+.session-author 
+{
+    font-size: 12px;  
+}
+
+
+.child-tick
+{
+    color: white;
+    float: right;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.child-activity 
+{
+    background: #3794fe;
+}
+.child-break
+{
+    background: #FF7300;
+
+}
+
+.line-break 
+{
+    width: 100%;
+}
+
+
+.date 
+{
+    display: inline-block;
+    width:100%;
+    border-bottom: 1px solid #cecece;
+}
+.time
+{
+    margin: 12px;
+    display:inline-block;
+    width:15%;
+}
 </style>
 
+<script>
+
+$(document).ready(function()
+{   
+
+
+    $('.child-tick').click(function(obj)
+    {
+        var columnId = $(this).data('column-id');
+
+
+         $.ajax({
+            url: site_url() + "/planning/viewColumn/" + columnId, 
+            success: function(result){
+            $('#modal-content').html(result);
+            $('#modal').modal();
+
+        }});
+
+
+    })
+});
+
+
+
+
+
+</script>
 
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="welcomenav"><?php echo $titel ?></h3>
+            <h3 class="welcomenav"><?= $titel ?></h3>
         </div>
     </div>
     <div class="row intro">
         <div class="col-lg-12 col-md-12">
-            <?php
-            
-          
-            
-            $datumsBereik = new DatePeriod (
-                new DateTime($edition->startdatum),
-                new DateInterval('P1D'),
-                new DateTime($edition->einddatum)
-                );
-                
-            foreach ($datumsBereik as $datumKey => $datum) {  // Voor elke datum 
-                echo "<h2>" . $datum->format('l\, d M Y') . "</h2>"; // Titel met datum
-                
-                
-                // Voor elke rij...
-                foreach($rows as $row)
-                {
-                    // Voor elke dag gaan we kijken welke rijen op deze dag vallen.
-                    if($datum->format("Y-m-d") == date("Y-m-d", strtotime($row->starttijd)))
-                    {
-                        // Algemene informatie per rij (starttijd, eindtijd, welke editie etc...)
-                        ?>
-                           <div class='row'>
+            <div class="flexbox">
+                   <?php 
+                        $datumsBereik = new DatePeriod (
+                            new DateTime($edition->startdatum),
+                            new DateInterval('P1D'),
+                            new DateTime($edition->einddatum)
+                            );
                             
-                                <div class="col-lg-3 col-md-3">
-                                    <p><?= date("H:i", strtotime($row->starttijd)) . "u - " . date("H:i", strtotime($row->eindtijd))  ?>u</p>
-                                </div>
-                         
-                        <?php   
-                            // Dan tonen we elke kolom geassocieerd met deze rij
-                            
-                            foreach($row->columns as $column)
-                            {
-                                if($row->id == $column->planningRijId) // Kolom rij id komt overeen met rij id?
-                                {
-                                    
-                                    ?> 
-                                    
-                                    <div class="col-lg-9 col-md-9 activity-column">
-                                        <p>Kolom: <?= $column->id; ?></p>
-                                        <p>Max #: <?= $column->maxHoeveelheid; ?></p>
-                                        
-                                        
-                                        <?php if( isset($column->session)){ // Is sessie ingevuld? ?>
-                                            <p>Titel: <?= $column->session->titel ?></p>
-                                        <?php } ?>
-                                    </div>
-                                    <p>&nbsp;</p>
-                                    <?php 
-                                }
-                         
-                            }
-                            
-                        ?> </div> <?php  // Sluiten van 'row'
-                   }
-                    
-                }
-                
-                
-                ?>
-                <!--
-                <div class="row">
-                    <div class="col-lg-2 col-md-2">
-                        Block 1
-                    </div>
-                </div>-->
-                <?php 
-            }
-            
+                        foreach ($datumsBereik as $datumKey => $datum) {  // Voor elke datum 
+                            ?> 
+                            <div class='date'>
+                                <h2><?= $datum->format('l\, d M Y') ?></h2>
+                            </div>
 
-            ?>
-            
-            
+
+
+                            <?php 
+
+                            // Voor elke rij...
+                            foreach($rows as $row)
+                            {
+                                // Voor elke dag gaan we kijken welke rijen op deze dag vallen.
+                                if($datum->format("Y-m-d") == date("Y-m-d", strtotime($row->starttijd)))
+                                {
+
+                                   
+                                    ?>
+                                    <div class='line-break'></div> <!-- Zorgt voor expliciete break tussen flexboxes-->
+                                    <div class='time'>
+                                         <p> 
+                                            <?= date("H\ui", strtotime($row->starttijd)); ?>
+                                            -
+                                            <?= date("H\ui", strtotime($row->eindtijd)); ?> 
+                                        </p>
+                                        <hr>
+                                    </div>
+                                    <?php 
+
+
+
+                                    foreach($row->columns as $column)
+                                    {
+
+                                        if($row->id == $column->planningRijId) // Kolom rij id komt overeen met rij id?
+                                        {
+
+                                            if(isset($column->pauze)) // Is het een pauze? 
+                                            {
+                                                ?> 
+                                                    <div class='child child-break'>
+                                                        <p class='session-title'>
+                                                            <?= $column->pauze ?>
+                                                        </p>
+
+                                                    </div>
+                                                <?php 
+                                            } else {
+                                                ?> 
+                                                    <div class="child child-activity">
+                                                        <div class='session'>
+                                                            <p class='session-title'><?= $column->session->titel ?></p>
+                                                            <p class='session-author'>
+                                                                <?= $column->session->gebruiker->voornaam ?>
+                                                                <?= $column->session->gebruiker->achternaam ?>
+                                                            </p>  
+
+
+                                                            <span class='child-tick' data-column-id=<?= $column->id ?>>
+                                                                v&nbsp;
+                                                            </span>
+
+                                                        </div>
+                                                    </div>
+                                                <?php      
+                                            }
+
+                                            
+
+                                
+                                        }
+
+                                    }  
+
+
+                    
+
+                                
+
+                                }
+
+                            }
+
+                        }
+                            
+                        ?>       
+            </div>
         </div>
     </div>
 </div>

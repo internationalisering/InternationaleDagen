@@ -7,7 +7,7 @@
 
     <ul class="nav navbar-nav navbar-right nav-custom-left">
         <li><a href="#">Wishes</a></li>
-        <li><a href="#">My Lectures</a></li>
+        <li><a href="<?= site_url(); ?>/lectures">My Lectures</a></li>
         <li><a href="<?= site_url(); ?>/logout">Logout</a></li>
     </ul>
     <!-- /.navbar-top-links -->

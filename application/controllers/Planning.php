@@ -16,7 +16,8 @@ class Planning extends CI_Controller {
 			$this->load->model('class_model');
 			$this->load->model('edition_model');
 			$this->load->model('column_model');
-			
+			$this->load->model('user_model');
+
 			$data['titel'] = 'Calendar | International Days';
 			
 			
@@ -35,6 +36,9 @@ class Planning extends CI_Controller {
 					if($kolom->sessieId != null)
 					{
 						$kolom->session = $this->session_model->get($kolom->sessieId);
+
+						// Voor elke sessie de gebruiker ophalen 
+						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
 					}
 				}
 			}
@@ -46,5 +50,24 @@ class Planning extends CI_Controller {
 			
 			$this->template->load('template/template_master', $partials, $data);
 		}
+	}
+
+	public function viewColumn($columnId=null)
+	{
+		if($columnId == null) die;
+		$this->load->model('column_model');
+		$this->load->model('session_model');
+		$this->load->model('presence_model');
+
+
+		$data = array();
+
+		$data['column'] = $this->column_model->get($columnId);
+		$data['column']->sessie = $this->session_model->get($data['column']->sessieId);
+		
+
+		$data['ingeschreven'] = $this->presence_model->isIngeschreven( $data['column']->id, $data['column']->sessie->id);
+
+		$this->load->view('planning/planning_ajax_student.php', $data);
 	}
 }

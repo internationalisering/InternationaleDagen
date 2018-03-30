@@ -37,7 +37,7 @@ class Reset extends CI_Controller {
                                                     $user->pwdCode = $code;
                                                     $this->user_model->update($user);
                                                     sendEmail($email, "Reset Password International Days" , "Please use this verificationlink to change your password: https://intdays.brendsimons.be//reset/reset/" . $code);
-                                                    $error = $code;
+                                                    
                                         }
                                 }
 			if (isset($error)) {
