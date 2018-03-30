@@ -29,6 +29,9 @@
     <!-- Morris Charts CSS -->
     <link href="<?= base_url(); ?>/resources/css/morris.css" rel="stylesheet">
     
+    <!-- Jquery UI CSS -->
+    <link href="<?= base_url(); ?>/resources/css/jquery-ui.min.css" rel="stylesheet">
+    
     <!-- International Days CSS -->
     <link href="<?= base_url(); ?>/resources/css/intdays.css" rel="stylesheet">
     
@@ -59,6 +62,9 @@
         <span class="text-muted">Teamnr 27 - Brend Simons, Tom Van Den Rul, Quinten Van Casteren, Vincent Duchateau - <?php echo "Verantwoordelijke: " . (isset($verantwoordelijke)?$verantwoordelijke:"In te vullen"); ?> - Tinne Van Echelpoel</span>
       </div>
 </footer>
+    
+    <!-- JQuery UI JavaScript -->
+    <script src="<?= base_url(); ?>/resources/js/jquery-ui.min.js"></script>
     
     <!-- Font Awesome 5 Pro -->
     <script src="<?= base_url(); ?>/resources/js/fontawesome-all.min.js"></script>
