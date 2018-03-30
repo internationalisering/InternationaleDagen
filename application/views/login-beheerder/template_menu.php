@@ -126,7 +126,7 @@
                 
                 
                 <li>
-                    <a href="<?= site_url(); ?>/home/homepagina_view"></i> Edit Homepage</a>
+                    <a href="<?= site_url(); ?>/home/homepagina_lijst"><i class="fas fa-align-justify"></i> View Editions</a>
                 </li>
                 
                 

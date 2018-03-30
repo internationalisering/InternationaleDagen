@@ -62,15 +62,26 @@ footer {
     padding: 0;
 }
 
-.manage-wishes .wish-questions li{
+.manage-wishes .wish-questions > li{
     width: 100%;
     border: 1px dashed black;
     border-radius: 10px;
     margin-bottom: 5px;
     padding: 5px 5px 5px 15px;
+    min-height: 40px;
 }
 
-.manage-wishes .wish-questions li.inactive{
-    border-color: gray;
-    color: gray;
+.manage-wishes .wish-questions > li.inactive{
+    border-color: #cccccc;
+    color: #cccccc;
+}
+
+.manage-wishes .wish-questions > li .icons{
+    float: right;
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.modal-body input, .modal-body select{
+    width: 100%;
 }

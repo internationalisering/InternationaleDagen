@@ -1,10 +1,4 @@
 <div id="page-wrapper" class="page-wrapper-fullpage">
-
-
-        
-    
-
-
     <div class="bewerk">
 
     <div class="row">
@@ -33,19 +27,20 @@
 <script type="text/javascript">
             $(document).ready(function(argument) {
                 $('#save').click(function(){
-                    $edit = $('#webInhoud').html();
+                    var edit = $('#webInhoud').html();
                     $.ajax({
-                        url: '<?= base_url(); ?>/Home.php/homepagina_update",',
+                        url: site_url() + '/home/homepagina_update',
                         type: 'post',
-                        data: {data: $edit},
+                        data: {homepagina: edit},
                         datatype: 'html',
                         success: function(rsp){
                                 alert(rsp);
                             }
                     });
                 });
+
             });
-        </script>
+</script>
 
 <style>
 .bewerk {

@@ -18,10 +18,17 @@ class Edition_model extends CI_Model {
         return $query->row();
     }
 
+    function getAllEditions(){
+        $this->db->select('*');
+        $this->db->from('editie');
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
     function wijzigPagina(){
-        /*$this->db->set('paginaInhoud', $edition->homepagina)
-        $this->db->where('id', 2);
-        $this->db->update($editie->homepagina);*/
+        
     }
 
 
