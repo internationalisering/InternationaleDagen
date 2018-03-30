@@ -8,27 +8,21 @@
 <div class="modal-footer">
   <?= $aantalIngeschreven ?>/<?= $column->maxHoeveelheid ?>
 
-  <?php 
-  if($ingeschreven)
-  {
-    ?>
-      <button 
-        type="button" 
-        onclick='withdraw(<?= $column->id ?>);' 
-        class="btn btn-danger" 
-        data-dismiss="modal">Withdraw
-      </button>
-    <?php 
-  } else {
-    ?>
-      <button 
+  <?php if($ingeschreven){?>
+    <button 
       type="button" 
-      onclick='enroll(<?= $column->id ?>);' 
-      class="btn btn-warning"  
-      data-dismiss="modal">Enroll
+      onclick='withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
+      class="btn btn-danger" 
+     >Withdraw
     </button>
-    <?php 
-  }
-  ?>
+  <?php } else { ?>
+    <button 
+      type="button" 
+      onclick='enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
+      class="btn btn-warning"  
+     >Enroll
+
+    </button>
+  <?php } ?>
   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>

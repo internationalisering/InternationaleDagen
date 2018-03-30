@@ -17,6 +17,7 @@ class Planning extends CI_Controller {
 			$this->load->model('edition_model');
 			$this->load->model('column_model');
 			$this->load->model('user_model');
+			$this->load->model('presence_model');
 
 			$data['titel'] = 'Calendar | International Days';
 			
@@ -25,6 +26,11 @@ class Planning extends CI_Controller {
 			
 			
 			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
+
+
+			$user = $this->authex->getUserInfo();
+			
+
 			foreach($data['rows'] as $row)
 			{
 				 // alle kolommen ophalen
@@ -39,6 +45,10 @@ class Planning extends CI_Controller {
 
 						// Voor elke sessie de gebruiker ophalen 
 						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
+
+						// Voor elke sessie kijken of de ingelogde gebruiker ingeschreven is voor deze sessie
+						$kolom->ingeschreven = $this->presence_model->isEnrolled($kolom->id, $user->id);
+
 					}
 				}
 			}

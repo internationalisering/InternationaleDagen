@@ -16,7 +16,6 @@
   font-size: 20px;
   color: #FFF;
   text-align: center;
-  background: #3794fe;
   border-radius: 6px;
   padding: 0px;
   margin: 12px;
@@ -47,8 +46,19 @@
 
 .child-activity 
 {
-    background: #3794fe;
 }
+
+.child-activity-enrolled
+{
+  background: #2BA100;
+}
+
+.child-activity-not-enrolled
+{
+    background: #3794fe;
+
+}
+
 .child-break
 {
     background: #FF7300;
@@ -109,8 +119,6 @@ function enroll(columnId)
         url: site_url() + "/planning/enroll/" + columnId, 
         success: function(result){
             viewColumn(columnId);
-
-
             setEnrolled(columnId, true);
 
     }});  
@@ -138,9 +146,15 @@ function setEnrolled(columnId, bool)
         if(columnId == _columnId )
         {
             if(bool)
-                $(object).css('background-color', 'green');   
+            {
+                $(object).addClass('child-activity-enrolled');
+                $(object).removeClass('child-activity-not-enrolled');
+            }
             else 
-                $(object).css('background-color', '');   
+            {   
+                $(object).addClass('child-activity-not-enrolled');
+                $(object).removeClass('child-activity-enrolled');
+            }
         }
         
     });
@@ -204,7 +218,6 @@ function setEnrolled(columnId, bool)
 
                                     foreach($row->columns as $column)
                                     {
-
                                         if($row->id == $column->planningRijId) // Kolom rij id komt overeen met rij id?
                                         {
 
@@ -220,7 +233,10 @@ function setEnrolled(columnId, bool)
                                                 <?php 
                                             } else {
                                                 ?> 
-                                                    <div class="child child-activity" data-column-id=<?= $column->id ?>>
+                                                    <?php 
+
+                                                    ?>
+                                                    <div class='child child-activity child-activity-<?= ($column->ingeschreven?'':'not-')?>enrolled' data-column-id=<?= $column->id ?>>
                                                         <div class='session'>
                                                             <p class='session-title'><?= $column->session->titel ?></p>
                                                             <p class='session-author'>
