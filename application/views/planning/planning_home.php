@@ -84,19 +84,69 @@ $(document).ready(function()
     $('.child-tick').click(function(obj)
     {
         var columnId = $(this).data('column-id');
+        viewColumn(columnId);
 
 
-         $.ajax({
-            url: site_url() + "/planning/viewColumn/" + columnId, 
-            success: function(result){
-            $('#modal-content').html(result);
-            $('#modal').modal();
-
-        }});
-
-
+        
     })
+
 });
+
+function viewColumn(columnId)
+{
+    $.ajax({
+        url: site_url() + "/planning/viewColumn/" + columnId, 
+        success: function(result){
+        $('#modal-content').html(result);
+        $('#modal').modal();
+    }});
+}
+
+function enroll(columnId)
+{
+
+    $.ajax({
+        url: site_url() + "/planning/enroll/" + columnId, 
+        success: function(result){
+            viewColumn(columnId);
+
+
+            setEnrolled(columnId, true);
+
+    }});  
+}
+
+function withdraw(columnId)
+{
+
+    $.ajax({
+        url: site_url() + "/planning/withdraw/" + columnId, 
+        success: function(result){
+            viewColumn(columnId);
+            setEnrolled(columnId, false);
+
+    }});  
+}
+
+
+function setEnrolled(columnId, bool)
+{
+
+    $('.child-activity').each(function(index, object)
+    {
+        var _columnId = $(object).data('column-id');
+        if(columnId == _columnId )
+        {
+            if(bool)
+                $(object).css('background-color', 'green');   
+            else 
+                $(object).css('background-color', '');   
+        }
+        
+    });
+}
+
+
 
 
 
@@ -170,7 +220,7 @@ $(document).ready(function()
                                                 <?php 
                                             } else {
                                                 ?> 
-                                                    <div class="child child-activity">
+                                                    <div class="child child-activity" data-column-id=<?= $column->id ?>>
                                                         <div class='session'>
                                                             <p class='session-title'><?= $column->session->titel ?></p>
                                                             <p class='session-author'>
