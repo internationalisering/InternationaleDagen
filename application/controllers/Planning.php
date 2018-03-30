@@ -17,6 +17,7 @@ class Planning extends CI_Controller {
 			$this->load->model('edition_model');
 			$this->load->model('column_model');
 			$this->load->model('user_model');
+			$this->load->model('presence_model');
 
 			$data['titel'] = 'Calendar | International Days';
 			
@@ -25,6 +26,11 @@ class Planning extends CI_Controller {
 			
 			
 			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
+
+
+			$user = $this->authex->getUserInfo();
+			
+
 			foreach($data['rows'] as $row)
 			{
 				 // alle kolommen ophalen
@@ -39,17 +45,19 @@ class Planning extends CI_Controller {
 
 						// Voor elke sessie de gebruiker ophalen 
 						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
+
+						// Voor elke sessie kijken of de ingelogde gebruiker ingeschreven is voor deze sessie
+						$kolom->ingeschreven = $this->presence_model->isEnrolled($kolom->id, $user->id);
+
 					}
 				}
 			}
 			
 			
 			$partials = array('template_menu' => 'planning/planning_menu', 'template_pagina' => 'planning/planning_home');
-			
-		
-			
+			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
-		}
+		} else die('Niet ingelogd');
 	}
 
 	public function viewColumn($columnId=null)
@@ -66,8 +74,49 @@ class Planning extends CI_Controller {
 		$data['column']->sessie = $this->session_model->get($data['column']->sessieId);
 		
 
-		$data['ingeschreven'] = $this->presence_model->isIngeschreven( $data['column']->id, $data['column']->sessie->id);
+		$data['ingeschreven'] = $this->presence_model->isEnrolled( $data['column']->id, $this->authex->getUserInfo()->id);
+		$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 
 		$this->load->view('planning/planning_ajax_student.php', $data);
+	}
+
+	public function enroll($columnId=null)
+	{
+		$this->load->model('presence_model');
+
+		if($this->authex->isLoggedIn())
+		{
+			$user = $this->authex->getUserInfo();
+			
+			if($this->presence_model->isEnrolled($columnId, $user->id))
+			{
+				die("0");
+
+			} else 
+			{
+				// Hier nog nakijken of student zich wel mag inschrijven !!
+
+				$this->presence_model->enroll($columnId, $user->id);
+				die("1");
+
+
+			}
+
+
+
+		}
+	}
+
+	public function withdraw($columnId)
+	{
+		$this->load->model('presence_model');
+
+		if($this->authex->isLoggedIn())
+		{
+			$user = $this->authex->getUserInfo();
+
+			$this->presence_model->withdraw($columnId, $user->id);
+			die("1");
+		}
 	}
 }

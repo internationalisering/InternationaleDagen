@@ -10,5 +10,10 @@ class Language_model extends CI_Model {
         $query = $this->db->get('taal');
         return $query->row();
     }
+    function getAll(){
+        $query = $this->db->get('taal');
+        $result = $query->result();
+        return $result;
+    }
 }
 ?>

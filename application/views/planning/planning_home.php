@@ -16,7 +16,6 @@
   font-size: 20px;
   color: #FFF;
   text-align: center;
-  background: #3794fe;
   border-radius: 6px;
   padding: 0px;
   margin: 12px;
@@ -47,8 +46,19 @@
 
 .child-activity 
 {
-    background: #3794fe;
 }
+
+.child-activity-enrolled
+{
+  background: #2BA100;
+}
+
+.child-activity-not-enrolled
+{
+    background: #3794fe;
+
+}
+
 .child-break
 {
     background: #FF7300;
@@ -84,19 +94,73 @@ $(document).ready(function()
     $('.child-tick').click(function(obj)
     {
         var columnId = $(this).data('column-id');
+        viewColumn(columnId);
 
 
-         $.ajax({
-            url: site_url() + "/planning/viewColumn/" + columnId, 
-            success: function(result){
-            $('#modal-content').html(result);
-            $('#modal').modal();
-
-        }});
-
-
+        
     })
+
 });
+
+function viewColumn(columnId)
+{
+    $.ajax({
+        url: site_url() + "/planning/viewColumn/" + columnId, 
+        success: function(result){
+        $('#modal-content').html(result);
+        $('#modal').modal();
+    }});
+}
+
+function enroll(columnId)
+{
+
+    $.ajax({
+        url: site_url() + "/planning/enroll/" + columnId, 
+        success: function(result){
+            viewColumn(columnId);
+            setEnrolled(columnId, true);
+
+    }});  
+}
+
+function withdraw(columnId)
+{
+
+    $.ajax({
+        url: site_url() + "/planning/withdraw/" + columnId, 
+        success: function(result){
+            viewColumn(columnId);
+            setEnrolled(columnId, false);
+
+    }});  
+}
+
+
+function setEnrolled(columnId, bool)
+{
+
+    $('.child-activity').each(function(index, object)
+    {
+        var _columnId = $(object).data('column-id');
+        if(columnId == _columnId )
+        {
+            if(bool)
+            {
+                $(object).addClass('child-activity-enrolled');
+                $(object).removeClass('child-activity-not-enrolled');
+            }
+            else 
+            {   
+                $(object).addClass('child-activity-not-enrolled');
+                $(object).removeClass('child-activity-enrolled');
+            }
+        }
+        
+    });
+}
+
+
 
 
 
@@ -154,7 +218,6 @@ $(document).ready(function()
 
                                     foreach($row->columns as $column)
                                     {
-
                                         if($row->id == $column->planningRijId) // Kolom rij id komt overeen met rij id?
                                         {
 
@@ -170,7 +233,10 @@ $(document).ready(function()
                                                 <?php 
                                             } else {
                                                 ?> 
-                                                    <div class="child child-activity">
+                                                    <?php 
+
+                                                    ?>
+                                                    <div class='child child-activity child-activity-<?= ($column->ingeschreven?'':'not-')?>enrolled' data-column-id=<?= $column->id ?>>
                                                         <div class='session'>
                                                             <p class='session-title'><?= $column->session->titel ?></p>
                                                             <p class='session-author'>
