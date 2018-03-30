@@ -62,7 +62,7 @@ footer {
     padding: 0;
 }
 
-.manage-wishes .wish-questions li{
+.manage-wishes .wish-questions > li{
     width: 100%;
     border: 1px dashed black;
     border-radius: 10px;
@@ -71,12 +71,12 @@ footer {
     min-height: 40px;
 }
 
-.manage-wishes .wish-questions li.inactive{
+.manage-wishes .wish-questions > li.inactive{
     border-color: #cccccc;
     color: #cccccc;
 }
 
-.manage-wishes .wish-questions li .icons{
+.manage-wishes .wish-questions > li .icons{
     float: right;
     font-size: 20px;
     padding-right: 10px;
@@ -84,5 +84,4 @@ footer {
 
 .modal-body input, .modal-body select{
     width: 100%;
-    margin-bottom: 10px;
 }

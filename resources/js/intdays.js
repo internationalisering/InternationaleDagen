@@ -27,7 +27,7 @@ var µ = {
                 id: wq_id,
                 question: $("#" + wq_id + " .wq-question").html(),
                 type: $("#" + wq_id + " .wq-type").html(),
-                options: $("#" + wq_id + " .wq-options").html()
+                options: $("#" + wq_id + " .wq-options li")
             };
         },
         modal: {
@@ -39,8 +39,12 @@ var µ = {
                     </div>
                     <div class="modal-body">
                         <input id="wq-edit-id" type="text" value="` + wq.id + `" hidden />
-                        <input id="wq-edit-question" type="text" value="` + wq.question + `" />
+                        <div class="form-group">
+                            <label for="wq-edit-question">Question:</label>
+                            <input id="wq-edit-question" type="text" value="` + wq.question + `" />
+                        </div>
                         ` + µ.wensen_formulier.modal.buildType(wq.type) + `
+                        ` + µ.wensen_formulier.modal.buildOptions(wq.options) + `
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal" onclick="µ.wensen_formulier.modal.save();">Save</button>
@@ -52,7 +56,7 @@ var µ = {
             buildType: function(type){
                 var types = $("#wishTypes li")
                 
-                var html = "<select id='wq-edit-type'>";
+                var html = "<div class='form-group'><label for='wq-edit-type'>Type:</label><select id='wq-edit-type'>";
                 
                 for(var i = 0; i < types.length; i++){
                     var t = $(types[i]);
@@ -65,7 +69,20 @@ var µ = {
                     }
                 }
                 
-                html += "</select>";
+                html += "</select></div>";
+                
+                return html;
+            },
+            buildOptions: function(options){
+                var html = "<div class='form-group'><label>Options:</label>";
+                
+                for(var i = 0; i < options.length; i++){
+                    var o = $(options[i]);
+                    
+                    html += '<input id="wq-edit-question" type="text" value="` + wq.question + `" />';
+                }
+                
+                html += "</div>";
                 
                 return html;
             },
