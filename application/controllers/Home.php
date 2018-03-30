@@ -57,13 +57,29 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function homepagina_view() {
-	    if($this->authex->checkLoginRedirectByType(4)){
+	public function homepagina_lijst() {
+		if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
 			 
-			$data['titel'] = 'Homepagina bewerken';
+			$data['titel'] = 'Lijst van edities';
 			
-			$data['edition'] = $this->edition_model->getLastEdition();
+			$data['edition'] = $this->edition_model->getAllEditions();
+			$data['verantwoordelijke'] = 'Vincent Duchateau';
+
+			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu', 
+			'template_pagina' => 'login-beheerder/beheerder_editie_lijst');
+			
+			$this->template->load('template/template_master', $partials, $data);
+		}
+	}
+
+	public function homepagina_view($id) {
+	    if($this->authex->checkLoginRedirectByType(4)){
+			$this->load->model('edition_model');
+			$edition = $this->edition_model->get($id);
+			 
+			$data['edition'] = $edition;
+			$data['titel'] = 'Editie bewerken';
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
 
 			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu', 
@@ -75,12 +91,11 @@ class Home extends CI_Controller {
 
 	public function homepagina_update() {
 		if($this->authex->checkLoginRedirectByType(4)){
-			
-			$this->load->model('edition_model');
 
-			$data['edition'] = $this->input->post('paginaInhoud');
+			$data['homepagina'] = $this->input->post('homepagina');
+
+			$this->load->view('login-beheerder/homepagina_bewerk_succes.php', $data);
 			
-			redirect('/home');
 		}
 	}
 }
