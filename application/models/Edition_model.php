@@ -18,10 +18,10 @@ class Edition_model extends CI_Model {
         return $query->row();
     }
 
-    function wijzigPagina($paginaInhoud){
-        $this->db->set('paginaInhoud', $edition->homepagina)
+    function wijzigPagina(){
+        /*$this->db->set('paginaInhoud', $edition->homepagina)
         $this->db->where('id', 2);
-        $this->db->update($editie->homepagina);
+        $this->db->update($editie->homepagina);*/
     }
 
 
