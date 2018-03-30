@@ -7,6 +7,7 @@ class Wensen extends CI_Controller {
         parent::__construct();
         
         $this->load->model('wishquestion_model');
+        $this->load->model('formtype_model');
     }
     
 	public function index(){
@@ -29,6 +30,7 @@ class Wensen extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
 			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
+			$data['wishTypes'] = $this->formtype_model->getAllTypes();
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_wensen_beheren.php');
 			
