@@ -79,7 +79,7 @@ var µ = {
                 for(var i = 0; i < options.length; i++){
                     var o = $(options[i]);
                     
-                    html += '<input id="wq-edit-question" type="text" value="` + wq.question + `" />';
+                    html += '<input id="wq-edit-question" type="text" value="todo" />';
                 }
                 
                 html += "</div>";

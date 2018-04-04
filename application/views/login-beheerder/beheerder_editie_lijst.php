@@ -22,7 +22,7 @@
                 echo "<tr>
                     <td>" . "International Days " . $year . "</td>
                     <td>" . $ed->maxHoeveelheid . "</td>
-                    <td>" . "<button type='button' class='btn btn-danger'><a href=" . site_url()  . "/home/homepagina_view/" . $ed->id . ">Edit homepage</button>" . "</td>
+                    <td>" . "<button type='button' class='btn btn-danger'><a href=" . site_url()  . "home/homepagina_view/" . $ed->id . ">Edit homepage</button>" . "</td>
                 </tr>";
                 }   
             ?>

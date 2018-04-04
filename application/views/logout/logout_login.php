@@ -17,7 +17,7 @@
                         <?php
                     }
                     ?>
-                    <form role="form" method="POST" action="<?= site_url(); ?>/login">
+                    <form role="form" method="POST" action="<?= site_url(); ?>login">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
@@ -31,7 +31,7 @@
                                 </label>S
                             </div>--> 
                             <button class="btn btn-lg btn-success btn-block" type="submit" name="login" value="Submit">Login</button>
-                           <div><?php echo anchor(site_url().'/reset/index', 'Reset Password') ?></div>
+                           <div><?php echo anchor(site_url().'reset/index', 'Reset Password') ?></div>
 
                         </fieldset>
                     </form>
