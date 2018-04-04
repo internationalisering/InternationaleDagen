@@ -30,6 +30,9 @@ var µ = {
                 options: $("#" + wq_id + " .wq-options li")
             };
         },
+        typeHasOptions: function(type){
+            return type == 1 || type == 2;
+        },
         modal: {
             show: function(wq){
                 $('#modal-content').html(`
@@ -43,8 +46,8 @@ var µ = {
                             <label for="wq-edit-question">Question:</label>
                             <input id="wq-edit-question" type="text" value="` + wq.question + `" />
                         </div>
-                        ` + µ.wensen_formulier.modal.buildType(wq.type) + `
-                        ` + µ.wensen_formulier.modal.buildOptions(wq.options) + `
+                        ` + µ.wensen_formulier.modal.buildType(wq) + `
+                        ` + µ.wensen_formulier.modal.buildOptions(wq) + `
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-dismiss="modal" onclick="µ.wensen_formulier.modal.save();">Save</button>
@@ -53,16 +56,16 @@ var µ = {
                 `);
                 $('#modal').modal();
             },
-            buildType: function(type){
+            buildType: function(wq){
                 var types = $("#wishTypes li")
                 
-                var html = "<div class='form-group'><label for='wq-edit-type'>Type:</label><select id='wq-edit-type'>";
+                var html = "<div class='form-group'><label for='wq-edit-type'>Type:</label><select id='wq-edit-type' onchange='µ.wensen_formulier.modal.changeType();'>";
                 
                 for(var i = 0; i < types.length; i++){
                     var t = $(types[i]);
                     var id = t.attr('data-id');
                     
-                    if(type == id){
+                    if(wq.type == id){
                         html += "<option value='" + id + "' selected='selected'>" + t.html() + "</option>";
                     }else{
                         html += "<option value='" + id + "'>" + t.html() + "</option>";
@@ -73,24 +76,65 @@ var µ = {
                 
                 return html;
             },
-            buildOptions: function(options){
-                var html = "<div class='form-group'><label>Options:</label>";
-                
-                for(var i = 0; i < options.length; i++){
-                    var o = $(options[i]);
+            buildOptions: function(wq){
+                if(wq == undefined){
+                    return '<div class="form-group" id="wq-edit-options"><label>Options:</label><a href="#" onclick="return µ.wensen_formulier.modal.addOption(this);" id="wq-edit-option-add"><i class="fas fa-plus"></i></a></div>';
+                }else if(µ.wensen_formulier.typeHasOptions(wq.type)){
+                    var html = "<div class='form-group' id='wq-edit-options'><label>Options:</label>";
                     
-                    html += '<input id="wq-edit-question" type="text" value="todo" />';
+                    for(var i = 0; i < wq.options.length; i++){
+                        var o = $(wq.options[i]);
+                        
+                        html += '<input class="wq-edit-option" type="text" value="' + $(o).html() + '" /><a href="#" onclick="return µ.wensen_formulier.modal.removeOption(this);" class="wq-edit-option-delete"><i class="fas fa-times"></i></a>';
+                    }
+                    
+                    html += '<a href="#" onclick="return µ.wensen_formulier.modal.addOption(this);" id="wq-edit-option-add"><i class="fas fa-plus"></i></a>';
+                    
+                    html += "</div>";
+                    
+                    return html;
+                }else{
+                    return "";
                 }
+            },
+            removeOption: function(link){
+                var a = $(link);
+                a.prev().remove();
+                a.remove();
                 
-                html += "</div>";
+                return false;
+            },
+            addOption: function(link){
+                var a = $(link);
                 
-                return html;
+                a.before('<input class="wq-edit-option" type="text" value="" /><a href="#" onclick="return µ.wensen_formulier.modal.removeOption(this);" class="wq-edit-option-delete"><i class="fas fa-times"></i></a>');
+                
+                return false;
+            },
+            changeType: function(){
+                var val = $("#wq-edit-type").val();
+                var options = $("#wq-edit-options");
+                
+                if(µ.wensen_formulier.typeHasOptions(val) && options.length == 0){
+                    $(".modal-body").append(µ.wensen_formulier.modal.buildOptions(undefined));
+                }else if(!µ.wensen_formulier.typeHasOptions(val) && options.length == 1){
+                    options.remove();
+                }
             },
             save: function(){
                 var id = $("#wq-edit-id").val();
                 
-                $("#" + id + " .wq-question").html($("#wq-edit-question").val())
-                $("#" + id + " .wq-type").html($("#wq-edit-type").val())
+                $("#" + id + " .wq-question").html($("#wq-edit-question").val());
+                $("#" + id + " .wq-type").html($("#wq-edit-type").val());
+                
+                var options = $("#wq-edit-options .wq-edit-option");
+                var html = "";
+                
+                for(var i = 0; i < options.length; i++){
+                    html += '<li>' + $(options[i]).val() + '</li>';
+                }
+                
+                $("#" + id + " .wq-options").html(html);
             }
         }
     }

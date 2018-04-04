@@ -85,3 +85,24 @@ footer {
 .modal-body input, .modal-body select{
     width: 100%;
 }
+
+.modal-body input.wq-edit-option{
+    width: calc(100% - 25px);
+}
+
+.modal-body .wq-edit-option-delete{
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 6px;
+}
+
+.modal-body #wq-edit-option-add{
+    float: right;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 5px;
+}

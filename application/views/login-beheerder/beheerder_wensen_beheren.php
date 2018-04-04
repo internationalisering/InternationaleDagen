@@ -26,6 +26,7 @@ function createQuestionLi($q){
     echo '</li>';
 }
 ?>
+
 <ul id="wishTypes" hidden>
     <?php
     foreach ($wishTypes as $t){
@@ -33,6 +34,7 @@ function createQuestionLi($q){
     }
     ?>
 </ul>
+
 <div id="page-wrapper" class="manage-wishes">
     <div class="row">
         <div class="col-lg-12">
