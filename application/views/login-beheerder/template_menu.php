@@ -10,7 +10,7 @@
         <a class="navbar-brand" href="/">International Days</a>
     </div>
     <!-- /.navbar-header -->
-    
+
     <ul class="nav navbar-top-links navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -120,12 +120,19 @@
                     <a href="/"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>gebruiker"><i class="fas fa-users"></i> Manage Users</a>
+                    <a href="<?= site_url(); ?>/gebruiker"><i class="fas fa-users"></i> Manage Users</a>
                 </li>
+                
+                
+                
                 <li>
-                    <a href="<?= site_url(); ?>home/homepagina_lijst"><i class="fas fa-align-justify"></i> View Editions</a>
+                    <a href="<?= site_url(); ?>/home/homepagina_lijst"><i class="fas fa-align-justify"></i> View Editions</a>
                 </li>
+                
+                
+                
                 <li>
+                    
                     <a href="#"><i class="fa fa-chart-bar fa-fw"></i> Charts<span class="fa fa-sort-down arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>

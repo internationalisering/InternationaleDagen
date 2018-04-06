@@ -17,7 +17,7 @@
                         <?php
                     }
                     ?>
-                    <form role="form" method="POST" action="<?= site_url(); ?>reset/pass">
+                    <form role="form" method="POST" action="<?= site_url(); ?>/reset/pass">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Password" name="password" type="password" value="">

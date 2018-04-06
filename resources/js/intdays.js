@@ -88,6 +88,7 @@ var µ = {
                         html += '<input class="wq-edit-option" type="text" value="' + $(o).html() + '" /><a href="#" onclick="return µ.wensen_formulier.modal.removeOption(this);" class="wq-edit-option-delete"><i class="fas fa-times"></i></a>';
                     }
                     
+<<<<<<< HEAD
                     html += '<a href="#" onclick="return µ.wensen_formulier.modal.addOption(this);" id="wq-edit-option-add"><i class="fas fa-plus"></i></a>';
                     
                     html += "</div>";
@@ -95,6 +96,9 @@ var µ = {
                     return html;
                 }else{
                     return "";
+=======
+                    html += '<input id="wq-edit-question" type="text" value="` + wq.question + `" />';
+>>>>>>> parent of 103af1e... Een hele hoop kleine aanpassingen
                 }
             },
             removeOption: function(link){

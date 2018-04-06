@@ -34,7 +34,7 @@
                             <td>' . $user->achternaam . '</td>
                             <td>' . $user->email . '</td>
                             <td>' . $user->type->naam . '</td>
-                            <td class="center"><a href="' . site_url() . 'gebruiker/view/' . $user->id . '"><i class="far fa-search"></i></a> <a href="' . site_url() . 'gebruiker/edit/' . $user->id . '"><i class="far fa-edit"></i></a> <a href="' . site_url()  . 'gebruiker/remove/' . $user->id . '"><i class="far fa-trash"></i></a></td>
+                            <td class="center"><a href="gebruiker/view/' . $user->id . '"><i class="far fa-search"></i></a> <a href=" '. site_url() .'gebruiker/edit/' . $user->id . '"><i class="far fa-edit"></i></a> <a href="' . site_url()  . 'gebruiker/remove/' . $user->id . '"><i class="far fa-trash"></i></a></td>
                         </tr>
                         ';
                     }

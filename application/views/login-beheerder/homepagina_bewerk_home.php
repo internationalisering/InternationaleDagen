@@ -29,7 +29,7 @@
                 $('#save').click(function(){
                     var edit = $('#webInhoud').html();
                     $.ajax({
-                        url: site_url() + 'home/homepagina_update',
+                        url: site_url() + '/home/homepagina_update',
                         type: 'post',
                         data: {homepagina: edit},
                         datatype: 'html',

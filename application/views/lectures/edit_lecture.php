@@ -4,7 +4,7 @@
         <div class="col-md-8">
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Reset Password</h3>
+                    <h3 class="panel-title">Lecture</h3>
                 </div>
                 <div class="panel-body">
                     <form role="form" method="POST" action="<?= site_url(); ?>/Lectures/change">

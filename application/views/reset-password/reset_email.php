@@ -17,7 +17,7 @@
                         <?php
                     }
                     ?>
-                    <form role="form" method="POST" action="<?= site_url(); ?>reset/email">
+                    <form role="form" method="POST" action="<?= site_url(); ?>/reset/email">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
