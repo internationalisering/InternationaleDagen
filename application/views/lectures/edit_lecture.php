@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file edit_lectures.php
+ * @author Quinten van Casteren
+ * 
+ * Pagina met een form waarin de lecture kan opgegeven worden.
+ * 
+ * @see Lectures
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>

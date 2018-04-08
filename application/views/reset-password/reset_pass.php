@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file reset_pass.php
+ * @author Quinten van Casteren
+ * 
+ * Pagina waar we ons nieuwe wachtwoord opgeven dit aan te passen in onze database.
+ * 
+ * @see Reset
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>

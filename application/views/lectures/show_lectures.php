@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file show_lectures.php
+ * @author Quinten van Casteren
+ * 
+ * Pagina waar de spreker zijn lectures kan zien.
+ * 
+ * @see Lectures
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>

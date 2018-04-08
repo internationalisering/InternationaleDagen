@@ -1,12 +1,24 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Lectures
+ * @author Quinten van Casteren
+ * Controller-klasse voor het aanpassen van een sprekers lectures
+ */
 class Lectures extends CI_Controller {
 	
 	public function __construct(){
         parent::__construct();
     }
-    
+        
+        /**
+         * Zendt de spreker door naar een pagina met al zijn eigen lectures.
+         * 
+         * @see spreker_template_menu.php
+         * @see show_lectures.php
+         * @see session_model::getAllSessionsByUser
+         * @see authex
+         */
 	public function index(){
 		if($this->authex->isLoggedIn()){
 			$data['titel'] = 'International Days';
@@ -20,6 +32,16 @@ class Lectures extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		} 
 	}
+        
+        /**
+         * Zendt de spreker door naar een pagina waar hij een sessie kan aanpassen of aanmaken. De gegevens hiervoor worden opgehaald via $code en dan doorgestuurd naar edit_lectures.php.
+         * 
+         * @param $code De code van de sessie die aangepast moet worden. Indien deze "new" is, is dit een nieuwe sessie.
+         * @see spreker_template_menu.php
+         * @see edit_lectures.php
+         * @see session_model::get
+         * @see language_model::getAll
+         */
         public function edit($code){
 		
 		$data['titel'] = 'International Days';
@@ -39,6 +61,15 @@ class Lectures extends CI_Controller {
                 $partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'lectures/edit_lecture');
 		$this->template->load('template/template_master', $partials, $data);
 	}
+        /**
+         * @brief Verandert of maakt de sessie aan.
+         * 
+         * Eerst laad de funcite alle gegevens. Als de Id "new" is zal een nieuwe sessie aangemaakt worden. Anders wordt de sessie verandert bij de waarde van de Id. Hierna wordt men verdergestuurt naar Lectures.
+         * 
+         * @see session_model::insert
+         * @see session_model::update
+         * @see edition_model::getLastEdition
+         */
         public function change(){
             $this->load->model("edition_model");
             $editie = $this->edition_model->getLastEdition();

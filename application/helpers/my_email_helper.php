@@ -1,4 +1,14 @@
 <?php
+/**
+ * @class my_email_helper
+ * @author Brend Simons
+ * 
+ * Helper die het makkelijker maakt emails te versturen.
+ * 
+ * @param $to Het email van de ontvanger
+ * @param $subject Het onderwerp van de email
+ * @param $message Het bericht van de email
+ */
 function sendEmail($to, $subject, $message){
     $CI =& get_instance();
     

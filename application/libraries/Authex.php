@@ -2,7 +2,12 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-
+/**
+ * @class authex
+ * @author Brend Simons
+ * 
+ * Authex library
+ */
 class Authex {
     
     private $userInfo = null;

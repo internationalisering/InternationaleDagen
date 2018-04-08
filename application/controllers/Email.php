@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Email
+ * @author Quinten van Casteren
+ * Controller-klasse voor het beheren en verzenden van emails
+ */
 class Email extends CI_Controller {
 	
 	public function __construct(){

@@ -1,6 +1,12 @@
 <?php
+/**
+ * @class user_model
+ * Model-klasse voor alle users (gebruikers)
+ */
 class User_model extends CI_Model {
-    
+    /**
+     * Constructor
+     */
     function __construct(){
         parent::__construct();
     }
@@ -84,9 +90,13 @@ class User_model extends CI_Model {
         $this->db->update('gebruiker', $user);
         return 1;
     }
-    
+    /**
+     * @author Quinten Van Casteren
+     * Geeft terug de gebruiker met email=$email uit de tabel gebruiker
+     * @param $email Het opgegeven email
+     * @return De opgevraagde user
+     */
     function getUserFromEmail($email){
-        // geef gebruiker-object met $email 
         $this->db->where('email', $email);
            
         $query = $this->db->get('gebruiker');
@@ -98,9 +108,13 @@ class User_model extends CI_Model {
             return null;
         }
     }
-    
+    /**
+     * @author Quinten Van Casteren
+     * Geeft terug de gebruiker met pwdCode=$code uit de tabel gebruiker
+     * @param $email Het opgegeven pwdCode
+     * @return De opgevraagde user
+     */
     function getUserFromPwdCode($code){
-        // geef gebruiker-object met $code
         $this->db->where('pwdCode', $code);
            
         $query = $this->db->get('gebruiker');

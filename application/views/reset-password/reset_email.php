@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file reset_email.php
+ * @author Quinten van Casteren
+ * 
+ * Pagina waar we ons email opgeven om een email te ontvangen waarin we ons wachtwoord willen resetten.
+ * 
+ * @see Reset
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>
