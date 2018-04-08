@@ -1,7 +1,7 @@
 <?php
 /**
- * @class user_model
- * Model-klasse voor alle users (gebruikers)
+ * @class Session_model
+ * Model-klasse voor alle sessions (sessies)
  */
 class Session_model extends CI_Model {
     
@@ -14,6 +14,7 @@ class Session_model extends CI_Model {
 
     /**
      * @author Brend Simons
+     * 
      * Geeft terug de sessie met id=$id uit de tabel sessie
      * @param $id Het opgegeven id
      * @return De opgevraagde sessie
@@ -26,6 +27,7 @@ class Session_model extends CI_Model {
     
     /**
      * @author Quinten Van Casteren
+     * 
      * Geeft terug de alle sessies van de gebruiker met gebruikerId=$id en editieId=getLastEdition() uit de tabel sessie.
      * Hierna voegt het een taal toe van de taal horende bij taalId.
      * 
@@ -52,6 +54,7 @@ class Session_model extends CI_Model {
     
     /**
      * @author Quinten Van Casteren
+     * 
      * Voegt de sessie $sessie toe aan de tabel sessie.
      * @param $sessie De opgegeven sessie
      * @return Een True signaal
@@ -63,6 +66,7 @@ class Session_model extends CI_Model {
     
     /**
      * @author Quinten Van Casteren
+     * 
      * Verandert de sessie waar id=$sessie->id in de tabel sessie.
      * @param $sessie De opgegeven sessie
      * @return Een True signaal

@@ -1,6 +1,6 @@
 <?php
 /**
- * @class language_model
+ * @class Language_model
  * Model-klasse voor alle languages (talen)
  */
 class Language_model extends CI_Model {
@@ -13,6 +13,7 @@ class Language_model extends CI_Model {
     }
     /**
      * @author Brend Simons
+     * 
      * Geeft terug de taal met id=$id uit de tabel taal
      * @param $id Het opgegeven id
      * @return De opgevraagde taal
@@ -25,6 +26,7 @@ class Language_model extends CI_Model {
     
     /**
      * @author Quinten Van Casteren
+     * 
      * Geeft alle talen terug uit de tabel taal
      * @return Alle talen
      */

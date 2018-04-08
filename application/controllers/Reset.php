@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @class Reset
  * @author Quinten van Casteren
+ * 
  * Controller-klasse voor het resetten van een wachtwoord
  */
 class Reset extends CI_Controller {
@@ -14,7 +15,7 @@ class Reset extends CI_Controller {
          * Zendt de gebruiker door naar de pagina om hun wachtwoord te resetten met een aangepast reset_menu om terug te gaan naar inloggen.
          * @see reset_email.php
          * @see reset_menu.php
-         * @see authex
+         * @see Authex
          */
 	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
@@ -33,9 +34,9 @@ class Reset extends CI_Controller {
          * 
          * @see reset_email.php
          * @see reset_menu.php
-         * @see user_model::getUserFromEmail
-         * @see user_model::getUserFromPwdCode
-         * @see user_model::update
+         * @see User_model::getUserFromEmail
+         * @see User_model::getUserFromPwdCode
+         * @see User_model::update
          * @see my_email_helper
          * @see Home
          */
@@ -90,7 +91,7 @@ class Reset extends CI_Controller {
 	}
         
         /**
-         * @brief Reset het wachtwoord van een gebruiker.
+         * @brief Verandert het wachtwoord van een gebruiker.
          * 
          * Eerst wordt er gecheckt of de twee wachtwoorden hetzelfde zijn en of de paswordcode correct is. Als dit niet zo is zal er een error verschijnen op reset_pass.php.
          * Hierna wordt de code teruggezet naar null en het wachtwoord als versleuteld opgeslagen. Ten slotte wordt men dan verdergestuurd naar reset_succes.php.
@@ -98,8 +99,8 @@ class Reset extends CI_Controller {
          * @see reset_menu.php
          * @see reset_pass.php
          * @see reset_succes.php
-         * @see user_model::getUserFromPwdCode
-         * @see user_model::update
+         * @see User_model::getUserFromPwdCode
+         * @see User_model::update
          */
         public function pass(){
                         $data['titel'] = 'International Days';

@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @class Lectures
  * @author Quinten van Casteren
+ * 
  * Controller-klasse voor het aanpassen van een sprekers lectures
  */
 class Lectures extends CI_Controller {
@@ -16,8 +17,8 @@ class Lectures extends CI_Controller {
          * 
          * @see spreker_template_menu.php
          * @see show_lectures.php
-         * @see session_model::getAllSessionsByUser
-         * @see authex
+         * @see Session_model::getAllSessionsByUser
+         * @see Authex
          */
 	public function index(){
 		if($this->authex->isLoggedIn()){
@@ -38,9 +39,9 @@ class Lectures extends CI_Controller {
          * 
          * @param $code De code van de sessie die aangepast moet worden. Indien deze "new" is, is dit een nieuwe sessie.
          * @see spreker_template_menu.php
-         * @see edit_lectures.php
-         * @see session_model::get
-         * @see language_model::getAll
+         * @see edit_lecture.php
+         * @see Session_model::get
+         * @see Language_model::getAll
          */
         public function edit($code){
 		
@@ -64,11 +65,11 @@ class Lectures extends CI_Controller {
         /**
          * @brief Verandert of maakt de sessie aan.
          * 
-         * Eerst laad de funcite alle gegevens. Als de Id "new" is zal een nieuwe sessie aangemaakt worden. Anders wordt de sessie verandert bij de waarde van de Id. Hierna wordt men verdergestuurt naar Lectures.
+         * Eerst laad de funcie alle gegevens. Als de Id "new" is zal een nieuwe sessie aangemaakt worden. Anders wordt de sessie verandert bij de waarde van de Id. Hierna wordt men verdergestuurt naar Lectures.
          * 
-         * @see session_model::insert
-         * @see session_model::update
-         * @see edition_model::getLastEdition
+         * @see Session_model::insert
+         * @see Session_model::update
+         * @see Edition_model::getLastEdition
          */
         public function change(){
             $this->load->model("edition_model");

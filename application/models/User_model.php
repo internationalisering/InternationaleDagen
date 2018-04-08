@@ -1,6 +1,6 @@
 <?php
 /**
- * @class user_model
+ * @class User_model
  * Model-klasse voor alle users (gebruikers)
  */
 class User_model extends CI_Model {
@@ -92,6 +92,7 @@ class User_model extends CI_Model {
     }
     /**
      * @author Quinten Van Casteren
+     * 
      * Geeft terug de gebruiker met email=$email uit de tabel gebruiker
      * @param $email Het opgegeven email
      * @return De opgevraagde user
@@ -110,6 +111,7 @@ class User_model extends CI_Model {
     }
     /**
      * @author Quinten Van Casteren
+     * 
      * Geeft terug de gebruiker met pwdCode=$code uit de tabel gebruiker
      * @param $email Het opgegeven pwdCode
      * @return De opgevraagde user

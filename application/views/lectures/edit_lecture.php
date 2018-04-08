@@ -1,6 +1,6 @@
 <?php
 /**
- * @file edit_lectures.php
+ * @file edit_lecture.php
  * @author Quinten van Casteren
  * 
  * Pagina met een form waarin de lecture kan opgegeven worden.
