@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @class Email
  * @author Quinten van Casteren
+ * 
  * Controller-klasse voor het beheren en verzenden van emails
  */
 class Email extends CI_Controller {
@@ -11,6 +12,14 @@ class Email extends CI_Controller {
         parent::__construct();
     }
     
+        /**
+         * Zendt de beheerder door naar een pagina met alle emailtemplates. Deze worden opgehaalt via getAllTemplates().
+         * 
+         * @see show_templates.php
+         * @see beheerder_template_menu.php
+         * @see Mailtype_model::getAllTemplates
+         * @see Authex
+         */
 	public function index(){
 		if($this->authex->isLoggedIn()){
 			$data['titel'] = 'International Days';
@@ -23,6 +32,15 @@ class Email extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		} 
 	}
+        
+        /**
+         * Zendt de beheerder door naar een pagina waarin hij zijn emailtemplate kan aanpassen in een form. Dit template wordt opgehaalt via get(().
+         * 
+         * @param $code De Id van het geselecteerde template. Dit is "new" voor een nieuw template.
+         * @see beheerder_template_menu.php
+         * @see edit_template.php
+         * @see Mailtype_model::get
+         */
         public function edit($code){
 		
 		$data['titel'] = 'International Days';
@@ -38,6 +56,13 @@ class Email extends CI_Controller {
                 $partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'email/edit_template');
 		$this->template->load('template/template_master', $partials, $data);
 	}
+        
+        /**
+         * Past het template aan dat id als id heeft. Als id="new" zal er een nieuw template aangemaakt worden. Hierna word men verdergestuurt naar Email.
+         * 
+         * @see Mailtype_model::insert
+         * @see Mailtype_model::update
+         */
         public function change(){
             $id = $this->input->post('id');
             $naam = $this->input->post('naam');
@@ -58,6 +83,13 @@ class Email extends CI_Controller {
             }
             redirect('/email');
         }
+        
+        /**
+         * Verwijdert het aangeduide template. Hierna word men verdergestuurt naar Email.
+         * 
+         * @param $code De id van het template dat we verwijderen.
+         * @see Mailtype_model::remove
+         */
         public function remove($code){
                     $this->load->model('mailtype_model');
                     $this->mailtype_model->remove($code);

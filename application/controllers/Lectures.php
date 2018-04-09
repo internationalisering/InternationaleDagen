@@ -13,7 +13,7 @@ class Lectures extends CI_Controller {
     }
         
         /**
-         * Zendt de spreker door naar een pagina met al zijn eigen lectures.
+         * Zendt de spreker door naar een pagina met al zijn eigen lectures. Deze worden opgehaalt door getAllSessionsByUser().
          * 
          * @see spreker_template_menu.php
          * @see show_lectures.php
@@ -62,6 +62,7 @@ class Lectures extends CI_Controller {
                 $partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'lectures/edit_lecture');
 		$this->template->load('template/template_master', $partials, $data);
 	}
+        
         /**
          * @brief Verandert of maakt de sessie aan.
          * 

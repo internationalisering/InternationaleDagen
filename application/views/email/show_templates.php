@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file show_templates.php
+ * @author Quinten van Casteren
+ * 
+ * Pagina waar alle emailtemplates getoont worden.
+ * 
+ * @see Email
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>
