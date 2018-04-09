@@ -95,4 +95,29 @@ class Email extends CI_Controller {
                     $this->mailtype_model->remove($code);
                     redirect('/email');
         }
+        
+        /**
+         * Zendt de beheerder door naar een pagina waar hij een email kan samenstellen. 
+         * 
+         * @see beheerder_template_menu.php
+         * @see send_templates.php
+         * @see Mailtype_model::getAllTemplates
+         * @see User_model::getAllUsers
+         */
+        public function send(){
+                        $data['titel'] = 'International Days';
+                        
+                        $this->load->model('mailtype_model');
+                        $templates = $this->mailtype_model->getAllTemplates();
+                        
+			$data['templates'] = $templates;
+                        
+                        $this->load->model('user_model');
+                        $users = $this->user_model->getAllUsers();
+                        
+			$data['users'] = $users;
+                        
+			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'email/send_templates');
+			$this->template->load('template/template_master', $partials, $data);
+        }
 }
