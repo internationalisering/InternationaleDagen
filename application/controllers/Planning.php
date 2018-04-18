@@ -20,11 +20,7 @@ class Planning extends CI_Controller {
 			$this->load->model('presence_model');
 
 			$data['titel'] = 'Calendar | International Days';
-			
-			
 			$data['edition'] = $this->edition_model->getLastEdition();
-			
-			
 			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
 
 
@@ -130,18 +126,26 @@ class Planning extends CI_Controller {
 
 	public function feedback($sessionId)
 	{
-		$user = $this->authex->getUserInfo();
-		$this->load->model('feedback_model');
 
+
+
+		$userId = $this->authex->getUserInfo()->id;
+		$this->load->model('feedback_model');
 		if($this->authex->isLoggedIn())
 		{
 			$feedback = $this->input->post('feedback');
-
-			if($feedback != null)
+			
+			if($feedback != null && trim($feedback) != "")
 			{
 				$this->feedback_model->set($sessionId, $userId, $feedback);
-				
-			}
-		}
+				die($feedback);
+			} else 
+				$this->feedback_model->clear($sessionId, $userId);
+
+
+			
+
+		}  
+			
 	}
 }
