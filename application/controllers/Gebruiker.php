@@ -135,6 +135,7 @@ class Gebruiker extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 
 			$data['titel'] = 'International Days';
+			$data['h1'] = 'Please upload a file in CSV format';
 
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_import');
 	    		
