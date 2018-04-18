@@ -37,4 +37,18 @@ class Wensen extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
+	
+	public function beheeropslaan(){
+		if($this->authex->checkLoginRedirectByType(4)){
+		    $data['titel'] = 'International Days';
+			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
+			$data['wishTypes'] = $this->formtype_model->getAllTypes();
+			$data['verantwoordelijke'] = 'Brend Simons';
+			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_wensen_beheren.php');
+			
+			//$this->template->load('template/template_master', $partials, $data);
+			
+			echo print_r($this->input->post('questions'));
+		}
+	}
 }
