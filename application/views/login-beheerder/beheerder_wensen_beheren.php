@@ -51,12 +51,15 @@ function createQuestionLi($q){
                 }
                 ?>
             </ul>
+            <div class="new-question" onclick="µ.wensen_formulier.add();">
+                <div><i class="fas fa-plus fa-2x"></i></div>
+            </div>
         </div>
         <div class="col-lg-12">
             <div class="btn-group">
-                <a href="#" class="btn btn-default" onclick="return µ.wensen_formulier.setSaved()">Save</a>
+                <a href="#" class="btn btn-primary" onclick="return µ.wensen_formulier.save();">Save</a>
             </div>
-            <span style="color: red;">Changes not saved!</span>
+            <span id="wensen_formulier_changes" style="color: gray;">No changes made!</span>
         </div>
     </div>
 </div>

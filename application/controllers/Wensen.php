@@ -46,9 +46,51 @@ class Wensen extends CI_Controller {
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_wensen_beheren.php');
 			
+			$dbQuestions = $this->wishquestion_model->getAllQuestions();
+			$inQuestions = $this->input->post('questions');
+			
+			$this->removeQuestionsFromDB($dbQuestions, $inQuestions);
+			$this->addAndUpdateQuestionsToDB($inQuestions);
+			
 			//$this->template->load('template/template_master', $partials, $data);
 			
-			echo print_r($this->input->post('questions'));
+			echo print_r($dbQuestions);
+			echo print_r($inQuestions);
+		}
+	}
+	
+	private function getInQuestionByID($inQuestions, $id){
+		foreach($inQuestions as $inq){
+			if($inq['id'] == $id){
+				return $inq;
+			}
+		}
+		
+		return null;
+	}
+	
+	private function removeQuestionsFromDB($dbQuestions, $inQuestions){
+		foreach($dbQuestions as $dbq){
+			if($this->getInQuestionByID($inQuestions, $dbq->id) == null){
+				$this->wishquestion_model->deleteQuestion($dbq->id);
+			}
+		}
+	}
+	
+	private function addAndUpdateQuestionsToDB($inQuestions){
+		foreach($inQuestions as $inq){
+			$q = new stdClass();
+        	$q->naam = $inq['question'];
+        	$q->formTypeId = $inq['type'];
+        	$q->actief = $inq['active'] == "true" ? 1 : 0;
+        	$q->answers = isset($inq['options']) ? $inq['options'] : [];
+			
+			if(strpos($inq['id'], 'n') === 0){
+				$this->wishquestion_model->insertQuestion($q);
+			}else{
+				$q->id = $inq['id'];
+				$this->wishquestion_model->updateQuestion($q);
+			}
 		}
 	}
 }

@@ -1,6 +1,8 @@
 var µ = {
     wensen_formulier: {
+        newid: 1,
         toggleVisibility: function(icon){
+            µ.wensen_formulier.setSaved(false);
             var a = $(icon);
             var li = a.parent().parent();
             
@@ -15,12 +17,32 @@ var µ = {
             return false;
         },
         delete: function(icon){
+            µ.wensen_formulier.setSaved(false);
             $(icon).parent().parent().remove();
             return false;
         },
         edit: function(icon){
+            µ.wensen_formulier.setSaved(false);
             µ.wensen_formulier.modal.show(µ.wensen_formulier.getQuestion($(icon).parent().parent().attr("id")));
             return false;
+        },
+        add: function(){
+            $(".wish-questions").append(`
+                <li id="wq-n` + µ.wensen_formulier.newid + `" class="inactive">
+                	<div class="icons">
+                		<a href="#" onclick="return µ.wensen_formulier.toggleVisibility(this);"><i class="fas fa-eye"></i></a>
+                		<a href="#" onclick="return µ.wensen_formulier.edit(this);"><i class="fas fa-pencil"></i></a>
+                		<a href="#" onclick="return µ.wensen_formulier.delete(this);"><i class="fas fa-times"></i></a>
+                	</div>
+                	<span class="wq-type" hidden>3</span>
+                	<b class="wq-question">New question</b><br>
+                	<ul class="wq-options">
+                	
+                	</ul>
+                </li>
+            `);
+            
+            µ.wensen_formulier.newid++;
         },
         getQuestion: function(wq_id){
             return {
@@ -49,21 +71,22 @@ var µ = {
                 
                 q.id = q.id.split("-")[1];
                 q.options = options;
+                q.active = !$(questionHTML[i]).hasClass("inactive");
                 
                 questions.push(q);
             }
             
             $.post(site_url() + "/wensen/beheeropslaan", {questions: questions}, function(result){
-                
+                µ.wensen_formulier.setSaved(true);
             });
             
-            return questions;
+            return false;
         },
         setSaved: function(bool){
             if(bool){
-                
+                $("#wensen_formulier_changes").css("color", "green").html("All changes are saved!");
             }else{
-                
+                $("#wensen_formulier_changes").css("color", "red").html("Unsaved changes!");
             }
         },
         modal: {

@@ -62,7 +62,8 @@ footer {
     padding: 0;
 }
 
-.manage-wishes .wish-questions > li{
+.manage-wishes .wish-questions > li, .manage-wishes .new-question{
+    position: relative;
     width: 100%;
     border: 1px dashed black;
     border-radius: 10px;
@@ -80,6 +81,14 @@ footer {
     float: right;
     font-size: 20px;
     padding-right: 10px;
+}
+
+.manage-wishes .new-question div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ccccccf0;
 }
 
 .modal-body input, .modal-body select{
