@@ -16,7 +16,7 @@
             var dataInt = $(this).val();
             
             $.ajax({type : "GET",
-                url : site_url + "/email/haalAjaxOp_Templates",
+                url : site_url() + "/email/haalAjaxOp_Templates",
                 data : { zoekstring : dataInt},
                 success : function(result){
                     $("#show").html(result);
@@ -42,19 +42,18 @@
                     <form role="form" method="POST" action="<?= site_url(); ?>/email/change">
                         <fieldset>
                             <div class="form-group">
+                                <label>Select a template: </label>
                                 <select name="template" id="templateSelect">
+                                    <option disabled selected value> Templates: </option>
                                     <?php 
                                     foreach($templates as $template){
-                                        echo '<option value=\"' . $template->id . '\" >' . $template->naam . '</option>';
+                                        echo "<option value=\"" . $template->id . "\" >" . $template->naam . "</option>";
                                     }
                                     ?>
                                 </select>
                                 <hr>
                                 <div id="show">
                                 </div>
-                                <label>Name: </label><input id="templateNaam" class="form-control" value="" name="naam" type="text" required>
-                                <label>Subject: </label><input id="templateOnderwerp" class="form-control" value="" name="onderwerp" type="text" required>
-                                <label>Content: </label><textarea id="templateInhoud" class="form-control" rows="15" name="inhoud" required ></textarea>
                             </div>
                             <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button>
                         </fieldset>
