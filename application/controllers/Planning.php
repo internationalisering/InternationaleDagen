@@ -54,7 +54,7 @@ class Planning extends CI_Controller {
 			}
 			
 			
-			$partials = array('template_menu' => 'planning/planning_menu', 'template_pagina' => 'planning/planning_home');
+			$partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
 			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
 		} else die('Niet ingelogd');

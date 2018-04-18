@@ -1,6 +1,5 @@
 <!-- TIJDELIJKE STYLE! Moet naar style.css... -->
-
-    <style>
+<style>
 
 .flexbox
 {
@@ -183,7 +182,6 @@ function feedbackSubmit()
 
 
 </script>
-
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-lg-12">
