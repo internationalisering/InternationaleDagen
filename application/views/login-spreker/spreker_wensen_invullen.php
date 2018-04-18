@@ -1,13 +1,5 @@
-<div id="page-wrapper">
+<div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">Wishes</h1>
-        </div>
-    </div>
-    <?php $this->notifications->buildNotification(); ?>
-    <div class="row">
-        <div class="col-lg-12">
-            
-        </div>
+        
     </div>
 </div>

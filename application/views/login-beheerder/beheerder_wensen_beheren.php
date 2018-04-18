@@ -14,7 +14,7 @@ function createQuestionLi($q){
         </div>
     ';
     
-    echo '<span class="wq-type" hidden>' . $q->formTypeId . '</span>';
+    echo '<span class="wq-type" hidden>' . $q->formulierTypeId . '</span>';
     echo '<b class="wq-question">' . $q->naam . '</b><br>';
     
     echo '<ul class="wq-options">';

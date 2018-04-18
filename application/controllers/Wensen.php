@@ -7,7 +7,7 @@ class Wensen extends CI_Controller {
         parent::__construct();
         
         $this->load->model('wishquestion_model');
-        $this->load->model('formtype_model');
+        $this->load->model('formuliertype_model');
     }
     
 	public function index(){
@@ -22,7 +22,10 @@ class Wensen extends CI_Controller {
 	
 	public function invullen(){
 		if($this->authex->checkLoginRedirectByType(3)){
-		    
+			$data['titel'] = 'International Days';
+			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_wensen_invullen');
+			
+			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
 	
@@ -30,7 +33,7 @@ class Wensen extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
 			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
-			$data['wishTypes'] = $this->formtype_model->getAllTypes();
+			$data['wishTypes'] = $this->formuliertype_model->getAllTypes();
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_wensen_beheren.php');
 			
@@ -42,7 +45,7 @@ class Wensen extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
 			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
-			$data['wishTypes'] = $this->formtype_model->getAllTypes();
+			$data['wishTypes'] = $this->formuliertype_model->getAllTypes();
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_wensen_beheren.php');
 			
@@ -53,9 +56,6 @@ class Wensen extends CI_Controller {
 			$this->addAndUpdateQuestionsToDB($inQuestions);
 			
 			//$this->template->load('template/template_master', $partials, $data);
-			
-			echo print_r($dbQuestions);
-			echo print_r($inQuestions);
 		}
 	}
 	
@@ -78,13 +78,16 @@ class Wensen extends CI_Controller {
 	}
 	
 	private function addAndUpdateQuestionsToDB($inQuestions){
+		$order = 0;
+		
 		foreach($inQuestions as $inq){
 			$q = new stdClass();
         	$q->naam = $inq['question'];
-        	$q->formTypeId = $inq['type'];
+        	$q->formulierTypeId = $inq['type'];
         	$q->actief = $inq['active'] == "true" ? 1 : 0;
         	$q->answers = isset($inq['options']) ? $inq['options'] : [];
-			
+        	$q->order = $order++;
+        	
 			if(strpos($inq['id'], 'n') === 0){
 				$this->wishquestion_model->insertQuestion($q);
 			}else{

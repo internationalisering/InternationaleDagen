@@ -18,23 +18,23 @@ class User_model extends CI_Model {
         $user = $query->row();
         
         if(isset($user->typeId)){
-            $this->load->model("type_model");
+            $this->load->model("gebruikertype_model");
             
-            $user->type = $this->type_model->get($user->typeId);
+            $user->type = $this->gebruikertype_model->get($user->typeId);
         }
         
         return $user;
     }
     
     function getAllUsers(){
-        $this->load->model("type_model");
+        $this->load->model("gebruikertype_model");
         
         $this->db->where('actief', 1);
         $query = $this->db->get('gebruiker');
         $result = $query->result();
         
         foreach ($result as $r){
-            $r->type = $this->type_model->get($r->typeId);
+            $r->type = $this->gebruikertype_model->get($r->typeId);
         }
         
         return $result;

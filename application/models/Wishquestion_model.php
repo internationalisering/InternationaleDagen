@@ -12,15 +12,16 @@ class WishQuestion_model extends CI_Model {
     }
     
     function getAllQuestions(){
-        $this->load->model("formtype_model");
+        $this->load->model("formuliertype_model");
         $this->load->model("wishanswerlist_model");
         
+        $this->db->order_by('order', 'ASC');
         $this->db->where('verwijderd', 0);
         $query = $this->db->get('wensVraag');
         $result = $query->result();
         
         foreach ($result as $r){
-            $r->type = $this->formtype_model->get($r->formTypeId);
+            $r->type = $this->formuliertype_model->get($r->formulierTypeId);
             $r->answerList = $this->wishanswerlist_model->getAnswersByQuestion($r->id);
         }
         
@@ -48,8 +49,9 @@ class WishQuestion_model extends CI_Model {
         
         $question = new stdClass();
         $question->naam = $q->naam;
-        $question->formTypeId = $q->formTypeId;
+        $question->formulierTypeId = $q->formulierTypeId;
         $question->actief = $q->actief;
+        $question->order = $q->order;
         $this->db->where('id', $q->id);
         $this->db->update('wensVraag', $question);
     }
@@ -57,8 +59,9 @@ class WishQuestion_model extends CI_Model {
     function insertQuestion(){
         $question = new stdClass();
         $question->naam = $q->naam;
-        $question->formTypeId = $q->formTypeId;
+        $question->formulierTypeId = $q->formulierTypeId;
         $question->actief = $q->actief;
+        $question->order = $q->order;
         
         $this->db->insert('wensVraag', $question);
         $id = $this->db->insert_id();

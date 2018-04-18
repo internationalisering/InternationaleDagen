@@ -43,7 +43,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(3)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_home');
-
+			
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}

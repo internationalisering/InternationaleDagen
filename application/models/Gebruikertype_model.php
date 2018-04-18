@@ -1,5 +1,5 @@
 <?php
-class Type_model extends CI_Model {
+class GebruikerType_model extends CI_Model {
     
     function __construct() {
         parent::__construct();
@@ -7,12 +7,12 @@ class Type_model extends CI_Model {
 
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('type');
+        $query = $this->db->get('gebruikerType');
         return $query->row();
     }
     
     function getAllTypes(){
-        $query = $this->db->get('type');
+        $query = $this->db->get('gebruikerType');
         return $query->result();
     }
 }
