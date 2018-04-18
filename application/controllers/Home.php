@@ -66,7 +66,7 @@ class Home extends CI_Controller {
 			$data['edition'] = $this->edition_model->getAllEditions();
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
 
-			$partials = array('template_menu' => 'login-beheerder/homepagina_bewerk_menu',
+			$partials = array('template_menu' => 'login-beheerder/template_menu',
 			'template_pagina' => 'login-beheerder/beheerder_editie_lijst');
 
 			$this->template->load('template/template_master', $partials, $data);

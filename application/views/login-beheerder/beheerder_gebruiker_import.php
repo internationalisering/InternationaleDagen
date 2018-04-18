@@ -1,3 +1,7 @@
+<div id="page-wrapper">
+
+<h1 class="page-header"><?php echo $h1; ?></h1>
+
 <form class="col-md-4 col-md-offset-4 upload" action="<?php echo site_url();?>csv/uploadData" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
     <table>
         <tr>
@@ -14,14 +18,19 @@
     </table> 
 </form>
 
+</div>
+
 <style>
 
 .upload {
     position: absolute;
-    top:20%;
+    top: 30%;
     right:0;
     left:0;
-    width: 80%;
+    background-color: #f9f9f9;
+    padding: 2%;
+    width: 600px;
+    border-radius: 25px;
 }
 
 </style>

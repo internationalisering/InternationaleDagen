@@ -45,7 +45,7 @@ table, th, td {
     padding: 1%;
 }
 
-a, a:hover {
+table a, table a:hover {
         text-decoration: none;
     color: #ffffff;
 }
