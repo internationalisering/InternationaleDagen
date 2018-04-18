@@ -133,7 +133,12 @@ class Gebruiker extends CI_Controller {
 	
 	public function import(){
 		if($this->authex->checkLoginRedirectByType(4)){
-			
+
+			$data['titel'] = 'International Days';
+
+			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_import');
+	    		
+	    		$this->template->load('template/template_master', $partials, $data);
 		}
 	}
 	

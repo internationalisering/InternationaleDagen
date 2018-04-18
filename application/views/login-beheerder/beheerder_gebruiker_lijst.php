@@ -7,10 +7,10 @@
     <?php $this->notifications->buildNotification(); ?>
     <div class="btn-toolbar pull-right" style="margin-bottom: 10px">
         <div class="btn-group">
-            <a href="<?= site_url(); ?>gebruiker/create" class="btn btn-primary">New User</a>
+            <a href="<?= site_url(); ?>/gebruiker/create" class="btn btn-primary">New User</a>
         </div>
         <div class="btn-group">
-            <a href="<?= site_url(); ?>gebruiker/import" class="btn btn-primary">Import Users</a>
+            <a href="<?= site_url(); ?>/gebruiker/import" class="btn btn-primary">Import Users</a>
         </div>
     </div>
     <div class="row">

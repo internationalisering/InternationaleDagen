@@ -168,11 +168,21 @@ function feedback()
     $('.feedback').slideDown();
 }
 
-function feedbackSubmit()
+function feedbackSubmit(sessionId)
 {
-    
- 
-    $('.feedback').slideUp();
+     $.ajax({
+        url: site_url() + "/planning/feedback/" + sessionId, 
+        data: {feedback: $('#feedback').val()},
+        type: "POST",
+
+        success: function(result)
+        {
+            $('.feedback').slideUp();
+            console.log('ok', result);
+        }
+
+    }); 
+
 
 }
 

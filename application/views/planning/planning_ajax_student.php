@@ -8,9 +8,9 @@
   <div class="feedback">
     <p><strong>Feedback:</strong></p>
     <p>
-      <textarea rows=5 cols=50 name="feedback"><?= $feedback->inhoud ?></textarea>
+      <textarea rows=5 cols=50 placeholder="Feedback will be reviewed" name="feedback" id="feedback"><?= isset($feedback->inhoud) ? $feedback->inhoud : '' ?></textarea>
     </p>
-    <button class="btn btn-primary" onclick="feedbackSubmit()">Submit</button>
+    <button class="btn btn-primary" onclick="feedbackSubmit(<?= $column->sessie->id; ?>)">Submit</button>
 
   </div>
 </div>
@@ -23,9 +23,6 @@
       </button>
 
     <?php if($ingeschreven){?>
-     
-      
-
       <button 
         type="button" 
         onclick='withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
