@@ -52,6 +52,12 @@ function createQuestionLi($q){
                 ?>
             </ul>
         </div>
+        <div class="col-lg-12">
+            <div class="btn-group">
+                <a href="#" class="btn btn-default" onclick="return µ.wensen_formulier.setSaved()">Save</a>
+            </div>
+            <span style="color: red;">Changes not saved!</span>
+        </div>
     </div>
 </div>
 <script>

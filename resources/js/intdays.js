@@ -33,6 +33,39 @@ var µ = {
         typeHasOptions: function(type){
             return type == 1 || type == 2;
         },
+        save: function(){
+            var questions = [];
+            var questionHTML = $(".wish-questions > li");
+            
+            for(var i = 0; i < questionHTML.length; i++){
+                var q = µ.wensen_formulier.getQuestion(questionHTML[i].id);
+                
+                var options = [];
+                var optionsHTML = q.options;
+                
+                for(var j = 0; j < optionsHTML.length; j++){
+                    options.push($(optionsHTML[j]).html());
+                }
+                
+                q.id = q.id.split("-")[1];
+                q.options = options;
+                
+                questions.push(q);
+            }
+            
+            $.post(site_url() + "/wensen/beheeropslaan", {questions: questions}, function(result){
+                
+            });
+            
+            return questions;
+        },
+        setSaved: function(bool){
+            if(bool){
+                
+            }else{
+                
+            }
+        },
         modal: {
             show: function(wq){
                 $('#modal-content').html(`
@@ -88,7 +121,6 @@ var µ = {
                         html += '<input class="wq-edit-option" type="text" value="' + $(o).html() + '" /><a href="#" onclick="return µ.wensen_formulier.modal.removeOption(this);" class="wq-edit-option-delete"><i class="fas fa-times"></i></a>';
                     }
                     
-<<<<<<< HEAD
                     html += '<a href="#" onclick="return µ.wensen_formulier.modal.addOption(this);" id="wq-edit-option-add"><i class="fas fa-plus"></i></a>';
                     
                     html += "</div>";
@@ -96,9 +128,6 @@ var µ = {
                     return html;
                 }else{
                     return "";
-=======
-                    html += '<input id="wq-edit-question" type="text" value="` + wq.question + `" />';
->>>>>>> parent of 103af1e... Een hele hoop kleine aanpassingen
                 }
             },
             removeOption: function(link){
