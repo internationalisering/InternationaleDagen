@@ -120,4 +120,13 @@ class Email extends CI_Controller {
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'email/send_templates');
 			$this->template->load('template/template_master', $partials, $data);
         }
+        
+        public function haalAjaxOp_Templates() {
+                        $zoekstring = $this->input->get('zoekstring');
+
+                        $this->load->model('mailtype_model');
+                        $data['template'] = $this->mailtype_model->get($zoekstring);
+
+                        $this->load->view("email/ajax_email", $data);
+    }
 }
