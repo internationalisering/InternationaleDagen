@@ -8,7 +8,6 @@ class Feedback_model extends CI_Model {
   
     function get($sessieId, $gebruikerId)
     {
-    	
     	$this->db->where('sessieId', $sessieId);
     	$this->db->where('gebruikerId', $gebruikerId);
     	return $this->db->get('feedback')->row();
@@ -19,26 +18,19 @@ class Feedback_model extends CI_Model {
     	$this->db->where('sessieId', $sessieId);
     	$this->db->where('gebruikerId', $gebruikerId);
     	
-    	$result = $this->db->get('feedback')->row();
-
-    	
-
-    	return $result;
+    	return $this->db->get('feedback')->row();
     }
 
     function set($sessieId, $gebruikerId, $feedback)
     {
-    	//$this->db->where('sessieId', $sessionId);
-    	//$this->db->where('gebruikerId', $gebruikerId);
-
-
-    	if($this->feedback_model->exists($sessieId, $gebruikerId))
+    	
+    	if($this->feedback_model->exists($sessieId, $gebruikerId)) 
     	{
-
+            // Persoon heeft al feedback ooit ingevuld, update deze
     		$this->update($sessieId, $gebruikerId, $feedback);
     	} else {
+            // Persoon heeft nog nooit feedback ingevuld, maak deze aan
             $this->create($sessieId, $gebruikerId, $feedback);
-
     	}
     }
 
