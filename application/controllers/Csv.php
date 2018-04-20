@@ -62,13 +62,13 @@ class Csv extends CI_Controller {
                 }
                 $this->session->set_flashdata('success', 'Csv Data Imported Succesfully');
                 redirect('/gebruiker');
-            } else {
+            } else 
                 $data['error'] = "Error occured";
                 $this->load->view('/login-beheerder/beheerder_gebruiker_import_error', $data);
             }
  
         } 
     }
-}
+
 
     
