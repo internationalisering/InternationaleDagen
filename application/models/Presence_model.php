@@ -53,5 +53,18 @@ class Presence_model extends CI_Model {
         $this->db->where('planningKolomId', $columnId);
         return $this->db->count_all_results('aanwezigheid');  
     }
+
+    function getEnrolledStudents($columnId)
+    {
+        
+        $this->db->where('planningKolomId', $columnId);
+        $list = array();
+
+        foreach($this->db->get('aanwezigheid')->result() as $aanwezigheid)
+        {
+            $list[] = (int)$aanwezigheid->gebruikerId;
+        }
+        return $list;
+    }
 }
 ?>

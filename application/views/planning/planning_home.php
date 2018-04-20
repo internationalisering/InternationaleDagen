@@ -86,6 +86,10 @@
 {
     display: none;
 }
+.students 
+{
+    display: none;
+}
 </style>
 
 <script>

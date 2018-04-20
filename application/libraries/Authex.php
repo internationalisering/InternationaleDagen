@@ -101,4 +101,28 @@ class Authex {
         
         $CI->session->unset_userdata('user_id');
     }
+
+    function isStudent()
+    {
+        $CI = & get_instance();
+        return $this->getUserInfo()->typeId == 1;
+    }
+
+    function isDocent()
+    {
+        $CI = & get_instance();
+        return $this->getUserInfo()->typeId == 2;
+    }
+    function isSpreker()
+    {
+        $CI = & get_instance();
+        return $this->getUserInfo()->typeId == 3;
+    }
+    function isBeheerder()
+    {
+        $CI = & get_instance();
+        return $this->getUserInfo()->typeId == 4;
+    }
+
+
 }

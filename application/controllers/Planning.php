@@ -65,22 +65,39 @@ class Planning extends CI_Controller {
 			$this->load->model('session_model');
 			$this->load->model('presence_model');
 			$this->load->model('feedback_model');
+			$this->load->model('User_model');
 
 
 			$data = array();
 			$user = $this->authex->getUserInfo();
 
 
-
 			$data['column'] = $this->column_model->get($columnId);
 			$data['column']->sessie = $this->session_model->get($data['column']->sessieId);
 			
 
-			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 
-			$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
-			$this->load->view('planning/planning_ajax_student.php', $data);
+
+			if($this->authex->isStudent())
+			{
+				$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
+				$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
+				$this->load->view('planning/planning_ajax_student.php', $data);
+			} else if($this->authex->isDocent())
+			{
+				$data['ingeschrevenStudenten'] =array();
+
+				foreach($this->presence_model->getEnrolledStudents($data['column']->id) as $studentId)
+				{
+					$student = $this->user_model->get($studentId);
+
+					$data['ingeschrevenStudenten'][] = $student->achternaam . " " . $student->voornaam;
+				}
+
+
+				$this->load->view('planning/planning_ajax_docent.php', $data);
+			}
 		}
 	}
 
