@@ -128,7 +128,27 @@ class User_model extends CI_Model {
             return null;
         }
     }
-
+	
+	/**
+     * @author Quinten Van Casteren
+     * 
+     * Geeft alle gebruikers terug gesorteerd op naam
+     * @return alle users, gesorteerd op naam
+     */
+    function getAllUsersSortByName(){
+        $this->load->model("gebruikertype_model");
+        
+        $this->db->order_by('achternaam', 'asc');
+        $this->db->where('actief', 1);
+        $query = $this->db->get('gebruiker');
+        $result = $query->result();
+        
+        foreach ($result as $r){
+            $r->type = $this->gebruikertype_model->get($r->typeId);
+        }
+        
+        return $result;
+    }
     
 }
 ?>

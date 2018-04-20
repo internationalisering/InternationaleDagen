@@ -102,7 +102,8 @@ class Email extends CI_Controller {
          * @see beheerder_template_menu.php
          * @see send_templates.php
          * @see Mailtype_model::getAllTemplates
-         * @see User_model::getAllUsers
+         * @see User_model::getAllUsersSortByName
+         * @see Type_model::getAllTypes
          */
         public function send(){
                         $data['titel'] = 'International Days';
@@ -113,14 +114,24 @@ class Email extends CI_Controller {
 			$data['templates'] = $templates;
                         
                         $this->load->model('user_model');
-                        $users = $this->user_model->getAllUsers();
+                        $users = $this->user_model->getAllUsersSortByName();
+                        
+                        $this->load->model('gebruikertype_model');
+                        $types = $this->gebruikertype_model->getAllTypes();
                         
 			$data['users'] = $users;
+                        $data['types'] = $types;
                         
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'email/send_templates');
 			$this->template->load('template/template_master', $partials, $data);
         }
         
+        /**
+         * Haalt ajax op voor het geselecteerde template
+         * 
+         * @see ajax_email.php
+         * @see Mailtype_model::get
+         */
         public function haalAjaxOp_Templates() {
                         $zoekstring = $this->input->get('zoekstring');
 
@@ -128,5 +139,36 @@ class Email extends CI_Controller {
                         $data['template'] = $this->mailtype_model->get($zoekstring);
 
                         $this->load->view("email/ajax_email", $data);
-    }
+        }
+        
+        /**
+         * Zendt een door de beheerder samengestelde email naar alle aangeduidde personen
+         * 
+         * @see ajax_email.php
+         * @see User_model::getAllUsers
+         * @see my_email_helper
+         */
+        public function finish(){
+                        $this->load->model('user_model');
+                        $users = $this->user_model->getAllUsers();
+                        
+                        $inhoud = $this->input->post(inhoud);
+                        $onderwerp = $this->input->post(onderwerp);
+                        
+                        $trueInhoud = nl2br($inhoud);
+                        
+                        if($inhoud != null && $onderwerp != null){
+                                foreach($users as $user){
+                                    $used = $this->input->post('check' . $user->id);
+                                    if($used != NULL){
+                                        $email = $user->email;
+                                        sendEmail($email, $onderwerp , $trueInhoud);
+                                }
+                            }
+                            redirect('/email');
+                        } else {
+                            redirect('/email/send');
+                        }
+        }
+        
 }

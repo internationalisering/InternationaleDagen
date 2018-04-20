@@ -39,7 +39,7 @@
                     <h3 class="panel-title">Email:</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form" method="POST" action="<?= site_url(); ?>/email/change">
+                    <form role="form" method="POST" action="<?= site_url(); ?>/email/finish">
                         <fieldset>
                             <div class="form-group">
                                 <label>Select a template: </label>
@@ -53,6 +53,30 @@
                                 </select>
                                 <hr>
                                 <div id="show">
+                                </div>
+                                <ul class="nav nav-tabs">
+                                    
+                                    <?php 
+                                    foreach ($types as $type){
+                                        echo "<li><a data-toggle=\"tab\" href=\"#menu" . $type->id . "\">" . $type->naam . "</a></li>";
+                                    }
+                                    ?>
+                                </ul>
+
+                                <div class="tab-content">
+                                    
+                                        <?php 
+                                        foreach ($types as $type){
+                                            echo"<div id=\"menu" . $type->id . "\" class=\"tab-pane fade\">";
+                                                foreach ($users as $user){
+                                                    if ($user->typeId == $type->id){
+                                                        echo  "<div class=\"form-check\"><input class=\"form-check-input\" type=\"checkbox\" id=\"check" . $user->id . "\" name=\"check" . $user->id . "\">
+                                                               <label class=\"form-check-label\" for=\"check" . $user->id . "\">" . $user->achternaam . " " . $user->voornaam . "</label></div>";
+                                                    }
+                                                }
+                                            echo"</div>";
+                                            }
+                                        ?>
                                 </div>
                             </div>
                             <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button>
