@@ -10,5 +10,12 @@ class WishAnswer_model extends CI_Model {
         $query = $this->db->get('WishAnswer');
         return $query->row();
     }
+    
+    function getAnswersByUser($userid){
+        $this->db->where('gebruikerId', $userid);
+        $this->db->where('verwijderd', '0');
+        $query = $this->db->get('wensAntwoord');
+        return $query->result();
+    }
 }
 ?>

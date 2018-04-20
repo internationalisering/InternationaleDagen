@@ -8,6 +8,7 @@ class Wensen extends CI_Controller {
         
         $this->load->model('wishquestion_model');
         $this->load->model('formuliertype_model');
+        $this->load->model('wishanswer_model');
     }
     
 	public function index(){
@@ -22,7 +23,16 @@ class Wensen extends CI_Controller {
 	
 	public function invullen(){
 		if($this->authex->checkLoginRedirectByType(3)){
+			$submit = $this->input->post('submit');
+    		
+		    if($submit == "submit"){
+		    	
+		    }
+		    
 			$data['titel'] = 'International Days';
+			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
+			$data['myAnswers'] = $this->wishanswer_model->getAnswersByUser($this->authex->getUserInfo()->id);
+			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_wensen_invullen');
 			
 			$this->template->load('template/template_master', $partials, $data);

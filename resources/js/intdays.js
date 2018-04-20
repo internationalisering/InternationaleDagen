@@ -53,7 +53,7 @@ var µ = {
             };
         },
         typeHasOptions: function(type){
-            return type == 1 || type == 2;
+            return type == 1 || type == 2 || type == 5;
         },
         save: function(){
             var questions = [];

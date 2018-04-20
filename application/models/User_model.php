@@ -41,8 +41,9 @@ class User_model extends CI_Model {
     }
 
     function getUser($email, $password){
-        // geef gebruiker-object met $email en $wachtwoord EN geactiveerd = 1
+        // geef gebruiker-object met $email en $wachtwoord EN actief = 1
         $this->db->where('email', $email);
+        $this->db->where('actief', 1);
         $query = $this->db->get('gebruiker');
         
         if($query->num_rows() == 1){

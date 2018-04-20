@@ -56,7 +56,7 @@ class WishQuestion_model extends CI_Model {
         $this->db->update('wensVraag', $question);
     }
     
-    function insertQuestion(){
+    function insertQuestion($q){
         $question = new stdClass();
         $question->naam = $q->naam;
         $question->formulierTypeId = $q->formulierTypeId;
