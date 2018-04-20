@@ -28,6 +28,7 @@ function sendEmail($to, $subject, $message){
     $CI->email->from('intdays.noreply@gmail.com');
     $CI->email->to($to);
     $CI->email->subject($subject);
+    $CI->email->set_mailtype("html");
     $CI->email->message($message);
     
     if(!$CI->email->send()){

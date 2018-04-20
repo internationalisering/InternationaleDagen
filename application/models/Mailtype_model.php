@@ -21,7 +21,7 @@ class Mailtype_model extends CI_Model {
      */
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('mailtype');
+        $query = $this->db->get('mailType');
         return $query->row();
     }
     
@@ -32,7 +32,7 @@ class Mailtype_model extends CI_Model {
      * @return Alle templates.
      */
     function getAllTemplates() {
-        $query = $this->db->get('mailtype');
+        $query = $this->db->get('mailType');
         $result = $query->result();
         return $result;
     }
@@ -45,7 +45,7 @@ class Mailtype_model extends CI_Model {
      * @return Een True signaal
      */
     function insert($template){
-        $this->db->insert('mailtype', $template);
+        $this->db->insert('mailType', $template);
         return 1;
     }
     
@@ -58,7 +58,7 @@ class Mailtype_model extends CI_Model {
      */
     function update($template){
         $this->db->where('id', $template->id);
-        $this->db->update('mailtype', $template);
+        $this->db->update('mailType', $template);
         return 1;
     }
     
@@ -71,7 +71,7 @@ class Mailtype_model extends CI_Model {
      */
     function remove($id){
         $this->db->where('id', $id);
-        $this->db->delete('mailtype');
+        $this->db->delete('mailType');
         return 1;
     }
 }
