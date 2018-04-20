@@ -6,7 +6,7 @@
   <p><?= $column->sessie->inhoud ?></p>
 
     
-    <div class="students">
+    <div id="enrolledStudents" class="students">
       <p><strong>Ingeschreven studenten: </strong></p>
 
       <?php 
@@ -25,7 +25,8 @@
     <span><?= $aantalIngeschreven ?>/<?= $column->maxHoeveelheid ?>&nbsp;</span>
       <button 
         type="button"
-        class="btn btn-info">View enrolled students
+        class="btn btn-info"
+        onclick="btnEnrolledStudents()">View enrolled students
       </button>
 
 

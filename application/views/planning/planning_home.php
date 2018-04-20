@@ -102,9 +102,6 @@ $(document).ready(function()
     {
         var columnId = $(this).data('column-id');
         viewColumn(columnId);
-
-
-        
     })
 
 });
@@ -116,7 +113,13 @@ function viewColumn(columnId)
         success: function(result){
         $('#modal-content').html(result);
         $('#modal').modal();
+
     }});
+}
+
+function btnEnrolledStudents()
+{
+    $('#enrolledStudents').slideToggle();
 }
 
 function enroll(columnId)
