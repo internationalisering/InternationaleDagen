@@ -40,7 +40,7 @@ class Gebruiker extends CI_Controller {
 	public function edit($id){
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $this->load->model('user_model');
-		    $this->load->model('type_model');
+		    $this->load->model('gebruikertype_model');
 		    
 		    $user = $this->user_model->get($id);
 		    
@@ -76,7 +76,7 @@ class Gebruiker extends CI_Controller {
 						}
 						
 						$data['titel'] = 'International Days';
-			    	    $data['types'] = $this->type_model->getAllTypes();
+			    	    $data['types'] = $this->gebruikertype_model->getAllTypes();
 			    	    $data['user'] = $user;
 			    	    $data['h1'] = "New User";
 			    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
@@ -85,7 +85,7 @@ class Gebruiker extends CI_Controller {
 					}
 			    }else{
 			    	$data['titel'] = 'International Days';
-		    	    $data['types'] = $this->type_model->getAllTypes();
+		    	    $data['types'] = $this->gebruikertype_model->getAllTypes();
 		    	    $data['user'] = $user;
 		    	    $data['h1'] = "Edit User";
 		    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
@@ -133,13 +133,18 @@ class Gebruiker extends CI_Controller {
 	
 	public function import(){
 		if($this->authex->checkLoginRedirectByType(4)){
+			$this->load->model('csv_model');
+			$this->load->model('gebruikertype_model');
 
 			$data['titel'] = 'International Days';
 			$data['h1'] = 'Please upload a file in CSV format';
 
+			$data['gebruiker'] = $this->csv_model->get_gebruikers();
+			$data['type'] = $this->gebruikertype_model->getAllTypes();
+
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_import');
 	    		
-	    		$this->template->load('template/template_master', $partials, $data);
+	    	$this->template->load('template/template_master', $partials, $data);
 		}
 	}
 	
@@ -177,7 +182,7 @@ class Gebruiker extends CI_Controller {
 					}
 					
 					$data['titel'] = 'International Days';
-		    	    $data['types'] = $this->type_model->getAllTypes();
+		    	    $data['types'] = $this->gebruikertype_model->getAllTypes();
 		    	    $data['user'] = $user;
 		    	    $data['h1'] = "New User";
 		    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
@@ -185,7 +190,7 @@ class Gebruiker extends CI_Controller {
 		    		$this->template->load('template/template_master', $partials, $data);
 				}
 		    }else{
-		    	$this->load->model('type_model');
+		    	$this->load->model('gebruikertype_model');
 		    	
 			    $user = new stdClass();
 			    $user->voornaam = "";
@@ -203,7 +208,7 @@ class Gebruiker extends CI_Controller {
 			    $user->typeId = 1;
 			    
 	    	    $data['titel'] = 'International Days';
-	    	    $data['types'] = $this->type_model->getAllTypes();
+	    	    $data['types'] = $this->gebruikertype_model->getAllTypes();
 	    	    $data['user'] = $user;
 	    	    $data['h1'] = "New User";
 	    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');
