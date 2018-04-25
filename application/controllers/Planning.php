@@ -53,7 +53,11 @@ class Planning extends CI_Controller {
 			$partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
 			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
-		} else die('Niet ingelogd');
+		} else 
+		{
+			redirect('/home');
+			die;
+		}
 	}
 
 	public function viewColumn($columnId=null)
@@ -99,6 +103,23 @@ class Planning extends CI_Controller {
 				$this->load->view('planning/planning_ajax_docent.php', $data);
 			}
 		}
+	}
+
+	public function edit()
+	{
+		if($this->authex->isLoggedIn() && $this->authex->isBeheerder()){
+			
+			$data['titel'] = 'International Days';
+			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'planning/planning_edit.php');
+
+			$this->template->load('template/template_master', $partials, $data);
+			
+		} else 
+		{
+			redirect('/home');
+			die;
+		}
+
 	}
 
 	public function enroll($columnId=null)
