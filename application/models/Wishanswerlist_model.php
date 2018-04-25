@@ -11,6 +11,12 @@ class Wishanswerlist_model extends CI_Model {
         return $query->row();
     }
     
+    function getAllAnswersByQuestion($questionId){
+        $this->db->where('wensVraagId', $questionId);
+        $query = $this->db->get('wensAntwoordLijst');
+        return $query->result();
+    }
+    
     function getAnswersByQuestion($questionId){
         $this->db->where('wensVraagId', $questionId);
         $this->db->where('verwijderd', '0');

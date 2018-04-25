@@ -1,3 +1,24 @@
+<?php
+function getAnswersForQuestion($myAnswers, $question){
+    $arr = [];
+    
+    foreach($myAnswers as $mya){
+        if($mya->wensVraagId == $question->id){
+            array_push($arr, $mya);
+        }
+    }
+    
+    return $arr;
+}
+
+function getAntwoordVanResultaat($answerList, $resultaat){
+    foreach($answerList as $al){
+        if($al->id == $resultaat){
+            return "<br>" . $al->antwoord;
+        }
+    }
+}
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
@@ -80,5 +101,43 @@
             <p><?php echo ($user->tmContact == "" ? "-" : $user->tmContact); ?></p>
         </div>
     </div>
-    <br><br>
+    <?php
+    if(count($myAnswers) > 0){
+        echo '
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Wishes</h2>
+                </div>
+            </div>
+            ';
+        
+        foreach($wishQuestions as $wq){
+            $answers = getAnswersForQuestion($myAnswers, $wq);
+            $answersStr = "";
+            
+            if(isset($wq->answerList) && count($wq->answerList) > 0){
+                foreach($answers as $wqa){
+                    $answersStr .= getAntwoordVanResultaat($wq->answerList, $wqa->resultaat);
+                }
+            }else{
+                foreach($answers as $wqa){
+                    $answersStr .= "<br>" . $wqa->resultaat;
+                }
+            }
+            
+            if($answersStr == ""){
+                $answersStr = "<br>/";
+            }
+            
+            echo '
+                <div class="row">
+                    <div class="col-lg-6">
+                        <b>' . $wq->naam . '</b>
+                        <p>' . substr($answersStr, 4) . '</p>
+                    </div>
+                </div>
+            ';
+        }
+    }
+    ?>
 </div>

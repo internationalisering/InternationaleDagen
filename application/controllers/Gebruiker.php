@@ -22,12 +22,16 @@ class Gebruiker extends CI_Controller {
 	public function view($id){
 	    if($this->authex->checkLoginRedirectByType(4)){
 		    $this->load->model('user_model');
+		    $this->load->model('wishquestion_model');
+		    $this->load->model('wishanswer_model');
 		    
 		    $user = $this->user_model->get($id);
 		    
     	    if(isset($user->id)){
     	    	$data['titel'] = 'International Days';
 	    	    $data['user'] = $user;
+	    	    $data['wishQuestions'] = $this->wishquestion_model->getAllQuestionsVisibleWithAllQuestionAnswers();
+				$data['myAnswers'] = $this->wishanswer_model->getAnswersByUser($id);
 	    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bekijk');
 	    		
 	    		$this->template->load('template/template_master', $partials, $data);
