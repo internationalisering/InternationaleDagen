@@ -1,5 +1,6 @@
 <?php
 function buildOptions($q, $str, $answers){
+    $i = 0;
     $str = str_replace("{qid}", $q->id, $str);
     
     if(isset($q->answerList) && count($q->answerList) > 0){
@@ -8,10 +9,14 @@ function buildOptions($q, $str, $answers){
             
             $s = str_replace("{aid}", $a->id, $s);
             $s = str_replace("{antwoord}", $a->antwoord, $s);
+            $s = str_replace("{i}", $i++, $s);
             
-            if(hasAnswerValue($answers, $a->antwoord)){
+            if(hasAnswerValue($answers, $a->id)){
                 $s = str_replace("{checked}", " checked", $s);
                 $s = str_replace("{selected}", " selected='selected'", $s);
+            }else{
+                $s = str_replace("{checked}", "", $s);
+                $s = str_replace("{selected}", "", $s);
             }
             
             echo $s;
@@ -50,7 +55,7 @@ function hasAnswerValue($answers, $answer){
 }
 ?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
-    <form action="' . site_url() . '/wensen/invullen" method="POST">
+    <form action="<?= site_url() ?>/wensen/invullen" method="POST">
         <?php
         foreach ($wishQuestions as $q){
             echo '
@@ -63,14 +68,14 @@ function hasAnswerValue($answers, $answer){
                         if($q->formulierTypeId == 1){
                             buildOptions($q, '<input type="radio" name="qa-{qid}" value="{aid}"{checked}> {antwoord}<br>', getAnswersForQuestion($myAnswers, $q));
                         }else if($q->formulierTypeId == 2){
-                            buildOptions($q, '<input type="checkbox" name="qa-{qid}" value="{aid}"{checked}> {antwoord}<br>', getAnswersForQuestion($myAnswers, $q));
+                            buildOptions($q, '<input type="checkbox" name="qa-{qid}-{i}" value="{aid}"{checked}> {antwoord}<br>', getAnswersForQuestion($myAnswers, $q));
                         }else if($q->formulierTypeId == 3){
                             buildOptions($q, '<input class="form-control" name="qa-{qid}" value="{value}" />', getAnswersForQuestion($myAnswers, $q));
                         }else if($q->formulierTypeId == 4){
                             buildOptions($q, '<textarea name="qa-{qid}" style="width: 100%" rows="5">{value}</textarea>', getAnswersForQuestion($myAnswers, $q));
                         }else if($q->formulierTypeId == 5){
-                            echo '<select name="qa-{qid}">';
-                            buildOptions($q, '<option value="{id}"{selected}>{antwoord}</option>', getAnswersForQuestion($myAnswers, $q));
+                            echo '<select name="qa-' . $q->id . '">';
+                            buildOptions($q, '<option value="{aid}"{selected}>{antwoord}</option>', getAnswersForQuestion($myAnswers, $q));
                             echo '</select>';
                         }
                         

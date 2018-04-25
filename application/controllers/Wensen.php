@@ -26,11 +26,19 @@ class Wensen extends CI_Controller {
 			$submit = $this->input->post('submit');
     		
 		    if($submit == "submit"){
+		    	$this->wishanswer_model->deleteAllAnswersByUser($this->authex->getUserInfo()->id);
 		    	
+		    	foreach($this->input->post() as $key => $value){
+		    		$split = explode("-", $key);
+		    		
+		    		if($split[0] == "qa"){
+		    			$this->wishanswer_model->insertAnswer($this->authex->getUserInfo()->id, $split[1], $value);
+		    		}
+		    	}
 		    }
 		    
 			$data['titel'] = 'International Days';
-			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestions();
+			$data['wishQuestions'] = $this->wishquestion_model->getAllQuestionsVisible();
 			$data['myAnswers'] = $this->wishanswer_model->getAnswersByUser($this->authex->getUserInfo()->id);
 			$data['verantwoordelijke'] = 'Brend Simons';
 			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_wensen_invullen');

@@ -28,6 +28,24 @@ class WishQuestion_model extends CI_Model {
         return $result;
     }
     
+    function getAllQuestionsVisible(){
+        $this->load->model("formuliertype_model");
+        $this->load->model("wishanswerlist_model");
+        
+        $this->db->order_by('order', 'ASC');
+        $this->db->where('verwijderd', 0);
+        $this->db->where('actief', 1);
+        $query = $this->db->get('wensVraag');
+        $result = $query->result();
+        
+        foreach ($result as $r){
+            $r->type = $this->formuliertype_model->get($r->formulierTypeId);
+            $r->answerList = $this->wishanswerlist_model->getAnswersByQuestion($r->id);
+        }
+        
+        return $result;
+    }
+    
     function deleteQuestion($id){
         $q = new stdClass();
         $q->verwijderd = 1;
