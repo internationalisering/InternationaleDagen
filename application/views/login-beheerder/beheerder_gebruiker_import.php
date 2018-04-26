@@ -2,7 +2,7 @@
 
 <h1 class="page-header"><?php echo $h1; ?></h1>
 
-<form class="col-md-4 col-md-offset-4 upload" action="<?php echo site_url();?>/csv/importcsv" method="post" enctype="multipart/form-data" name="form1" id="form1"> 
+<form class="col-md-4 col-md-offset-4 upload" action="<?php echo site_url();?>/csv/importcsv" method="post" enctype="multipart/form-data" name="form1" id="form1">
 
     <table>
         <tr>
@@ -16,17 +16,18 @@
                 </div>
             </td>
         </tr>
-    </table> 
+    </table>
 
-<label>Kies hier het type gebruiker dat je wilt importeren: </label>
-<select name="type">
-    <?php 
-    foreach ($type as $t) {
-        echo "<option value='" . $t->id . "'>" . $t->naam . "</option>";
-    }
-    ?>
-</select>
-
+<p>
+<label id="typeUser">Kies hier het type gebruiker dat je wilt importeren: </label>
+  <select name="type">
+      <?php
+      foreach ($type as $t) {
+          echo "<option value='" . $t->id . "'>" . $t->naam . "</option>";
+      }
+      ?>
+  </select>
+</p>
 </form>
 
 </div>
@@ -42,6 +43,10 @@
     padding: 2%;
     width: 600px;
     border-radius: 25px;
+}
+
+#typeUser {
+  padding: 2%;
 }
 
 </style>
