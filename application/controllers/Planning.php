@@ -105,6 +105,13 @@ class Planning extends CI_Controller {
 		}
 	}
 
+	public function help()
+	{
+
+		$this->load->view('planning/planning_help.php', array());
+
+	}
+
 	public function edit()
 	{
 		if($this->authex->isLoggedIn() && $this->authex->isBeheerder()){

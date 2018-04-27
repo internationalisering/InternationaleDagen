@@ -22,6 +22,13 @@
   font-family: "Open Sans", Arial;
 
 }
+
+.img-16
+{
+    width: 16px;
+    height: 16px;
+}
+
 .session-title 
 {
     font-size: 20px;  
@@ -40,6 +47,8 @@
     float: right;
     right: 0;
     bottom: 0;
+    margin-right: 0;
+    margin-bottom: 0;
     cursor: pointer;
 }
 
@@ -110,6 +119,17 @@ function viewColumn(columnId)
 {
     $.ajax({
         url: site_url() + "/planning/viewColumn/" + columnId, 
+        success: function(result){
+        $('#modal-content').html(result);
+        $('#modal').modal();
+
+    }});
+}
+
+function showHelp()
+{
+    $.ajax({
+        url: site_url() + "/planning/help/", 
         success: function(result){
         $('#modal-content').html(result);
         $('#modal').modal();
@@ -277,7 +297,7 @@ function feedbackSubmit(sessionId)
 
 
                                                             <span class='child-tick' data-column-id=<?= $column->id ?>>
-                                                                v&nbsp;
+                                                                <img class='img-16' src='<?= base_url() ?>/resources/img/tick.png'/>&nbsp;
                                                             </span>
 
                                                         </div>
