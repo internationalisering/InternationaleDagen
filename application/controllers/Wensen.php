@@ -35,6 +35,8 @@ class Wensen extends CI_Controller {
 		    			$this->wishanswer_model->insertAnswer($this->authex->getUserInfo()->id, $split[1], $value);
 		    		}
 		    	}
+		    	
+		    	$this->notifications->createNotification("Your wishes are succesfully changed!", "success", false);
 		    }
 		    
 			$data['titel'] = 'International Days';

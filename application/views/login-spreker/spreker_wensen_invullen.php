@@ -55,6 +55,7 @@ function hasAnswerValue($answers, $answer){
 }
 ?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
+    <?php $this->notifications->buildNotification(); ?>
     <form action="<?= site_url() ?>/wensen/invullen" method="POST">
         <?php
         foreach ($wishQuestions as $q){
