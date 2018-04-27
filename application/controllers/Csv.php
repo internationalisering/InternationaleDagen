@@ -1,6 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @class Email
+ * @author Vincent Duchateau
+ * 
+ * Controller-klasse voor het beheren en verzenden van emails
+ */
+
 class Csv extends CI_Controller {
     
 	public function __construct(){
@@ -10,7 +17,14 @@ class Csv extends CI_Controller {
     }
 
 
-
+        /**
+         * Upload en importeert de gekozen csv file naar een bepaald pad. Daarna worden we terug geredirect naar de Gebruiker controller.
+         * 
+         * @see show_templates.php
+         * @see beheerder_template_menu.php
+         * @see Csv_model::insert_csv
+         * @see Csvimport
+         */
     public function importcsv() {
     	$data['error'] = '';
         $type = $this->input->post('type');
@@ -35,8 +49,6 @@ class Csv extends CI_Controller {
 
                     $insert_data = array(
 
-                        /*Kolommen sql*/
-
                         'voornaam'=>$row["'voornaam'"],
                         'achternaam'=>$row["'achternaam'"],
                         'email'=>$row["'email'"],
@@ -51,7 +63,7 @@ class Csv extends CI_Controller {
                         'studieGebied'=>$row["'studieGebied'"],
                         'land'=>$row["'land'"],
                         'typeId'=>$type,
-                        'wachtwoord'=>$code
+                        'pwdCode'=>$code
 
                     );
                     print_r($row);
@@ -60,7 +72,7 @@ class Csv extends CI_Controller {
                     $this->csv_model->insert_csv($insert_data);
 
                 }
-                $this->session->set_flashdata('success', 'Csv Data Imported Succesfully');
+                $this->notifications->createNotification("File successfully imported!", "success", true);
                 redirect('/gebruiker');
             } else {
                 $data['error'] = "Error occured";
