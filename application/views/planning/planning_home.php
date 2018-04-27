@@ -297,7 +297,7 @@ function feedbackSubmit(sessionId)
 
 
                                                             <span class='child-tick' data-column-id=<?= $column->id ?>>
-                                                                <img class='img-16' src='<?= base_url() ?>/resources/img/tick.png'/>&nbsp;
+                                                                <img class='img-16' src='<?= base_url() ?>/resources/images/tick.png'/>&nbsp;
                                                             </span>
 
                                                         </div>
