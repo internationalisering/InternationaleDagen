@@ -42,7 +42,7 @@
         <p>We zullen je in deze korte handleiding wegwijs maken in het importeren van een CSV-bestand en hoe je nu juist zo een bestand maakt.</p>
 
         <p>Eerst open je Excel op je computer</p>
-        <p>Het icoon ziet er zo uit: <img src="/resources/images/Excel.png" id="icon" alt="Excellogo"></p>
+        <p>Het icoon ziet er zo uit: <img src="<?= base_url(); ?>/resources/images/Excel.png" id="icon" alt="Excellogo"></p>
         <p>Eens je Excel hebt geopend heb je de keuze om: </p>
         <ul>
           <li><b>Een bestand te openen dat al bestaat</b></li>
@@ -54,7 +54,7 @@
         <p>Wij gaan in deze handleiding werken met al reeds bestaande Excel bestanden. Dus we kiezen voor "Openen"</p>
         <p>Het belangrijkste bij het converteren van Excel file is dat het specifieke <b>kolomnamen</b> moet hebben.</p>
         <p>Deze zijn:</p>
-        <p><img src="/resources/images/kolomnamen.png" id="kolomnamen" alt="kolomnamen"></p>
+        <p><img src="<?= base_url(); ?>/resources/images/kolomnamen.png" id="kolomnamen" alt="kolomnamen"></p>
         <ul>
           <li>Zolang deze kolomnamen hetzelfde zijn als in jouw Excel bestand, kan er niet veel mislopen.</li>
           <li>Zodra de kolomnamen in orde zijn, moet je zien of de gegevens overeenkomen met de betreffende kolommen.</li>
@@ -64,7 +64,7 @@
         <p>Nu kunnen we het bestand converteren.</p>
         <p>Klik nu eerst op "Bestand" en druk daarna op <b>Opslaan als</b>.</p>
         <p>Je krijgt nu dit dialoogvenster te zien:</p>
-        <img src="/resources/images/OpslaanAls.png" alt="DialoogExcel" id="OpslaanAls">
+        <img src="<?= base_url(); ?>/resources/images/OpslaanAls.png" alt="DialoogExcel" id="OpslaanAls">
         <hr>
         <p>In dit dialoogvenster zie je selectbox onder de naam van jouw bestand. Als je daar op klik krijg je een hele lijst te zien.</p>
         <p>Hieruit kies je <b>CSV (gescheiden door lijstscheidingsteken (*.csv)</b></p>
