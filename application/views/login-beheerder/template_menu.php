@@ -37,6 +37,9 @@
                     <a href="<?= site_url(); ?>/gebruiker"><i class="fas fa-users"></i> Manage Users</a>
                 </li>
                 <li>
+                    <a href="<?= site_url(); ?>/email"><i class="fas fa-at"></i> Manage Emails</a>
+                </li>
+                <li>
                     <a href="<?= site_url(); ?>/home/homepagina_lijst"><i class="fas fa-align-justify"></i> View Editions</a>
                 </li>
                 <li>
