@@ -218,7 +218,9 @@ function feedbackSubmit(sessionId)
 
 
 
-</script>
+
+
+
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-lg-12">
