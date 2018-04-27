@@ -1,4 +1,7 @@
 <div id="page-wrapper" class="page-wrapper-fullpage">
+    <div id="notify" class="alert alert-success">
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
     <div class="bewerk">
 
     <div class="row">
@@ -8,10 +11,9 @@
 
         </div>
     </div>
-    
     </div>
     <div class="row intro text">
-        <div class="col-lg-12 col-md-12" contenteditable="true" id="webInhoud">
+        <div class="col-lg-12 col-md-12" contenteditable="true" id="webInhoud" data-edition="<?= $edition->id ?>">
             <?php
             
             if($edition != null){
@@ -26,16 +28,18 @@
 </div>
 <script type="text/javascript">
             $(document).ready(function(argument) {
+                $('#notify').hide();
                 $('#save').click(function(){
                     var edit = $('#webInhoud').html();
+                    var id = $('#webInhoud').data('edition');
                     $.ajax({
                         url: site_url() + '/home/homepagina_update',
                         type: 'post',
-                        data: {homepagina: edit},
+                        data: {homepagina: edit, edition: id},
                         datatype: 'html',
                         success: function(rsp){
-                                alert(rsp);
-                            }
+                            $('#notify').show();
+                        }
                     });
                 });
 
