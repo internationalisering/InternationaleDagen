@@ -25,13 +25,13 @@ class Presence_model extends CI_Model {
 
 
 
-    function enroll($columnId, $userId)
+    function enroll($columnId, $userId, $isSurveillant=false)
     {
         $data = array(
             'id'=>null,
             'gebruikerId'=>$userId,
             'planningKolomId'=>$columnId,
-            'surveillant'=>0,
+            'surveillant'=>$isSurveillant,
             'geselecteerd'=>0
             );
 

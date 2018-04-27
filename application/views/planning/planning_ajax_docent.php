@@ -28,7 +28,26 @@
         class="btn btn-info"
         onclick="btnEnrolledStudents()">View enrolled students
       </button>
+      <?php if($ingeschreven){?>
+          <button 
+            type="button" 
+            title="Als docent kan je je inschrijven als surveillant. Je bent de verantwoordelijke tijdens de lezing en zorgt voor het nemen van aanwezigheden."
+            onclick='withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
+            class="btn btn-danger" 
+           >Withdraw
+          </button>
 
+        <?php } else { ?>
+
+          <button 
+            type="button" 
+            title="Als docent kan je je inschrijven als surveillant. Je bent de verantwoordelijke tijdens de lezing en zorgt voor het nemen van aanwezigheden."
+            onclick='enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
+            class="btn btn-warning"  
+           >Enroll
+          </button>
+
+        <?php } ?>
 
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>

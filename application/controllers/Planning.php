@@ -81,11 +81,11 @@ class Planning extends CI_Controller {
 			
 
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
+			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 
 
 			if($this->authex->isStudent())
 			{
-				$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 				$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
 				$this->load->view('planning/planning_ajax_student.php', $data);
 			} else if($this->authex->isDocent())
@@ -137,6 +137,7 @@ class Planning extends CI_Controller {
 		{
 			$user = $this->authex->getUserInfo();
 			
+
 			if($this->presence_model->isEnrolled($columnId, $user->id))
 			{
 				die("0");
@@ -145,7 +146,7 @@ class Planning extends CI_Controller {
 			{
 				// Hier nog nakijken of student zich wel mag inschrijven !!
 
-				$this->presence_model->enroll($columnId, $user->id);
+				$this->presence_model->enroll($columnId, $user->id, $this->authex->isDocent());
 				die("1");
 
 
