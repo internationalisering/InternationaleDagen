@@ -91,13 +91,10 @@ class Home extends CI_Controller {
 
 	public function homepagina_update() {
 		if($this->authex->checkLoginRedirectByType(4)){
-
 			$this->load->model('edition_model');
 
 			$data = array();
-
 			$data['homepagina'] = trim($this->input->post('homepagina'));
-
 			$data['editionID'] = $this->input->post('edition');
 
 			$this->edition_model->wijzigPagina($data['editionID'], $data['homepagina']);
