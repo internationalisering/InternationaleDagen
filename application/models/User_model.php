@@ -7,10 +7,14 @@ class User_model extends CI_Model {
     /**
      * Constructor
      */
-    function __construct(){
+    function __construct() {
         parent::__construct();
     }
-
+    /**
+     * Geeft terug de gebruiker met id=$id uit de tabel gebruiker
+     * @param $id Het opgegeven id
+     * @return De opgevraagde gebruiker
+     */
     function get($id){
         // geef gebruiker-object met opgegeven $id   
         $this->db->where('id', $id);
@@ -151,5 +155,20 @@ class User_model extends CI_Model {
         return $result;
     }
     
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Geeft terug de gebruikers met gebruikertype=$gebruikertype uit de tabel gebruiker
+     * @param $gebruikertype Het opgegeven gebruikertype
+     * @return De opgevraagde users
+     */
+    function getAllUsersFromType($gebruikertype){
+        $this->db->where('typeId', $gebruikertype);
+        $this->db->where('actief', 1);
+        $query = $this->db->get('gebruiker');
+        $result = $query->result();
+        
+        return $result;
+    }
 }
 ?>

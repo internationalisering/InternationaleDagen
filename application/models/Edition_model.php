@@ -1,10 +1,20 @@
 <?php
+/**
+ * @class Edition_model
+ * Model-klasse voor alle editions (edities)
+ */
 class Edition_model extends CI_Model {
-    
-    function __construct(){
+    /**
+     * Constructor
+     */
+    function __construct() {
         parent::__construct();
     }
-    
+    /**
+     * Geeft terug de editie met id=$id uit de tabel editie
+     * @param $id Het opgegeven id
+     * @return De opgevraagde editie
+     */
     function get($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('editie');
