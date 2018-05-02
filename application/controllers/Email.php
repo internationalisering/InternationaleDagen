@@ -21,7 +21,7 @@ class Email extends CI_Controller {
          * @see Authex
          */
 	public function index(){
-		if($this->authex->isLoggedIn()){
+		if($this->authex->checkLoginRedirectByType(4)){
 			$data['titel'] = 'International Days';
                         
                         $this->load->model('mailtype_model');

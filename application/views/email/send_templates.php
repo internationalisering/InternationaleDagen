@@ -81,7 +81,7 @@
                                         ?>
                                 </div>
                             </div>
-                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button>
+                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button> <a class="btn btn-lg btn-success btn-block" href="<?=site_url() ?>/email">Cancel</a>
                         </fieldset>
                     </form>
                 </div>
