@@ -43,7 +43,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(3)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_home');
-			
+
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
@@ -82,7 +82,7 @@ class Home extends CI_Controller {
 			$data['titel'] = 'Editie bewerken';
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
 
-			$partials = array('template_menu' => 'login-beheerder/template_menu', 
+			$partials = array('template_menu' => 'login-beheerder/template_menu',
 			'template_pagina' => 'login-beheerder/homepagina_bewerk_home');
 
 			$this->template->load('template/template_master', $partials, $data);
@@ -101,5 +101,9 @@ class Home extends CI_Controller {
 
 			$this->load->view('login-beheerder/homepagina_bewerk_succes.php', $data);
 		}
+	}
+
+	public function editieToevoegen() {
+		
 	}
 }
