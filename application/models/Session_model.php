@@ -4,17 +4,13 @@
  * Model-klasse voor alle sessions (sessies)
  */
 class Session_model extends CI_Model {
-    
-     /**
+    /**
      * Constructor
      */
     function __construct() {
         parent::__construct();
     }
-
     /**
-     * @author Brend Simons
-     * 
      * Geeft terug de sessie met id=$id uit de tabel sessie
      * @param $id Het opgegeven id
      * @return De opgevraagde sessie

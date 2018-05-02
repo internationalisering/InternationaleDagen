@@ -1,11 +1,20 @@
 <?php
+/**
+ * @class Feedback_model
+ * Model-klasse voor alle feedback
+ */
 class Feedback_model extends CI_Model {
-    
+    /**
+     * Constructor
+     */
     function __construct() {
         parent::__construct();
     }
-
-  
+    /**
+     * Geeft terug de feedback met id=$id uit de tabel feedback
+     * @param $id Het opgegeven id
+     * @return De opgevraagde feedback
+     */
     function get($sessieId, $gebruikerId)
     {
     	$this->db->where('sessieId', $sessieId);

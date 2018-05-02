@@ -67,7 +67,9 @@
                                     
                                         <?php 
                                         foreach ($types as $type){
-                                            echo"<div id=\"menu" . $type->id . "\" class=\"tab-pane fade\">";
+                                            echo "<div id=\"menu" . $type->id . "\" class=\"tab-pane fade\">";
+                                            echo "<div class=\"form-check\"><input class=\"form-check-input\" type=\"checkbox\" id=\"checktype" . $type->id . "\" name=\"checktype" . $type->id . "\">
+                                                               <label class=\"form-check-label\" for=\"checktype" . $type->id . "\">All</label></div>";
                                                 foreach ($users as $user){
                                                     if ($user->typeId == $type->id){
                                                         echo  "<div class=\"form-check\"><input class=\"form-check-input\" type=\"checkbox\" id=\"check" . $user->id . "\" name=\"check" . $user->id . "\">

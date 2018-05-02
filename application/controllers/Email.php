@@ -103,7 +103,7 @@ class Email extends CI_Controller {
          * @see send_templates.php
          * @see Mailtype_model::getAllTemplates
          * @see User_model::getAllUsersSortByName
-         * @see Type_model::getAllTypes
+         * @see GebruikerType_model::getAllTypes
          */
         public function send(){
                         $data['titel'] = 'International Days';
@@ -145,12 +145,13 @@ class Email extends CI_Controller {
          * Zendt een door de beheerder samengestelde email naar alle aangeduidde personen
          * 
          * @see ajax_email.php
-         * @see User_model::getAllUsers
+         * @see User_model::getAllUsersFromType
+         * @see GebruikerType_model::getAllTypes
          * @see my_email_helper
          */
         public function finish(){
-                        $this->load->model('user_model');
-                        $users = $this->user_model->getAllUsers();
+                        $this->load->model('gebruikertype_model');
+                        $types = $this->gebruikertype_model->getAllTypes();
                         
                         $inhoud = $this->input->post(inhoud);
                         $onderwerp = $this->input->post(onderwerp);
@@ -158,13 +159,26 @@ class Email extends CI_Controller {
                         $trueInhoud = nl2br($inhoud);
                         
                         if($inhoud != null && $onderwerp != null){
-                                foreach($users as $user){
-                                    $used = $this->input->post('check' . $user->id);
-                                    if($used != NULL){
-                                        $email = $user->email;
-                                        sendEmail($email, $onderwerp , $trueInhoud);
-                                }
-                            }
+                            foreach($types as $type) {
+                                $this->load->model('user_model');
+                                $users = $this->user_model->getAllUsersFromType($type->id);  
+                                $allOfType = $this->input->post('checktype' . $type->id);
+                                    if ($allOfType != NULL){
+                                        foreach($users as $user){
+                                                $email = $user->email;
+                                                sendEmail($email, $onderwerp , $trueInhoud);
+                                        } 
+                                    } else {
+                                        foreach($users as $user){
+                                            $used = $this->input->post('check' . $user->id);
+                                            if($used != NULL){
+                                                $email = $user->email;
+                                                sendEmail($email, $onderwerp , $trueInhoud);
+                                            }
+                                        }
+                            
+                                    }
+                        }
                             redirect('/email');
                         } else {
                             redirect('/email/send');
