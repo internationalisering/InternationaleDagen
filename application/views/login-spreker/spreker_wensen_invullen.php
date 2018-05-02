@@ -54,7 +54,7 @@ function hasAnswerValue($answers, $answer){
     return false;
 }
 ?>
-<div id="page-wrapper" class="page-wrapper-fullpage">
+<div id="page-wrapper" class="page-wrapper-fullpage" style="padding-top: 15px !important;">
     <?php $this->notifications->buildNotification(); ?>
     <form action="<?= site_url() ?>/wensen/invullen" method="POST">
         <?php
