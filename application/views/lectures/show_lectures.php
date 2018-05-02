@@ -10,20 +10,19 @@
 ?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-                <table class="table">
+        <div class="col-lg-12">
+                <table width="100%" class="table table-striped table-bordered table-hover" id="tabel-lectures">
                         <thead>
                           <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Language</th>   
-                            <th scope="col">Length</th>
-                            <th scope="col"></th>
+                            <th>Title</th>
+                            <th>Language</th>   
+                            <th>Length</th>
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
                           <?php foreach ($lectures as $lecture){
-                              echo "<tr><th scope=\"row\">" . $lecture->titel . "</th>
+                              echo "<tr class= \"odd gradeX\"><th>" . $lecture->titel . "</th>
                             <td>" . $lecture->taal->naam . "</td>
                             <td>" . $lecture->duur . " min</td>
                             <td><a class=\"btn btn-sm btn-success btn-block\" href=\"" . site_url() . "/lectures/edit/" . $lecture->id ."\">Edit</a></td></tr>";
@@ -34,3 +33,16 @@
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function(){
+    $('#tabel-lectures').DataTable({
+        responsive: true,
+        columnDefs: [
+            {
+                targets: [3],
+                orderable: false
+            }
+        ]
+    });
+});
+</script>

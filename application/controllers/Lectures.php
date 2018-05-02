@@ -21,7 +21,7 @@ class Lectures extends CI_Controller {
          * @see Authex
          */
 	public function index(){
-		if($this->authex->isLoggedIn()){
+		if($this->authex->checkLoginRedirectByType(3)){
 			$data['titel'] = 'International Days';
                         $user = $this->authex->getUserInfo();
                         

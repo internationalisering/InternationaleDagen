@@ -1,10 +1,20 @@
 <?php
+/**
+ * @class Wishquestion_model
+ * Model-klasse voor alle wishquestions (vragen i.v.m. wensen)
+ */
 class WishQuestion_model extends CI_Model {
-    
+    /**
+     * Constructor
+     */
     function __construct() {
         parent::__construct();
     }
-
+    /**
+     * Geeft terug de vraag met id=$id uit de tabel wensVraag
+     * @param $id Het opgegeven id
+     * @return De opgevraagde vraag
+     */
     function get($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('wensVraag');

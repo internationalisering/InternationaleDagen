@@ -1,10 +1,20 @@
 <?php
+/**
+ * @class Presence_model
+ * Model-klasse voor alle presences (aanwezigheden)
+ */
 class Presence_model extends CI_Model {
-    
+    /**
+     * Constructor
+     */
     function __construct() {
         parent::__construct();
     }
-
+    /**
+     * Geeft terug de aanwezigheid met id=$id uit de tabel aanwezigheid
+     * @param $id Het opgegeven id
+     * @return De opgevraagde aanwezigheid
+     */
     function get($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('aanwezigheid');

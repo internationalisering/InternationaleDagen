@@ -25,7 +25,7 @@
                                 <label>Content: </label><textarea class="form-control" rows="15" name="inhoud" required ><?php if($template != null) {echo $template->inhoud;} ?></textarea>
                                 <input class="hidden" name="id" value="<?php if($template != null) {echo $template->id;}else{echo "new";}  ?>">
                             </div>
-                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button>
+                            <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Email Template</button> <a class="btn btn-lg btn-success btn-block" href="<?=site_url() ?>/email">Cancel</a>
                         </fieldset>
                     </form>
                 </div>
