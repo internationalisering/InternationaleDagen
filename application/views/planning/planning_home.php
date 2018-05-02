@@ -217,7 +217,7 @@ function feedbackSubmit(sessionId)
 
 
 
-</script>
+</script> 
 
 
 <div id="page-wrapper" class="page-wrapper-fullpage">
