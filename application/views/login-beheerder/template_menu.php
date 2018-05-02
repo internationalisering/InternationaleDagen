@@ -46,9 +46,9 @@
                     <a href="<?= site_url(); ?>/wensen/beheer"><i class="fas fa-question-circle"></i> Manage Wishes</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>/wensen/beheer"><i class="fas fa-question-circle"></i> Manage Planning</a>
+                    <a href="<?= site_url(); ?>/planning/edit"><i class="fas fa-question-circle"></i> Manage Planning</a>
                 </li>
-                <li>
+                <li>g
                     <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                 </li>
             </ul>
