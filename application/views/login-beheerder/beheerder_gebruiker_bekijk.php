@@ -131,13 +131,51 @@ function getAntwoordVanResultaat($answerList, $resultaat){
             
             echo '
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <b>' . $wq->naam . '</b>
                         <p>' . substr($answersStr, 4) . '</p>
                     </div>
                 </div>
             ';
         }
+    }
+    
+    if(count($lectures) > 0){
+        $i = 0;
+        
+        echo '
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="page-header">Lectures</h2>
+                </div>
+            </div>
+            ';
+        
+        echo '<table width="100%" class="table table-bordered table-hover"><tr><th>Title</th><th>Field</th><th>Duration</th><th>Language</th></tr>';
+        
+        foreach($lectures as $l){
+            $i++;
+            
+            $class = "custom-even";
+            
+            if($i % 2 != 0){
+                $class = 'custom-odd';
+            }
+            
+            echo '
+                <tr class="' . $class . ' row1">
+                    <td>' . $l->titel . '</td>
+                    <td>' . $l->studieGebied . '</td>
+                    <td>' . $l->duur . '</td>
+                    <td>' . $l->taal->naam . '</td>
+                </tr>
+                <tr class="' . $class . ' row2">
+                    <td colspan="4">' . $l->inhoud . '</td>
+                </tr>
+            ';
+        }
+        
+        echo "</table>";
     }
     ?>
 </div>

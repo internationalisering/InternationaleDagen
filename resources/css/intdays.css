@@ -115,3 +115,23 @@ footer {
     font-size: 16px;
     padding-left: 5px;
 }
+
+table tr.custom-odd{
+    background-color: #f9f9f9;
+}
+
+table tr.custom-even.row1 td, table tr.custom-odd.row1 td{
+    border-top-width: 0;
+}
+
+table tr.custom-even.row1, table tr.custom-odd.row1{
+    border-top: 1px solid #969696;
+    border-left: 1px solid #969696;
+    border-right: 1px solid #969696;
+}
+
+table tr.custom-even.row2, table tr.custom-odd.row2{
+    border-bottom: 1px solid #969696;
+    border-left: 1px solid #969696;
+    border-right: 1px solid #969696;
+}

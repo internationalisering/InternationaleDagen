@@ -24,6 +24,7 @@ class Gebruiker extends CI_Controller {
 		    $this->load->model('user_model');
 		    $this->load->model('wishquestion_model');
 		    $this->load->model('wishanswer_model');
+		    $this->load->model('session_model');
 		    
 		    $user = $this->user_model->get($id);
 		    
@@ -32,6 +33,7 @@ class Gebruiker extends CI_Controller {
 	    	    $data['user'] = $user;
 	    	    $data['wishQuestions'] = $this->wishquestion_model->getAllQuestionsVisibleWithAllQuestionAnswers();
 				$data['myAnswers'] = $this->wishanswer_model->getAnswersByUser($id);
+				$data['lectures'] = $this->session_model->getAllSessionsByUser($id);
 	    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bekijk');
 	    		
 	    		$this->template->load('template/template_master', $partials, $data);
