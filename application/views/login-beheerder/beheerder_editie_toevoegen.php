@@ -1,4 +1,4 @@
-<form>
+<form action="post">
   <table>
     <tr>
       <td align="right">Van:</td>
