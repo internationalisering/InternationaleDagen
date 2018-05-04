@@ -5,10 +5,13 @@
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-nav navbar-right nav-custom-left">
+    <ul class="nav navbar-nav  nav-custom-left">
+        <li><a href="<?= site_url(); ?>/planning/">Planning</a></li>
         <li><a href="<?= site_url(); ?>/wensen/invullen">Wishes</a></li>
         <li><a href="<?= site_url(); ?>/lectures">My Lectures</a></li>
-        <li><a href="<?= site_url(); ?>/logout">Logout</a></li>
     </ul>
+	<ul class="nav navbar-nav  nav-custom-left">
+        <li><a href="<?= site_url(); ?>/logout">Logout</a></li>
+	</ul>
     <!-- /.navbar-top-links -->
 </nav>

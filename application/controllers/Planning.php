@@ -83,8 +83,11 @@ class Planning extends CI_Controller {
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 
-
-			if($this->authex->isStudent())
+			if($this->authex->isSpreker())
+			{
+				$this->load->view('planning/planning_ajax_spreker.php', $data);
+			}	
+			else if($this->authex->isStudent())
 			{
 				$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
 				$this->load->view('planning/planning_ajax_student.php', $data);
