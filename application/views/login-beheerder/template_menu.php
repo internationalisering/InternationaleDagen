@@ -49,6 +49,9 @@
                     <a href="<?= site_url(); ?>/planning/edit"><i class="fas fa-question-circle"></i> Manage Planning</a>
                 </li>
                 <li>
+                    <a href="<?= site_url(); ?>/zoeken"><i class="far fa-search"></i> Search</a>
+                </li>
+                <li>
                     <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                 </li>
             </ul>

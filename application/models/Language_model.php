@@ -4,16 +4,13 @@
  * Model-klasse voor alle languages (talen)
  */
 class Language_model extends CI_Model {
-    
-     /**
+    /**
      * Constructor
      */
     function __construct() {
         parent::__construct();
     }
     /**
-     * @author Brend Simons
-     * 
      * Geeft terug de taal met id=$id uit de tabel taal
      * @param $id Het opgegeven id
      * @return De opgevraagde taal

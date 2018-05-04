@@ -37,6 +37,7 @@
                                 </select>
                             </div>
                             <button class="btn btn-lg btn-success btn-block" type="submit" name="send" value="Submit">Submit Lecture</button>
+                            <a class="btn btn-lg btn-success btn-block" href="<?=site_url() ?>/lectures">Cancel</a>
                         </fieldset>
                     </form>
                 </div>

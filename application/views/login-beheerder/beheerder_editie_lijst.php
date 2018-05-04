@@ -12,7 +12,7 @@
                 <th>Edition</th>
                 <th>Student Count</th>
                 <th></th>
-            <?php  
+            <?php
 
             foreach($edition as $ed){
                 $str = $ed->startdatum;
@@ -24,12 +24,19 @@
                     <td>" . $ed->maxHoeveelheid . "</td>
                     <td>" . "<button type='button' class='btn btn-danger'><a href=" . site_url()  . "/home/homepagina_view/" . $ed->id . ">Edit homepage</button>" . "</td>
                 </tr>";
-                }   
+                }
             ?>
-</table>
-   
+            </table>
+
+
+
         </div>
     </div>
+<h3 class="welcomenav">Editie toevoegen</h3>
+    <div class="col-lg-12 col-md-12">
+        <button id="editie" type="button" class="btn btn-danger"><a href="<?= site_url()?>/home/editieToevoegen">Editie toevoegen</a></button>
+      </div>
+
 </div>
 
 <style>
@@ -49,4 +56,29 @@ table a, table a:hover {
         text-decoration: none;
     color: #ffffff;
 }
+
+tr:last-child {
+  border: none;
+}
+
+input {
+  padding: 1%;
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+#editie {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+#editie a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+
 </style>

@@ -1,10 +1,20 @@
 <?php
+/**
+ * @class WishAnswer_model
+ * Model-klasse voor alle wishanswers (antwoorden op vragen)
+ */
 class WishAnswer_model extends CI_Model {
-    
+    /**
+     * Constructor
+     */
     function __construct() {
         parent::__construct();
     }
-
+    /**
+     * Geeft terug het antwoord met id=$id uit de tabel WishAnswer
+     * @param $id Het opgegeven id
+     * @return Het opgevraagde Antwoord
+     */
     function get($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('WishAnswer');

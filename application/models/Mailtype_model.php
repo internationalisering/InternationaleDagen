@@ -1,23 +1,19 @@
 <?php
 /**
  * @class Mailtype_model
- * Model-klasse voor alle Mailtypes (templates van emails)
+ * Model-klasse voor alle mailtypes (templates van emails)
  */
 class Mailtype_model extends CI_Model {
-    
     /**
      * Constructor
      */
     function __construct() {
         parent::__construct();
     }
-
     /**
-     * * @author Brend Simons
-     * 
-     * Geeft terug het template met id=$id uit de tabel mailtype
+     * Geeft terug het template met id=$id uit de tabel mailType
      * @param $id Het opgegeven id
-     * @return Het opgevraagde template.
+     * @return Het opgevraagde template
      */
     function get($id) {
         $this->db->where('id', $id);
