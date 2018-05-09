@@ -16,6 +16,12 @@ class Wensen extends CI_Controller {
         $this->load->model('wishanswer_model');
     }
     
+    /**
+     * Verstuur de beheerder door naar een beheer pagina en de spreker naar een invul pagina.
+     * 
+     * @see Authex
+     * @see template.master.php
+     */
 	public function index(){
 		if($this->authex->checkLoginRedirectByType(3, 4)){
 			if($this->authex->getUserInfo()->typeId == 3){

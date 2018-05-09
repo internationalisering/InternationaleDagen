@@ -12,6 +12,13 @@ class Logout extends CI_Controller {
         parent::__construct();
     }
 	
+	/**
+     * De gebruiker wordt uitgelogd. De gebruiker wordt doorgestuurd naar de homepagina.
+     * 
+     * @see Authex::logout
+     * @see Authex
+     * @see template.master.php
+     */
 	public function index(){
 		$this->authex->logout();
 		
