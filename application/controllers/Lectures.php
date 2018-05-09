@@ -19,6 +19,7 @@ class Lectures extends CI_Controller {
          * @see show_lectures.php
          * @see Session_model::getAllSessionsByUser
          * @see Authex
+         * @see template.master.php
          */
 	public function index(){
 		if($this->authex->checkLoginRedirectByType(3)){
@@ -42,6 +43,7 @@ class Lectures extends CI_Controller {
          * @see edit_lecture.php
          * @see Session_model::get
          * @see Language_model::getAll
+         * @see template.master.php
          */
         public function edit($code){
 		

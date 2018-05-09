@@ -1,3 +1,16 @@
+<?php
+/**
+ * @file spreker_template_menu.php
+ * @author Brend Simons
+ * 
+ * Menu voor de spreker.
+ * 
+ * @see Logout
+ * @see Wensen
+ * @see Lectures
+ * @see Planning
+ */
+?>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">

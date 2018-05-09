@@ -19,6 +19,7 @@ class Email extends CI_Controller {
          * @see beheerder_template_menu.php
          * @see Mailtype_model::getAllTemplates
          * @see Authex
+         * @see template.master.php
          */
 	public function index(){
 		if($this->authex->checkLoginRedirectByType(4)){
@@ -40,6 +41,7 @@ class Email extends CI_Controller {
          * @see beheerder_template_menu.php
          * @see edit_template.php
          * @see Mailtype_model::get
+         * @see template.master.php
          */
         public function edit($code){
 		
@@ -104,6 +106,7 @@ class Email extends CI_Controller {
          * @see Mailtype_model::getAllTemplates
          * @see User_model::getAllUsersSortByName
          * @see GebruikerType_model::getAllTypes
+         * @see template.master.php
          */
         public function send(){
                         $data['titel'] = 'International Days';
@@ -144,7 +147,6 @@ class Email extends CI_Controller {
         /**
          * Zendt een door de beheerder samengestelde email naar alle aangeduidde personen
          * 
-         * @see ajax_email.php
          * @see User_model::getAllUsersFromType
          * @see GebruikerType_model::getAllTypes
          * @see my_email_helper

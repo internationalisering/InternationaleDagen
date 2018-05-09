@@ -16,6 +16,7 @@ class Activation extends CI_Controller {
          * @see activate_user.php
          * @see reset_menu.php
          * @see Authex
+         * @see template.master.php
          */
 	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
@@ -32,6 +33,7 @@ class Activation extends CI_Controller {
          * @see reset_menu.php
          * @see User_model::getUserFromEmail
          * @see User_model::update
+         * @see template.master.php
          */
         public function finish(){
                         $data['titel'] = 'International Days';
