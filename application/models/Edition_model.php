@@ -45,7 +45,29 @@ class Edition_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('editie');
     }
-
-
+    
+    function search($text, $previousEditions, $columns){
+        $this->db->from('editie');
+        
+        $first = true;
+        
+        foreach($columns as $column){
+            if($first){
+                $first = false;
+                
+                $this->db->like($column, $text);
+            }else{
+                $this->db->or_like($column, $text);
+            }
+        }
+        
+        if(!$previousEditions){
+            $this->db->order_by('id', 'DESC');
+            $this->db->limit(1);
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>

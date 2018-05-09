@@ -32,5 +32,24 @@ class Language_model extends CI_Model {
         $result = $query->result();
         return $result;
     }
+    
+    function search($text, $previousEditions, $columns){
+        $this->db->from('taal');
+        
+        $first = true;
+        
+        foreach($columns as $column){
+            if($first){
+                $first = false;
+                
+                $this->db->like($column, $text);
+            }else{
+                $this->db->or_like($column, $text);
+            }
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>

@@ -72,5 +72,37 @@ class Session_model extends CI_Model {
         $this->db->update('sessie', $sessie);
         return 1;
     }
+    
+    function search($text, $previousEditions, $columns){
+         if(!$previousEditions){
+             $this->load->model("edition_model");
+            $lastEdition = $this->edition_model->getLastEdition();
+        }
+        
+        $this->db->from('sessie');
+        
+        $first = true;
+        
+        $this->db->group_start();
+        
+        foreach($columns as $column){
+            if($first){
+                $first = false;
+                
+                $this->db->like($column, $text);
+            }else{
+                $this->db->or_like($column, $text);
+            }
+        }
+        
+        $this->db->group_end();
+        
+        if(isset($lastEdition)){
+            $this->db->where('editieId', $lastEdition->id);
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>
