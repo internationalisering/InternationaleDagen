@@ -3,11 +3,10 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="welcomenav">International Days</h3>
-            <!--Titel verkeerd -->
         </div>
     </div>
     
-    <a href="/edit"><button type="button" class="btn btn-danger" style="color: white;">Webpagina aanpassen</button></a>
+    <a href="/edit"><button type="button" class="btn btn-danger" style="color: white;">Change homepages</button></a>
     
     
     <div class="row intro">

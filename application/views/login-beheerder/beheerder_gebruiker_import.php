@@ -19,7 +19,7 @@
     </table>
 
 
-<label id="typeUser">Kies hier het type gebruiker dat je wilt importeren: </label>
+<label id="typeUser">Choose the type of user you want to import: </label>
   <select name="type">
       <?php
       foreach ($type as $t) {

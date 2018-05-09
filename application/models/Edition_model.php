@@ -46,6 +46,11 @@ class Edition_model extends CI_Model {
         $this->db->update('editie');
     }
 
+    function insert($edition) {
+        $this->db->insert('editie', $edition);
+        return 1;
+    }
+
 
 }
 ?>
