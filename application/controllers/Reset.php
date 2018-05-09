@@ -16,6 +16,7 @@ class Reset extends CI_Controller {
          * @see reset_email.php
          * @see reset_menu.php
          * @see Authex
+         * @see template.master.php
          */
 	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
@@ -39,6 +40,7 @@ class Reset extends CI_Controller {
          * @see User_model::update
          * @see my_email_helper
          * @see Home
+         * @see template.master.php
          */
 	public function email(){
 		$email = $this->input->post('email');
@@ -82,6 +84,7 @@ class Reset extends CI_Controller {
          * @param $code De persoonlijke code om een wachtwoord te resetten
          * @see reset_menu.php
          * @see reset_pass.php
+         * @see template.master.php
          */
 	public function reset($code){
                         $data['titel'] = 'International Days';
@@ -101,6 +104,7 @@ class Reset extends CI_Controller {
          * @see reset_succes.php
          * @see User_model::getUserFromPwdCode
          * @see User_model::update
+         * @see template.master.php
          */
         public function pass(){
                         $data['titel'] = 'International Days';

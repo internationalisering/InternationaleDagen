@@ -1,3 +1,15 @@
+<?php
+/**
+ * @file login-student/template_menu.php
+ * @author Brend Simons
+ * 
+ * Menu voor de student.
+ * 
+ * @see Logout
+ * @see Home
+ * @see Planning
+ */
+?>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
