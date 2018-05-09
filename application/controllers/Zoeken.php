@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Zoeken
+ * @author Brend Simons
+ * 
+ * Controller-klasse voor het zoeken in alle tabellen
+ */
 class Zoeken extends CI_Controller {
 
 	public function __construct(){
