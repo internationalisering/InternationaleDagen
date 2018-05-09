@@ -198,7 +198,7 @@ var µ = {
         if($("#search-text").val() == ""){
             $("#results").html("");
         }else{
-            $.get(base_url() + "/zoeken/zoek?text=" + encodeURI($("#search-text").val()) + "&previousEditions=" + $("#search-previouseditions").val(), function(data){
+            $.get(site_url() + "/zoeken/zoek?text=" + encodeURI($("#search-text").val()) + "&previousEditions=" + $("#search-previouseditions").val(), function(data){
                 $("#results").html(data);
             });
         }
