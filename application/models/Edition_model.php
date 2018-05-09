@@ -45,6 +45,15 @@ class Edition_model extends CI_Model {
         $this->db->where('id', $id);
         $this->db->update('editie');
     }
+<<<<<<< HEAD
+
+    function insert($edition) {
+        $this->db->insert('editie', $edition);
+        return 1;
+    }
+
+
+=======
     
     function search($text, $previousEditions, $columns){
         $this->db->from('editie');
@@ -69,5 +78,6 @@ class Edition_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+>>>>>>> e051bfe3076d089557393cb5a462acbf8e670913
 }
 ?>

@@ -2,9 +2,11 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="welcomenav">Lijst van edities</h3>
+            <h3 class="welcomenav">List of editions</h3>
         </div>
     </div>
+
+    <?php $this->notifications->buildNotification(); ?>
 
     <div class="row intro text">
         <div class="col-lg-12 col-md-12">
@@ -32,10 +34,35 @@
 
         </div>
     </div>
-<h3 class="welcomenav">Editie toevoegen</h3>
-    <div class="col-lg-12 col-md-12">
-        <button id="editie" type="button" class="btn btn-danger"><a href="<?= site_url()?>/home/editieToevoegen">Editie toevoegen</a></button>
-      </div>
+<h3 class="welcomenav">Add a new edition </h3>
+<div class="col-lg-12 col-md-12" id="newEdition">
+
+<form action="<?= site_url()?>/home/editieToevoegen" method="POST">
+  <table>
+    <tr>
+      <td align="right">From:</td>
+      <td align="left"><input type="date" name="dateFrom"  value="<?php echo date('Y-m-d'); ?>"/></td>
+    </tr>
+    <tr>
+      <td align="right">To:</td>
+      <td align="left"><input type="date" name="dateTo"  value="<?php echo date('Y-m-d'); ?>"/></td>
+    </tr>
+    <tr>
+      <td align="right">Student count:</td>
+      <td align="left"><input type="text" name="aantalLeerlingen" /></td>
+    </tr>
+  </table>
+
+        <div class="row" id="groupButton">
+            <div class="col-lg-12">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary" name="submit" value="submit">Create</button>
+                </div>
+            </div>
+        </div>
+        </div>
+</form>
+
 
 </div>
 
@@ -80,5 +107,13 @@ input {
   color: #ffffff;
 }
 
+#groupButton {
+    padding: 2%;
+}
+
+#newEdition {
+    padding: 2%;
+    margin-bottom: 40px;
+}
 
 </style>

@@ -129,7 +129,7 @@
                     <button type="submit" class="btn btn-primary" name="submit" value="submit">Save</button>
                 </div>
                 <div class="btn-group">
-                    <a href="<?=site_url() ?>gebruiker" class="btn btn-default">Cancel</a>
+                    <a href="<?=site_url() ?>/gebruiker" class="btn btn-default">Cancel</a>
                 </div>
             </div>
         </div>

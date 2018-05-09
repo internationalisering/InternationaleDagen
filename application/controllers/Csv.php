@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * @class Email
+ * @class Csv
  * @author Vincent Duchateau
  * 
  * Controller-klasse voor het beheren en verzenden van emails

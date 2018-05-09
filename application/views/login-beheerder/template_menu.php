@@ -59,13 +59,13 @@
                     <a href="<?= site_url(); ?>/home/homepagina_lijst"><i class="fas fa-align-justify"></i> View Editions</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>/wensen/beheer"><i class="fas fa-question-circle"></i> Manage Wishes</a>
+                    <a href="<?= site_url(); ?>/wensen/beheer"><i class="fas fa-star"></i> Manage Wishes</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>/planning/edit"><i class="fas fa-question-circle"></i> Manage Planning</a>
+                    <a href="<?= site_url(); ?>/planning/edit"><i class="fas fa-calendar-alt"></i> Manage Planning</a>
                 </li>
                 <li>
-                    <a href="<?= site_url(); ?>/zoeken"><i class="far fa-search"></i> Search</a>
+                    <a href="<?= site_url(); ?>/zoeken"><i class="fas fa-search"></i> Search</a>
                 </li>
                 <li>
                     <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>

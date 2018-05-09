@@ -107,7 +107,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
 
-			$data['titel'] = 'Lijst van edities';
+			$data['titel'] = 'List of editions';
 
 			$data['edition'] = $this->edition_model->getAllEditions();
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
@@ -125,7 +125,7 @@ class Home extends CI_Controller {
 			$edition = $this->edition_model->get($id);
 
 			$data['edition'] = $edition;
-			$data['titel'] = 'Editie bewerken';
+			$data['titel'] = 'Edit editions';
 			$data['verantwoordelijke'] = 'Vincent Duchateau';
 
 			$partials = array('template_menu' => 'login-beheerder/template_menu',
@@ -145,14 +145,34 @@ class Home extends CI_Controller {
 
 			$this->edition_model->wijzigPagina($data['editionID'], $data['homepagina']);
 
-			$this->load->view('login-beheerder/homepagina_bewerk_succes.php', $data);
+			$this->notifications->createNotification("Homepage changed successfully!", "success", true);
+
+			
+
+			$partials = array('template_menu' => 'login-beheerder/template_menu',
+			'template_pagina' => 'login-beheerder/beheerder_editie_lijst');
+
+			$this->template->load('template/template_master', $partials, $data);
+
 		}
 	}
 
 	public function editieToevoegen() {
-		new StdClass();
+		if($this->authex->checkLoginRedirectByType(4)){
+				$this->load->model('edition_model');
 
-		
+				$edition = new stdClass();
+				$edition->startdatum = $this->input->post('dateFrom');
+			    $edition->einddatum = $this->input->post('dateTo');
+				$edition->maxHoeveelheid = $this->input->post('aantalLeerlingen');
+				$insert = $this->edition_model->insert($edition);
+
+				if ($insert == 1) {
+					redirect('home/homepagina_lijst');
+					$this->notifications->createNotification("The edition with startdate <b>$edition->startdatum</b> and enddate: <b>$edition->einddatum</b> is succesfully created!");
+				}
+
+				
+		}
 	}
-	
 }
