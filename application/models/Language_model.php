@@ -35,8 +35,7 @@ class Language_model extends CI_Model {
     
     function search($text, $previousEditions, $columns){
         $this->db->from('taal');
-        if($text != '*')
-        {
+        
         $first = true;
         
         foreach($columns as $column){
@@ -48,7 +47,7 @@ class Language_model extends CI_Model {
                 $this->db->or_like($column, $text);
             }
         }
-        }
+        
         $query = $this->db->get();
         return $query->result();
     }

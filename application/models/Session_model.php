@@ -80,8 +80,7 @@ class Session_model extends CI_Model {
         }
         
         $this->db->from('sessie');
-        if($text != '*')
-        {
+        
         $first = true;
         
         $this->db->group_start();
@@ -97,7 +96,7 @@ class Session_model extends CI_Model {
         }
         
         $this->db->group_end();
-        }
+        
         if(isset($lastEdition)){
             $this->db->where('editieId', $lastEdition->id);
         }
