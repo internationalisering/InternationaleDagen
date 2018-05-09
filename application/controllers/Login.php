@@ -12,6 +12,15 @@ class Login extends CI_Controller {
         parent::__construct();
     }
 	
+	/**
+     * Toont de pagina waarop de gebruikers kunnen inloggen. Verwerkt ook de gegevens wanneer het inlog formulier verstuurd word.
+     * 
+     * @see logout_login.php
+     * @see logout/template_menu.php
+     * @see Authex::login
+     * @see Authex
+     * @see template.master.php
+     */
 	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
 			$data['titel'] = 'International Days';
