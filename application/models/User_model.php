@@ -173,7 +173,8 @@ class User_model extends CI_Model {
     
     function search($text, $previousEditions, $columns){
         $this->db->from('gebruiker');
-        
+        if($text != '*')
+        {
         $first = true;
         
         foreach($columns as $column){
@@ -186,6 +187,7 @@ class User_model extends CI_Model {
             }
         }
         
+        }
         $query = $this->db->get();
         return $query->result();
     }
