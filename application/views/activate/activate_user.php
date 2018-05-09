@@ -5,7 +5,7 @@
  * 
  * Pagina waar we onze gebruiker kunnen activeren.
  * 
- * @see Reset
+ * @see Activation
  */
 ?>
 <div id="page-wrapper" class="page-wrapper-fullpage">

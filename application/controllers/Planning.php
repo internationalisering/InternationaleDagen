@@ -49,8 +49,15 @@ class Planning extends CI_Controller {
 				}
 			}
 			
-			
-			$partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
+                        if($user->typeId = 1){
+                            $partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
+                        } else if($user->typeId = 2){
+                            $partials = array('template_menu' => 'login-docent/template_menu.php', 'template_pagina' => 'planning/planning_home');
+                        } else if($user->typeId = 3){
+                            $partials = array('template_menu' => 'login-spreker/template_menu.php', 'template_pagina' => 'planning/planning_home');
+                        } else if($user->typeId = 4){
+                            $partials = array('template_menu' => 'login-beheerder/template_menu.php', 'template_pagina' => 'planning/planning_home');
+                        }
 			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
 		} else 
@@ -83,8 +90,11 @@ class Planning extends CI_Controller {
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 
-
-			if($this->authex->isStudent())
+			if($this->authex->isSpreker())
+			{
+				$this->load->view('planning/planning_ajax_spreker.php', $data);
+			}	
+			else if($this->authex->isStudent())
 			{
 				$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
 				$this->load->view('planning/planning_ajax_student.php', $data);

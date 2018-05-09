@@ -31,5 +31,24 @@ class GebruikerType_model extends CI_Model {
         $query = $this->db->get('gebruikerType');
         return $query->result();
     }
+    
+    function search($text, $previousEditions, $columns){
+        $this->db->from('gebruikerType');
+        
+        $first = true;
+        
+        foreach($columns as $column){
+            if($first){
+                $first = false;
+                
+                $this->db->like($column, $text);
+            }else{
+                $this->db->or_like($column, $text);
+            }
+        }
+        
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
 ?>

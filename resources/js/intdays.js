@@ -193,5 +193,16 @@ var µ = {
                 $("#" + id + " .wq-options").html(html);
             }
         }
+    },
+    search: function(){
+        if($("#search-text").val() == ""){
+            $("#results").html("");
+        }else{
+            $.get(base_url() + "/zoeken/zoek?text=" + encodeURI($("#search-text").val()) + "&previousEditions=" + $("#search-previouseditions").val(), function(data){
+                $("#results").html(data);
+            });
+        }
+        
+        return false;
     }
 };
