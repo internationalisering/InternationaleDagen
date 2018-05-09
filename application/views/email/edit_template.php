@@ -1,6 +1,6 @@
 <?php
 /**
- * @file edit_templates.php
+ * @file edit_template.php
  * @author Quinten van Casteren
  * 
  * Pagina waar de beheerder een emailtemplate kan aanmaken of aanpassen.

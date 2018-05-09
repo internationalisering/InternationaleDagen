@@ -1,6 +1,6 @@
 <?php
 /**
- * @file student_template_menu.php
+ * @file login-student/template_menu.php
  * @author Brend Simons
  * 
  * Menu voor de student.

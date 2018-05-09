@@ -1,6 +1,6 @@
 <?php
 /**
- * @file docent_template_menu.php
+ * @file login-docent/template_menu.php
  * @author Brend Simons
  * 
  * Menu voor de docent.

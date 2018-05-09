@@ -16,7 +16,7 @@ class Email extends CI_Controller {
          * Zendt de beheerder door naar een pagina met alle emailtemplates. Deze worden opgehaalt via getAllTemplates().
          * 
          * @see show_templates.php
-         * @see beheerder_template_menu.php
+         * @see login-beheerder/template_menu.php
          * @see Mailtype_model::getAllTemplates
          * @see Authex
          * @see template.master.php
@@ -38,7 +38,7 @@ class Email extends CI_Controller {
          * Zendt de beheerder door naar een pagina waarin hij zijn emailtemplate kan aanpassen in een form. Dit template wordt opgehaalt via get(().
          * 
          * @param $code De Id van het geselecteerde template. Dit is "new" voor een nieuw template.
-         * @see beheerder_template_menu.php
+         * @see login-beheerder/template_menu.php
          * @see edit_template.php
          * @see Mailtype_model::get
          * @see template.master.php
@@ -101,7 +101,7 @@ class Email extends CI_Controller {
         /**
          * Zendt de beheerder door naar een pagina waar hij een email kan samenstellen. 
          * 
-         * @see beheerder_template_menu.php
+         * @see login-beheerder/template_menu.php
          * @see send_templates.php
          * @see Mailtype_model::getAllTemplates
          * @see User_model::getAllUsersSortByName

@@ -1,6 +1,6 @@
 <?php
 /**
- * @file beheerder_template_menu.php
+ * @file login-beheerder/template_menu.php
  * @author Brend Simons
  * 
  * Menu voor de beheerder.

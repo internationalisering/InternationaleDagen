@@ -15,7 +15,7 @@ class Lectures extends CI_Controller {
         /**
          * Zendt de spreker door naar een pagina met al zijn eigen lectures. Deze worden opgehaalt door getAllSessionsByUser().
          * 
-         * @see spreker_template_menu.php
+         * @see login-spreker/template_menu.php
          * @see show_lectures.php
          * @see Session_model::getAllSessionsByUser
          * @see Authex
@@ -39,7 +39,7 @@ class Lectures extends CI_Controller {
          * Zendt de spreker door naar een pagina waar hij een sessie kan aanpassen of aanmaken. De gegevens hiervoor worden opgehaald via $code en dan doorgestuurd naar edit_lectures.php.
          * 
          * @param $code De code van de sessie die aangepast moet worden. Indien deze "new" is, is dit een nieuwe sessie.
-         * @see spreker_template_menu.php
+         * @see login-spreker/template_menu.php
          * @see edit_lecture.php
          * @see Session_model::get
          * @see Language_model::getAll

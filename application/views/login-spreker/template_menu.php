@@ -1,6 +1,6 @@
 <?php
 /**
- * @file spreker_template_menu.php
+ * @file login-spreker/template_menu.php
  * @author Brend Simons
  * 
  * Menu voor de spreker.
