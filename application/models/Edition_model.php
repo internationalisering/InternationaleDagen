@@ -10,11 +10,13 @@ class Edition_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
     /**
      * Geeft terug de editie met id=$id uit de tabel editie
      * @param $id Het opgegeven id
      * @return De opgevraagde editie
      */
+
     function get($id) {
         $this->db->where('id', $id);
         $query = $this->db->get('editie');
@@ -50,8 +52,6 @@ class Edition_model extends CI_Model {
         $this->db->insert('editie', $edition);
         return 1;
     }
-
-
     
     function search($text, $previousEditions, $columns){
         $this->db->from('editie');
