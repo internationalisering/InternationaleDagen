@@ -1,12 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Home
+ * @author Brend Simons
+ * 
+ * Controller-klasse voor het bekijken van de homepagina voor elke gebruiker
+ */
 class Home extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
     }
-
+    
+    /**
+     * Toont de homepagina van een gebruiker die niet ingelogd is. Als de gebruiker werl ingelogd is, zal deze doorverwezen worden naar een andere homepagina.
+     * 
+     * @see logout_home.php
+     * @see logout/template_menu.php
+     * @see Edition_model::getLastEdition
+     * @see Authex
+     * @see template.master.php
+     */
 	public function index(){
 		if($this->authex->checkLoginRedirectToHome()){
 			$this->load->model('edition_model');
@@ -20,7 +34,15 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
-
+	
+	/**
+     * Toont de homepagina van een student die ingelogd is.
+     * 
+     * @see student_home.php
+     * @see login-student/template_menu.php
+     * @see Authex
+     * @see template.master.php
+     */
 	public function student(){
 		if($this->authex->checkLoginRedirectByType(1)){
 			$data['titel'] = 'International Days';
@@ -29,7 +51,15 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
-
+	
+	/**
+     * Toont de homepagina van een docent die ingelogd is.
+     * 
+     * @see docent_home.php
+     * @see login-docent/template_menu.php
+     * @see Authex
+     * @see template.master.php
+     */
 	public function docent(){
 		if($this->authex->checkLoginRedirectByType(2)){
 			$data['titel'] = 'International Days';
@@ -38,7 +68,15 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
-
+	
+	/**
+     * Toont de homepagina van een spreker die ingelogd is.
+     * 
+     * @see spreker_home.php
+     * @see login-spreker/template_menu.php
+     * @see Authex
+     * @see template.master.php
+     */
 	public function spreker(){
 		if($this->authex->checkLoginRedirectByType(3)){
 			$data['titel'] = 'International Days';
@@ -47,7 +85,15 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
-
+	
+	/**
+     * Toont de homepagina van een beheerder die ingelogd is.
+     * 
+     * @see beheerder_home.php
+     * @see login-beheerder/template_menu.php
+     * @see Authex
+     * @see template.master.php
+     */
 	public function beheerder(){
 		if($this->authex->checkLoginRedirectByType(4)){
 			$data['titel'] = 'International Days';

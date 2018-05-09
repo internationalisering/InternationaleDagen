@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Wensen
+ * @author Brend Simons
+ * 
+ * Controller-klasse voor het beheren en invullen van wensen
+ */
 class Wensen extends CI_Controller {
 
 	public function __construct(){

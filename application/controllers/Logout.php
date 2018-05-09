@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Logout
+ * @author Brend Simons
+ * 
+ * Controller-klasse voor het uitloggen
+ */
 class Logout extends CI_Controller {
 	
 	public function __construct(){
