@@ -1,4 +1,111 @@
 var µ = {
+    planning_view:
+    {
+        initialize: function()
+        {
+            $('.planning-child-tick').click(function(obj)
+            {
+                var columnId = $(this).data('column-id');
+                µ.planning_view.viewColumn(columnId);
+            })
+        },
+
+        viewColumn: function(columnId)
+        {
+            $.ajax({
+                url: site_url() + "/planning/viewColumn/" + columnId, 
+                success: function(result)
+                {
+                    $('#modal-content').html(result);
+                    $('#modal').modal();
+                }
+            });
+        },
+        showHelp: function()
+        {
+            $.ajax({
+                url: site_url() + "/planning/help/", 
+                success: function(result){
+                $('#modal-content').html(result);
+                $('#modal').modal();
+
+            }});
+        },
+
+        btnEnrolledStudents: function()
+        {
+            $('#enrolledStudents').slideToggle();
+
+        },
+        enroll: function(columnId)
+        {
+             $.ajax({
+                url: site_url() + "/planning/enroll/" + columnId, 
+                success: function(result){
+                    µ.planning_view.viewColumn(columnId);
+                    µ.planning_view.setEnrolled(columnId, true);
+
+            }});  
+        },
+        withdraw: function(columnId)
+        {
+             $.ajax({
+                url: site_url() + "/planning/withdraw/" + columnId, 
+                success: function(result){
+                    µ.planning_view.viewColumn(columnId);
+                    µ.planning_view.setEnrolled(columnId, false);
+
+            }});  
+        },
+        setEnrolled: function(columnId, bool)
+        {
+            $('.planning-child-activity').each(function(index, object)
+            {
+                var _columnId = $(object).data('column-id');
+                if(columnId == _columnId )
+                {
+                    if(bool)
+                    {
+                        $(object).addClass('planning-child-activity-enrolled');
+                        $(object).removeClass('planning-child-activity-not-enrolled');
+                    }
+                    else 
+                    {   
+                        $(object).addClass('planning-child-activity-not-enrolled');
+                        $(object).removeClass('planning-child-activity-enrolled');
+                    }
+                }
+                
+            });
+        },
+        feedback: function()
+        {
+            $('.planning-feedback').slideDown();
+
+        },
+        feedbackSubmit: function(sessionId)
+        {
+            $.ajax({
+                url: site_url() + "/planning/feedback/" + sessionId, 
+                data: {feedback: $('#feedback').val()},
+                type: "POST",
+
+                success: function(result)
+                {
+                    $('.planning-feedback').slideUp();
+                }
+
+            }); 
+        }
+    },
+    planning_edit: 
+    {
+        initialize: function()
+        {
+
+        }
+        
+    },
     wensen_formulier: {
         newid: 1,
         toggleVisibility: function(icon){

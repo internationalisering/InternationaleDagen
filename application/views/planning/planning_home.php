@@ -1,126 +1,16 @@
 <!-- TIJDELIJKE STYLE! Moet naar style.css... -->
 <script>
-
 $(document).ready(function()
-{   
-
-
-    $('.planning-child-tick').click(function(obj)
-    {
-        var columnId = $(this).data('column-id');
-        viewColumn(columnId);
-    })
-
+{
+	µ.planning_view.initialize();
 });
-
-function viewColumn(columnId)
-{
-    $.ajax({
-        url: site_url() + "/planning/viewColumn/" + columnId, 
-        success: function(result){
-        $('#modal-content').html(result);
-        $('#modal').modal();
-
-    }});
-}
-
-function showHelp()
-{
-    $.ajax({
-        url: site_url() + "/planning/help/", 
-        success: function(result){
-        $('#modal-content').html(result);
-        $('#modal').modal();
-
-    }});
-}
-
-function btnEnrolledStudents()
-{
-    $('#enrolledStudents').slideToggle();
-}
-
-function enroll(columnId)
-{
-
-    $.ajax({
-        url: site_url() + "/planning/enroll/" + columnId, 
-        success: function(result){
-            viewColumn(columnId);
-            setEnrolled(columnId, true);
-
-    }});  
-}
-
-function withdraw(columnId)
-{
-
-    $.ajax({
-        url: site_url() + "/planning/withdraw/" + columnId, 
-        success: function(result){
-            viewColumn(columnId);
-            setEnrolled(columnId, false);
-
-    }});  
-}
-
-
-function setEnrolled(columnId, bool)
-{
-
-    $('.child-activity').each(function(index, object)
-    {
-        var _columnId = $(object).data('column-id');
-        if(columnId == _columnId )
-        {
-            if(bool)
-            {
-                $(object).addClass('planning-child-activity-enrolled');
-                $(object).removeClass('planning-child-activity-not-enrolled');
-            }
-            else 
-            {   
-                $(object).addClass('planning-child-activity-not-enrolled');
-                $(object).removeClass('planning-child-activity-enrolled');
-            }
-        }
-        
-    });
-}
-
-function feedback()
-{
-    $('.planning-feedback').slideDown();
-}
-
-function feedbackSubmit(sessionId)
-{
-     $.ajax({
-        url: site_url() + "/planning/feedback/" + sessionId, 
-        data: {feedback: $('#feedback').val()},
-        type: "POST",
-
-        success: function(result)
-        {
-            $('.planning-feedback').slideUp();
-        }
-
-    }); 
-
-
-}
-
-//function 
-
-
-
 </script> 
 
 
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="welcomenav"><?= $titel ?>  <button class="btn btn-primary" onclick="showHelp();"><i class="fas fa-question-circle"></i></button></h3>
+            <h3 class="welcomenav"><?= $titel ?>  <button class="btn btn-primary" onclick="µ.planning_view.showHelp();"><i class="fas fa-question-circle"></i></button></h3>
         </div>
     </div>
     <div class="row intro">

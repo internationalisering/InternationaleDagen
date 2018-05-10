@@ -10,7 +10,7 @@
     <p>
       <textarea rows=5 cols=50 placeholder="Feedback will be reviewed" name="feedback" id="feedback"><?= isset($feedback->inhoud) ? $feedback->inhoud : '' ?></textarea>
     </p>
-    <button class="btn btn-primary" onclick="feedbackSubmit(<?= $column->sessie->id; ?>)">Submit</button>
+    <button class="btn btn-primary" onclick="µ.planning_view.feedbackSubmit(<?= $column->sessie->id; ?>)">Submit</button>
 
   </div>
 </div>
@@ -18,14 +18,14 @@
     <span><?= $aantalIngeschreven ?>/<?= $column->maxHoeveelheid ?>&nbsp;</span>
     <button 
         type="button"
-        onclick='feedback(<?= $column->id ?>)'
+        onclick='µ.planning_view.feedback(<?= $column->id ?>)'
         class="btn btn-info">Feedback
       </button>
 
     <?php if($ingeschreven){?>
       <button 
         type="button" 
-        onclick='withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
+        onclick='µ.planning_view.withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
         class="btn btn-danger" 
        >Withdraw
       </button>
@@ -34,7 +34,7 @@
 
       <button 
         type="button" 
-        onclick='enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
+        onclick='µ.planning_view.enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
         class="btn btn-warning"  
        >Enroll
       </button>
