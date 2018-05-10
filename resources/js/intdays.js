@@ -102,9 +102,164 @@ var µ = {
     {
         initialize: function()
         {
+            µ.planning_edit.updateSortable();
+            µ.planning_edit.resizeItems();
+        },
+        updateSortable: function()
+        {
+            $( ".sortable" ).sortable({
+                connectWith: ".sortable",
+                stop: µ.planning_edit.resizeItems
+            }).disableSelection();
+        },
+        updateChildren: function()
+        {
+            $('.child').each(function(index, child)
+            {
+                var child = $(child);
+
+                child.html( child.data('title') + '<div class="child-tick">v</div>' );
+            })
+        },
+        addRow: function()
+        {
+            $('.row-buttons').before("<div class='row-parent' data-row-id=''><div class='info'><input type='text' class='time'>:<input type='text' class='time'></div><div  class='sortable sortable-row'></div></div>");       
+            µ.planning_edit.updateRowIds();
+        },
+        updateRowIds: function()
+        {
+            $('.row-parent').each(function(index, object)
+            {
+                $(object).attr('data-row-id', index);
+            });
+        },
+        checkExcessRows: function()
+        {
+           // Voeg rij toe indien nodig
+            $('.row-parent').last().each(function(index, row)
+            {   
+                var rowId = $(row).data('row-id');
+                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.sortable') );
+                
+                if(childrenCount > 0) // Rij toevoegen
+                {
+                    µ.planning_edit.addRow();
+                    µ.planning_edit.updateSortable();
+                }
+            }); 
+
+            // Verwijder overbodige rijen 
+            var eersteElement = true;
+            $('.row-parent').each(function(index, row)
+            {
+                var rowId = $(row).data('row-id');
+                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.sortable') );
+                    
+                if(childrenCount == 0)
+                {   
+                    if(eersteElement)
+                        eersteElement = false;
+                    else 
+                        $(row).remove();
+                }
+
+            });
+
+                    // Toon uren van volgende rij al
+            $('.row-parent').each(function(index, row)
+            {
+                var rowId = $(row).data('row-id');
+                µ.planning_edit.toggleInfo( rowId, µ.planning_edit.getRowChildCount( $(row).find('.sortable') ) );
+            });
+        },
+        toggleInfo: function(rowId, bool)
+        {
+            var info = $('div[data-row-id='+rowId+'] > .info');
+            if(bool)
+                info.show();
+            else 
+                info.hide();
+        },
+        addItem: function(rowId)
+        {
+            $('div[data-row-id='+rowId+'] > div.sortable').append('<div class="child">test</div>');
+        },
+        addAddButton: function()
+        {
+            $('.row-buttons').html('');
+            $('.row-buttons').append("<div class='sortable'><div class='new-child button'>Add</div></div><div class='button remove-child'>Remove</div>");
+            µ.planning_edit.updateSortable();
+        },
+        getRowChildCount: function(row)
+        {
+            var count = 0;
+            row.children().each(function(index, object)
+            {
+                object = $(object);
+                if(object.hasClass('child'))
+                    count++;
+            });
+
+            return count;
+        },
+        removeButtons: function()
+        {
+            $('.row-buttons > div').each(function(index, child)
+            {
+                child = $(child);
+
+                //if(child.data(''))
+            });
+        },
+        
+        resizeItems: function()
+        {
+            // Kijken of er nieuw item toegevoegd is
+            $('.sortable-row div').each(function(index, child)
+            {
+                if($(child).hasClass('new-child'))
+                {
+                    var rowId = $(child).parent().parent().data('row-id');
+                    if(rowId != 'undefined')
+                        µ.planning_edit.addItem(rowId);
+
+                    µ.planning_edit.addAddButton();
+                    $(child).remove();
+                }
+                else if($(child).hasClass('remove-child'))
+                {
+                    $(child).remove();
+                }
+            });
+            // Check if rows need to be added / hidden
+            µ.planning_edit.checkExcessRows();
+
+
+
+            // Set widths of all elements
+            $('.sortable').each(function(index, row)
+            {
+
+                row = $(row);
+
+
+                var childrenCount = µ.planning_edit.getRowChildCount(row);
+                
+                row.children().each(function(i, child)
+                {
+                    var calculatedWidth = (500/childrenCount)-((childrenCount-1)*6);
+
+                    child = $(child);
+
+                    if(child.hasClass('child'))
+                        child.css('width', calculatedWidth )
+
+                })
+            });
+            µ.planning_edit.updateChildren();
 
         }
-        
+
     },
     wensen_formulier: {
         newid: 1,
