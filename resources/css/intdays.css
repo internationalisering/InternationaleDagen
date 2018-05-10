@@ -239,3 +239,73 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 {
     display: none;
 }
+
+/* planning edit */
+
+.planning-edit-sortable-row 
+{
+    width: 90%;
+    min-height: 84px;
+    max-height: 84px;
+    height:84px;
+    margin: 0;
+   #padding: 5px 0 0 0;
+    margin-right: 10px;
+    display:inline-block;
+}
+
+
+.planning-edit-child {
+    float:left;
+    font-size: 20px;
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 6px;
+    #margin: 12px;
+    margin-left:12px;
+    font-family: "Open Sans", Arial;
+
+    background: #3794fe;
+    line-height: 60px;
+    height: 60px;
+ }
+
+.planning-edit-info {
+    display: inline-block;
+
+    text-align: center;
+
+    font-family: "Open Sans", Arial;
+
+    vertical-align: top;
+    padding-top:24px;
+ }
+
+
+.planning-edit-time 
+{
+    width:32px;
+}
+
+.planning-edit-row-buttons 
+{
+    margin-top: 15px;
+}
+
+.planning-edit-button
+{
+    width: 150px;
+    padding: 15px;
+    height:60px;
+    border: 1px solid black;
+    background-color: grey;
+    float:left;
+    margin-right:15px;
+}
+
+.planning-edit-child-tick 
+{
+    float: left;
+    left: 50px;
+}

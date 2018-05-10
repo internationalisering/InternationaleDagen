@@ -107,28 +107,28 @@ var µ = {
         },
         updateSortable: function()
         {
-            $( ".sortable" ).sortable({
-                connectWith: ".sortable",
+            $( ".planning-edit-sortable" ).sortable({
+                connectWith: ".planning-edit-sortable",
                 stop: µ.planning_edit.resizeItems
             }).disableSelection();
         },
         updateChildren: function()
         {
-            $('.child').each(function(index, child)
+            $('.planning-edit-child').each(function(index, child)
             {
                 var child = $(child);
 
-                child.html( child.data('title') + '<div class="child-tick">v</div>' );
+                child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
             })
         },
         addRow: function()
         {
-            $('.row-buttons').before("<div class='row-parent' data-row-id=''><div class='info'><input type='text' class='time'>:<input type='text' class='time'></div><div  class='sortable sortable-row'></div></div>");       
+            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' class='planning-edit-time'>:<input type='text' class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
             µ.planning_edit.updateRowIds();
         },
         updateRowIds: function()
         {
-            $('.row-parent').each(function(index, object)
+            $('.planning-edit-row-parent').each(function(index, object)
             {
                 $(object).attr('data-row-id', index);
             });
@@ -136,10 +136,10 @@ var µ = {
         checkExcessRows: function()
         {
            // Voeg rij toe indien nodig
-            $('.row-parent').last().each(function(index, row)
+            $('.planning-edit-row-parent').last().each(function(index, row)
             {   
                 var rowId = $(row).data('row-id');
-                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.sortable') );
+                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.planning-edit-sortable') );
                 
                 if(childrenCount > 0) // Rij toevoegen
                 {
@@ -150,10 +150,10 @@ var µ = {
 
             // Verwijder overbodige rijen 
             var eersteElement = true;
-            $('.row-parent').each(function(index, row)
+            $('.planning-edit-row-parent').each(function(index, row)
             {
                 var rowId = $(row).data('row-id');
-                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.sortable') );
+                var childrenCount = µ.planning_edit.getRowChildCount( $(row).find('.planning-edit-sortable') );
                     
                 if(childrenCount == 0)
                 {   
@@ -165,16 +165,16 @@ var µ = {
 
             });
 
-                    // Toon uren van volgende rij al
-            $('.row-parent').each(function(index, row)
+            // Toon uren van volgende rij al
+            $('.planning-edit-row-parent').each(function(index, row)
             {
                 var rowId = $(row).data('row-id');
-                µ.planning_edit.toggleInfo( rowId, µ.planning_edit.getRowChildCount( $(row).find('.sortable') ) );
+                µ.planning_edit.toggleInfo( rowId, µ.planning_edit.getRowChildCount( $(row).find('.planning-edit-sortable') ) );
             });
         },
         toggleInfo: function(rowId, bool)
         {
-            var info = $('div[data-row-id='+rowId+'] > .info');
+            var info = $('div[data-row-id='+rowId+'] > .planning-edit-info');
             if(bool)
                 info.show();
             else 
@@ -182,12 +182,12 @@ var µ = {
         },
         addItem: function(rowId)
         {
-            $('div[data-row-id='+rowId+'] > div.sortable').append('<div class="child">test</div>');
+            $('div[data-row-id='+rowId+'] > div.planning-edit-sortable').append('<div class="planning-edit-child">test</div>');
         },
         addAddButton: function()
         {
-            $('.row-buttons').html('');
-            $('.row-buttons').append("<div class='sortable'><div class='new-child button'>Add</div></div><div class='button remove-child'>Remove</div>");
+            $('.planning-edit-row-buttons').html('');
+            $('.planning-edit-row-buttons').append("<div class='planning-edit-sortable'><div class='planning-edit-new-child planning-edit-button'>Add</div></div><div class='planning-edit-button planning-edit-remove-child'>Remove</div>");
             µ.planning_edit.updateSortable();
         },
         getRowChildCount: function(row)
@@ -196,7 +196,7 @@ var µ = {
             row.children().each(function(index, object)
             {
                 object = $(object);
-                if(object.hasClass('child'))
+                if(object.hasClass('planning-edit-child'))
                     count++;
             });
 
@@ -204,7 +204,7 @@ var µ = {
         },
         removeButtons: function()
         {
-            $('.row-buttons > div').each(function(index, child)
+            $('.planning-edit-row-buttons > div').each(function(index, child)
             {
                 child = $(child);
 
@@ -215,9 +215,9 @@ var µ = {
         resizeItems: function()
         {
             // Kijken of er nieuw item toegevoegd is
-            $('.sortable-row div').each(function(index, child)
+            $('.planning-edit-sortable-row div').each(function(index, child)
             {
-                if($(child).hasClass('new-child'))
+                if($(child).hasClass('planning-edit-new-child'))
                 {
                     var rowId = $(child).parent().parent().data('row-id');
                     if(rowId != 'undefined')
@@ -226,7 +226,7 @@ var µ = {
                     µ.planning_edit.addAddButton();
                     $(child).remove();
                 }
-                else if($(child).hasClass('remove-child'))
+                else if($(child).hasClass('planning-edit-remove-child'))
                 {
                     $(child).remove();
                 }
@@ -237,7 +237,7 @@ var µ = {
 
 
             // Set widths of all elements
-            $('.sortable').each(function(index, row)
+            $('.planning-edit-sortable').each(function(index, row)
             {
 
                 row = $(row);
@@ -251,7 +251,7 @@ var µ = {
 
                     child = $(child);
 
-                    if(child.hasClass('child'))
+                    if(child.hasClass('planning-edit-child'))
                         child.css('width', calculatedWidth )
 
                 })

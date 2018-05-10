@@ -1,4 +1,3 @@
-<!-- TIJDELIJKE STYLE! Moet naar style.css... -->
 <script>
 $(document).ready(function()
 {
