@@ -28,8 +28,6 @@ class Presence_model extends CI_Model {
 
     	$result = $this->db->get('aanwezigheid')->row();
         
-
-
     	return (isset($result) ? true : false);
     }
 

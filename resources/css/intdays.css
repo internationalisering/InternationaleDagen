@@ -306,6 +306,28 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 
 .planning-edit-child-tick 
 {
-    float: left;
-    left: 50px;
+    cursor: pointer;
+    float: right;
+    #left: 50px;
+    padding-top: 20px;
+    padding-right:3px;
+}
+
+
+
+.planning-input
+{
+    width: 128px !important;
+}
+.planning-input-checkbox
+{
+    width: 10px !important;
+}
+#session-settings
+{
+    display: none;
+}
+.planning-edit-button-ok
+{
+    display: none;
 }

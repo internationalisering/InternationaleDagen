@@ -94,12 +94,13 @@ var µ = {
                 {
                     $('.planning-feedback').slideUp();
                 }
-
             }); 
         }
     },
     planning_edit: 
     {
+        currentEdit: null,  
+
         initialize: function()
         {
             µ.planning_edit.updateSortable();
@@ -117,10 +118,142 @@ var µ = {
             $('.planning-edit-child').each(function(index, child)
             {
                 var child = $(child);
-
+                child.attr('title', child.data('title')); // tooltip
                 child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
+
             })
+            µ.planning_edit.setClickableTicks();
         },
+        setClickableTicks: function()
+        {
+            $('.planning-edit-child-tick').each(function(ind, tick)
+            {
+                $(tick).click(µ.planning_edit.onTickClick);
+            });
+        },
+
+        onTickClick: function()
+        {
+            var tick = $(this);
+            var column = tick.parent();
+
+            µ.planning_edit.editSessionModal(column);
+        },
+
+        editSessionModal: function(column)
+        {
+            µ.planning_edit.currentEdit = column;
+
+            $.ajax({
+                url: site_url() + "/planning/editColumn/", 
+                success: function(result)
+                {
+                    $('#modal-content').html(result);
+                    $('#modal').modal();
+
+                    $('#search-button').click(µ.planning_edit.editSessionSearchSubmit);
+
+                    // Kijken of currentEdit al een sessie-id heeft. Zo ja: info opzoeken, zo nee: zoekformulier toenen
+                    var sessionId = µ.planning_edit.currentEdit.data('session-id');
+                    if(sessionId != 'undefined')
+                    {
+                        $('#search-session').hide();
+                        $('#session-settings').show();
+                        µ.planning_edit.getSessionInfo(sessionId);
+                    }
+
+                }
+            });
+        },
+
+        editSessionSearchSubmit: function()
+        {
+            keyword = $('#search-input').val();
+            $.ajax({
+                url: site_url() + "/planning/search/"+keyword, 
+                success: function(result)
+                {
+                    var currentSearch = jQuery.parseJSON(result);
+                    $('#search-result').find("tr:gt(0)").remove();
+
+                    $(currentSearch).each(function(index, object)
+                    {
+                        $('#search-result > tbody:last-child').append('<tr>' 
+                                                                        + '<td>' + object.gebruiker.voornaam + ' ' + object.gebruiker.achternaam +'</td>'
+                                                                        + '<td>' + object.titel + '</td>'   
+                                                                        + '<td>' + object.duur + ' minuten</td>'
+                                                                        + '<td> <a href="#" class="select-session" data-session-id="'+object.id+'">selecteer</a></td>' + 
+                                                                    + '</tr>');
+                    });
+
+
+                    // Alle knoppen werkend maken 
+                    $('.select-session').each(function(index, object)
+                    {
+                        $(object).click( µ.planning_edit.editSessionSelectSession );
+                    });
+                }
+            });
+        },
+        confirmSession: function(session)
+        {
+            // Geeft array van alle checked checkboxes
+            var mandatoryClasses = $('#mandatory-classes input:checked').map(function(){
+              return $(this).val();
+            }).get();
+
+
+
+            $('#modal').modal('hide');
+            µ.planning_edit.currentEdit.data('title', session.titel);
+            µ.planning_edit.currentEdit.attr('data-mandatory-classes', mandatoryClasses.join('|'));
+            µ.planning_edit.updateChildren();
+        },
+        getSessionInfo: function(sessionId)
+        {
+
+            $.ajax({
+                url: site_url() + "/planning/getSessionInfo/" + sessionId, 
+                success: function(result)
+                {
+                    var object = jQuery.parseJSON(result);
+
+                    $('.planning-edit-button-back').click(function(){
+                        $('.planning-edit-button-back').hide();
+                        $('#session-settings').hide();
+                        $('#search-session').slideDown();
+                    });
+                    $('.planning-edit-button-ok').click(function()
+                    {
+                        µ.planning_edit.confirmSession(object);
+                    });
+
+                    $('#session-title'   ).html(object.titel);
+                    $('#session-language').html(object.taal.naam);
+                    $('#session-field'   ).html(object.studieGebied)
+                    $('#session-length'  ).html(object.duur + ' minutes');
+                    $('#session-summary' ).html(object.inhoud);
+
+                    // Buttons
+                    $('.planning-edit-button-close').hide();
+                    $('.planning-edit-button-ok').show();
+
+                }   
+            });
+        },
+
+        editSessionSelectSession: function()
+        {
+            var sessionId = $(this).data('session-id');
+
+            if(µ.planning_edit.currentEdit != null)
+            {
+                $('#session-settings').slideDown(); 
+                $('#search-session').slideUp();
+                µ.planning_edit.getSessionInfo(sessionId);
+            }
+        },
+
         addRow: function()
         {
             $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' class='planning-edit-time'>:<input type='text' class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       

@@ -115,6 +115,38 @@ class Planning extends CI_Controller {
 			}
 		}
 	}
+	public function getSessionInfo($sessionId = null)
+	{
+
+		if($sessionId)
+		{
+			$sessionId = (int)$sessionId;
+			if($sessionId)
+			{
+				// Alle models laden
+				$this->load->model('session_model');
+				$this->load->model('user_model');
+				$this->load->model('language_model');
+
+				// Sessie zoeken
+				$session = $this->session_model->get( $sessionId );
+
+				// Taal invullen
+				$session->taal = $this->language_model->get( $session->taalId );
+
+				// Gebruiker invullen
+				$gebruiker = $this->user_model->get($session->gebruikerId);
+
+				// Wachtwoorden enz niet mee in stdClass mee versturen. Enkel relevante informatie.
+				$session->gebruiker = new stdClass();
+				$session->gebruiker->voornaam   = $gebruiker->voornaam;
+				$session->gebruiker->achternaam = $gebruiker->achternaam;
+				
+
+				echo json_encode($session);
+			}
+		}
+	}
 
 	public function help()
 	{
@@ -187,9 +219,6 @@ class Planning extends CI_Controller {
 
 	public function feedback($sessionId)
 	{
-
-
-
 		$userId = $this->authex->getUserInfo()->id;
 		$this->load->model('feedback_model');
 		if($this->authex->isLoggedIn())
@@ -200,13 +229,41 @@ class Planning extends CI_Controller {
 			{
 				$this->feedback_model->set($sessionId, $userId, $feedback);
 				die($feedback);
-			} else 
+			} else {
 				$this->feedback_model->clear($sessionId, $userId);
-
-
-			
-
+			}
 		}  
-			
 	}
+
+	public function editColumn()
+	{
+		$data = array();
+		$this->load->model('class_model');
+
+		$data['classes'] = 		$this->class_model->getAll();
+		$this->load->view('planning/planning_ajax_beheerder.php', $data);
+	}
+
+	public function search($keyword='')
+	{
+		// Alle models laden
+		$this->load->model('session_model');
+		$this->load->model('user_model');
+
+
+		$sessions = $this->session_model->search($keyword, true, array('titel') );
+		foreach($sessions as $session)
+		{
+			$gebruiker = $this->user_model->get($session->gebruikerId);
+			$session->gebruiker = new stdClass();
+			//var_dump($gebruiker);
+			$session->gebruiker->voornaam = $gebruiker->voornaam;
+			$session->gebruiker->achternaam = $gebruiker->achternaam;
+		}
+
+		echo json_encode($sessions);
+
+		//var_dump($sessions);
+	}
+
 }

@@ -20,7 +20,12 @@ class Class_model extends CI_Model {
         $query = $this->db->get('klas');
         return $query->row();
     }
-    
+        
+    function getAll()
+    {
+        return $this->db->get('klas')->result();
+    }
+
     function search($text, $previousEditions, $columns){
         $this->db->from('klas');
         

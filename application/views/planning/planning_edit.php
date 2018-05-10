@@ -38,7 +38,7 @@ $(document).ready(function()
 		            	</div>
  
 						<div  class="planning-edit-sortable planning-edit-sortable-row ">
-							<div class='planning-edit-child' data-title='Item 1' data-session-id='1'></div>
+							<div class='planning-edit-child' data-title='Robotics and me[test]' data-session-id='1'></div>
 							<div class='planning-edit-child' data-title='Item 1' ></div>
 						</div>
 					</div>
