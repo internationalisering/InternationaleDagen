@@ -89,7 +89,8 @@ class Planning extends CI_Controller {
 
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
 			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
-
+	
+			
 			if($this->authex->isSpreker())
 			{
 				$this->load->view('planning/planning_ajax_spreker.php', $data);
@@ -124,9 +125,13 @@ class Planning extends CI_Controller {
 
 	public function edit()
 	{
-		if($this->authex->isLoggedIn() && $this->authex->isBeheerder()){
+		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
+		{
+			$this->load->model('edition_model');
 			
 			$data['titel'] = 'International Days';
+			$data['editie'] = $this->edition_model->getLastEdition();
+
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'planning/planning_edit.php');
 
 			$this->template->load('template/template_master', $partials, $data);

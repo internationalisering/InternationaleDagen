@@ -136,3 +136,106 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
     border-right: 1px solid #969696;
 }
 
+
+
+/* Planning */
+
+
+.planning-flexbox
+{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.planning-child
+{
+  display: inline-block;
+  font-size: 20px;
+  color: #FFF;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0px;
+  margin: 12px;
+  flex: 1;
+  font-family: "Open Sans", Arial;
+
+}
+
+.img-16
+{
+    width: 16px;
+    height: 16px;
+}
+
+.planning-session-title 
+{
+    font-size: 20px;  
+
+}
+
+.planning-session-author 
+{
+    font-size: 12px;  
+}
+
+
+.planning-child-tick
+{
+    color: white;
+    float: right;
+    right: 0;
+    bottom: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.planning-child-activity 
+{
+}
+
+.planning-child-activity-enrolled
+{
+  background: #2BA100;
+}
+
+.planning-child-activity-not-enrolled
+{
+    background: #3794fe;
+
+}
+
+.planning-child-break
+{
+    background: #FF7300;
+
+}
+
+.planning-line-break 
+{
+    width: 100%;
+}
+
+
+.planning-date 
+{
+    display: inline-block;
+    width:100%;
+    border-bottom: 1px solid #cecece;
+}
+.planning-time
+{
+    margin: 12px;
+    display:inline-block;
+    width:15%;
+}
+.planning-feedback
+{
+    display: none;
+}
+.planning-students 
+{
+    display: none;
+}

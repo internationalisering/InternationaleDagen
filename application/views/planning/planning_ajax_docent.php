@@ -6,7 +6,7 @@
   <p><?= $column->sessie->inhoud ?></p>
 
     
-    <div id="enrolledStudents" class="students">
+    <div id="enrolledStudents" class="planning-students">
       <p><strong>Ingeschreven studenten: </strong></p>
 
       <?php 

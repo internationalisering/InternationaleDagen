@@ -5,7 +5,7 @@
 <div class="modal-body">
   <p><?= $column->sessie->inhoud ?></p>
 
-  <div class="feedback">
+  <div class="planning-feedback">
     <p><strong>Feedback:</strong></p>
     <p>
       <textarea rows=5 cols=50 placeholder="Feedback will be reviewed" name="feedback" id="feedback"><?= isset($feedback->inhoud) ? $feedback->inhoud : '' ?></textarea>

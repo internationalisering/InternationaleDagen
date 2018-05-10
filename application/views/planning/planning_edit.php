@@ -3,13 +3,28 @@
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Manage Planning</h1>
-
-	  
+			
+			<select name='date'>
+				<?php 
+				$datumsBereik = new DatePeriod (
+					new DateTime($editie->startdatum),
+					new DateInterval('P1D'),
+					new DateTime($editie->einddatum)
+				);
+						
+				foreach ($datumsBereik as $datumKey => $datum)
+				{ 
+					echo "<option value='{$datum->format('Y-m-d')}'>".$datum->format('d M Y')      ; 
+				}
+				?>
+			</select>
+			<br/>
+			<br/>
+		
 
 
 	        <div class="row">
 	            <div class="col-md-12">
-
 
 	            	<div class='row-parent' data-row-id="0">
 		            	<div class='info'>
@@ -21,6 +36,17 @@
 							<div class='child' data-title='Item 1' ></div>
 						</div>
 					</div>
+					<!--
+	            	<div class='row-parent' data-row-id="0">
+		            	<div class='info'>
+							<input type='text' class='time'>:<input type='text' class='time'>
+		            	</div>
+ 
+						<div  class="sortable sortable-row ">
+							<div class='child' data-title='Item 1' data-session-id='1'></div>
+							<div class='child' data-title='Item 1' ></div>
+						</div>
+					</div>-->
 
 
 					<!-- Row 2 -->
@@ -41,7 +67,7 @@
 					<div class='row-buttons sortable-row sortable' >
 						<div class="new-child button">Add</div>
 
-						<div class='button'>Remove</div>
+						<div class='remove-child button'>Remove</div>
 					</div>
 				</div>
 
@@ -71,21 +97,13 @@
  		{
  			var child = $(child);
 
- 			child.html( child.data('title') );
+ 			child.html( child.data('title') + '<div class="child-tick">v</div>' );
  		})
  	}
 
  	function addRow()
  	{
- 		$('.row-buttons').before(`<div class='row-parent' data-row-id="">
-						<div class='info'>
-							<input type='text' class='time'>:<input type='text' class='time'>
-		            	</div>
-
-						<div  class="sortable sortable-row ">
-						
-						</div>
-					</div>`);
+ 		$('.row-buttons').before("<div class='row-parent' data-row-id=''><div class='info'><input type='text' class='time'>:<input type='text' class='time'></div><div  class='sortable sortable-row'></div></div>"); 		
  		updateRowIds();
  	}
 
@@ -99,9 +117,6 @@
 
  	function checkExcessRows()
  	{
-
-
-
 
  		// Voeg rij toe indien nodig
  		$('.row-parent').last().each(function(index, row)
@@ -159,7 +174,7 @@
  	function addAddButton()
  	{
  		$('.row-buttons').html('');
- 		$('.row-buttons').append("<div class='sortable'><div class='new-child button'>Add</div></div><div class='button'>Remove</div>");
+ 		$('.row-buttons').append("<div class='sortable'><div class='new-child button'>Add</div></div><div class='button remove-child'>Remove</div>");
 		updateSortable();
  	}
 
@@ -201,7 +216,10 @@
  				addAddButton();
  				$(child).remove();
  			}
-
+ 			else if($(child).hasClass('remove-child'))
+ 			{
+	 			$(child).remove();
+ 			}
  		});
  		// Check if rows need to be added / hidden
  		checkExcessRows();
@@ -228,7 +246,7 @@
 
  		 	})
  		});
- 		 		updateChildren();
+ 		updateChildren();
 
  	}
 </script>
@@ -252,15 +270,15 @@
 		font-size: 20px;
 		color: #FFF;
 		text-align: center;
+		vertical-align: middle;
 		border-radius: 6px;
-		padding: 0px;
 		#margin: 12px;
 		margin-left:12px;
 		font-family: "Open Sans", Arial;
 
   		background: #3794fe;
-
-  		height: 60px	;
+  		line-height: 60px;
+  		height: 60px;
  	 }
 
   	.info {
@@ -296,5 +314,10 @@
  		margin-right:15px;
  	}
 
+ 	.child-tick 
+ 	{
+ 		float: left;
+ 		left: 50px;
+ 	}
 
 </style>
