@@ -3,6 +3,7 @@
 	<h4 class="modal-title">Instellen activiteit</h4>
 </div>
 <div class="modal-body">
+
 	<div id='search-session'>
 		<p><strong>Zoeken op sessie/auteur</strong></p>
 		<p><input type='text' class='planning-input' id='search-input'><button id='search-button'>search</button></p>

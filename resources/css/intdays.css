@@ -298,10 +298,12 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
     width: 150px;
     padding: 15px;
     height:60px;
-    border: 1px solid black;
-    background-color: grey;
     float:left;
     margin-right:15px;
+    text-align: center;
+    font-size: 18px;
+        border-radius: 6px;
+
 }
 
 .planning-edit-child-tick 
@@ -330,4 +332,33 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 .planning-edit-button-ok
 {
     display: none;
+}
+
+/* Buttons */ 
+.planning-edit-add 
+{
+    background-color: #3794fe;
+    border: 3px solid #87BFFF;
+    color: white;
+
+}
+
+.planning-edit-break
+{
+    background-color: #FFBF00;
+    border: 3px solid #FFDB6E;
+    color: white;
+}
+
+.planning-edit-break
+{
+    background-color: #FF8C08;
+    border: 3px solid #FFDB6E;
+    color: white;
+}
+.planning-edit-remove-child
+{
+    background-color:#B8B8B8;
+     border: 3px solid #CFCFCF;
+    color: white;   
 }

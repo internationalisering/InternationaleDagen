@@ -38,8 +38,7 @@ $(document).ready(function()
 		            	</div>
  
 						<div  class="planning-edit-sortable planning-edit-sortable-row ">
-							<div class='planning-edit-child' data-title='Robotics and me[test]' data-session-id='1'></div>
-							<div class='planning-edit-child' data-title='Item 1' ></div>
+						
 						</div>
 					</div>
 					<!--
@@ -71,8 +70,8 @@ $(document).ready(function()
 					            
 	
 					<div class='planning-edit-row-buttons planning-edit-sortable-row planning-edit-sortable' >
-						<div class="planning-edit-new-child planning-edit-button">Add</div>
-
+						<div class="planning-edit-new-child planning-edit-add planning-edit-button">Add Activity</div>
+						<div class="planning-edit-new-child planning-edit-break planning-edit-button">Add Break</div>
 						<div class='planning-edit-remove-child planning-edit-button'>Remove</div>
 					</div>
 				</div>

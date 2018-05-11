@@ -8,6 +8,8 @@ var µ = {
                 var columnId = $(this).data('column-id');
                 µ.planning_view.viewColumn(columnId);
             })
+
+            µ.planning_view.addAddButton();
         },
 
         viewColumn: function(columnId)
@@ -155,7 +157,7 @@ var µ = {
 
                     // Kijken of currentEdit al een sessie-id heeft. Zo ja: info opzoeken, zo nee: zoekformulier toenen
                     var sessionId = µ.planning_edit.currentEdit.data('session-id');
-                    if(sessionId != 'undefined')
+                    if(sessionId)
                     {
                         $('#search-session').hide();
                         $('#session-settings').show();
@@ -211,7 +213,7 @@ var µ = {
         },
         getSessionInfo: function(sessionId)
         {
-
+            console.log(sessionId);
             $.ajax({
                 url: site_url() + "/planning/getSessionInfo/" + sessionId, 
                 success: function(result)
@@ -320,7 +322,7 @@ var µ = {
         addAddButton: function()
         {
             $('.planning-edit-row-buttons').html('');
-            $('.planning-edit-row-buttons').append("<div class='planning-edit-sortable'><div class='planning-edit-new-child planning-edit-button'>Add</div></div><div class='planning-edit-button planning-edit-remove-child'>Remove</div>");
+            $('.planning-edit-row-buttons').append("<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div><div class='planning-edit-new-child planning-edit-break planning-edit-button'>Add Break</div><div class='planning-edit-remove-child planning-edit-button'>Remove</div>");
             µ.planning_edit.updateSortable();
         },
         getRowChildCount: function(row)
