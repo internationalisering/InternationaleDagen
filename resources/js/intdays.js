@@ -146,8 +146,10 @@ var µ = {
         {
             µ.planning_edit.currentEdit = column;
 
+            var isBreak = $(column).hasClass('planning-edit-child-break');
+
             $.ajax({
-                url: site_url() + "/planning/editColumn/", 
+                url: site_url() + "/planning/editColumn/" + isBreak, 
                 success: function(result)
                 {
                     $('#modal-content').html(result);
@@ -315,9 +317,12 @@ var µ = {
             else 
                 info.hide();
         },
-        addItem: function(rowId)
+        addItem: function(rowId, isBreak)
         {
-            $('div[data-row-id='+rowId+'] > div.planning-edit-sortable').append('<div class="planning-edit-child">test</div>');
+            if(isBreak)
+                $('div[data-row-id='+rowId+'] > div.planning-edit-sortable').append('<div data-title="Nog geen pauze ingesteld" class="planning-edit-child planning-edit-child-break">Break</div>');
+            else 
+                $('div[data-row-id='+rowId+'] > div.planning-edit-sortable').append('<div data-title="Nog geen sessie ingesteld" class="planning-edit-child"></div>');
         },
         addAddButton: function()
         {
@@ -355,8 +360,12 @@ var µ = {
                 if($(child).hasClass('planning-edit-new-child'))
                 {
                     var rowId = $(child).parent().parent().data('row-id');
+
                     if(rowId != 'undefined')
-                        µ.planning_edit.addItem(rowId);
+                    {
+                        µ.planning_edit.addItem(rowId, $(child).hasClass('planning-edit-break')); // Voeg element toe. Boolean = al dan niet break
+
+                    }
 
                     µ.planning_edit.addAddButton();
                     $(child).remove();

@@ -235,13 +235,18 @@ class Planning extends CI_Controller {
 		}  
 	}
 
-	public function editColumn()
+	public function editColumn($isBreak=false)
 	{
 		$data = array();
 		$this->load->model('class_model');
 
 		$data['classes'] = 		$this->class_model->getAll();
-		$this->load->view('planning/planning_ajax_beheerder.php', $data);
+
+		if( $isBreak == 'true')
+			$this->load->view('planning/planning_ajax_beheerder_break.php', $data);
+		else 
+			$this->load->view('planning/planning_ajax_beheerder.php', $data);
+
 	}
 
 	public function search($keyword='')

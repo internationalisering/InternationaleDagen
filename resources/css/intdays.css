@@ -271,6 +271,12 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
     height: 60px;
  }
 
+ .planning-edit-child-break
+ {
+    background: #FF8C08;
+
+ }
+
 .planning-edit-info {
     display: inline-block;
 
@@ -338,27 +344,21 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 .planning-edit-add 
 {
     background-color: #3794fe;
-    border: 3px solid #87BFFF;
+    #border: 3px solid #87BFFF;
     color: white;
 
 }
 
-.planning-edit-break
-{
-    background-color: #FFBF00;
-    border: 3px solid #FFDB6E;
-    color: white;
-}
 
 .planning-edit-break
 {
     background-color: #FF8C08;
-    border: 3px solid #FFDB6E;
+    #border: 3px solid #FFDB6E;
     color: white;
 }
 .planning-edit-remove-child
 {
     background-color:#B8B8B8;
-     border: 3px solid #CFCFCF;
+    #border: 3px solid #CFCFCF;
     color: white;   
 }
