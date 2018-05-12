@@ -47,7 +47,7 @@
 					{
 						$name = $class->klasgroep;
 						$id = $class->id;
-						echo "<p><input type='checkbox' name='class[]' class='planning-input-checkbox' value='$id'/> $name</p>";
+						echo "<p><input type='checkbox' name='class[]' class='planning-input-checkbox' data-class='$name' value='$id'/> $name</p>";
 					}
 					?>
 

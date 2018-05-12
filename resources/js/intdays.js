@@ -124,11 +124,20 @@ var µ = {
                 child.attr('title', child.data('title')); // tooltip
                 //child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
 
-                var title = child.data('title') || 'nvt';
-                var author = child.data('author') || 'nvt';
+                var title = child.attr('data-title') || 'nvt';
+                var author = child.attr('data-author') || 'nvt';
+                var mandatoryClassesText = child.attr('data-mandatory-classes-text') || '';
+                var childWidth = parseInt(child.css('width'));
 
+                child.html(  "<p class='planning-edit-session-title'>"+title+"</p>"
+                            + "<p class='planning-edit-session-author'>"+author + ": " + mandatoryClassesText +"</p>"
+                            + "<span class='planning-edit-child-tick' data-column-id='3'>"
+                              + "<img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;"
+                            + "</span>   ");
 
-                child.html(  "<p class='planning-edit-session-title'>"+title+"</p><p class='planning-edit-session-author'>"+author+"</p><span class='planning-edit-child-tick' data-column-id='3'><img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;</span>   ");
+                
+                //child.find('.planning-edit-session-title').css('font-size', childWidth + 'px');
+                //child.find('.planning-edit-session-title').css('font-size', '100%' );
 
             })
             µ.planning_edit.setClickableTicks();
@@ -209,21 +218,33 @@ var µ = {
         confirmSession: function(session)
         {
             // Geeft array van alle checked checkboxes
-            var mandatoryClasses = $('#mandatory-classes input:checked').map(function(){
-              return $(this).val();
-            }).get();
+
+            var mandatoryClassesId = [];
+            var mandatoryClassesText = [];            
+
+            $('#mandatory-classes input:checked').each(function(index, check)
+            {
+                var check = $(check);
+                mandatoryClassesId.push( check.val() );
+                mandatoryClassesText.push( check.data('class') );
+            })
 
 
+            console.log(session); 
 
             $('#modal').modal('hide');
             µ.planning_edit.currentEdit.attr('data-session-id', session.id);
             µ.planning_edit.currentEdit.attr('data-title', session.titel);
-            µ.planning_edit.currentEdit.attr('data-mandatory-classes', mandatoryClasses.join('|'));
+            µ.planning_edit.currentEdit.attr('data-author', session.gebruiker.voornaam + ' ' + session.gebruiker.achternaam);
+            
+            µ.planning_edit.currentEdit.attr('data-mandatory-classes', mandatoryClassesId.join('|'));
+            µ.planning_edit.currentEdit.attr('data-mandatory-classes-text', mandatoryClassesText.join(', '));
+            
             µ.planning_edit.updateChildren();
         },
         getSessionInfo: function(sessionId)
         {
-            console.log(sessionId);
+            
             $.ajax({
                 url: site_url() + "/planning/getSessionInfo/" + sessionId, 
                 success: function(result)
@@ -399,12 +420,15 @@ var µ = {
                 
                 row.children().each(function(i, child)
                 {
-                    var calculatedWidth = (500/childrenCount)-((childrenCount-1)*6);
+                    var calculatedWidth = ( (row.parent().width()/2)/childrenCount)-((childrenCount-1)*6);
 
                     child = $(child);
 
                     if(child.hasClass('planning-edit-child'))
+                    {
                         child.css('width', calculatedWidth )
+
+                    }
 
                 })
             });
@@ -436,7 +460,10 @@ var µ = {
                     if(type =='activity')
                     {
                         var sessionId = child.data('session-id');
+                        var allowedClasses = child.data('mandatory-classes').split("|")
 
+                        if(allowedClasses.length == 0)
+                            allowedClasses = [];
 
                         if(!sessionId)
                         {
@@ -448,9 +475,12 @@ var µ = {
                         children.push({
                             type: type,
                             sessionId: child.data('session-id'),
+                            allowedClasses: allowedClasses
                         })
-                    } else 
-                    {
+
+
+                    } else {
+
                         children.push({
                             type: type,
                             break: child.data('break'),
@@ -476,6 +506,11 @@ var µ = {
             })
             console.log(list);
             return true;
+
+        },
+        trySave: function()
+        {
+            µ.planning_edit.toJson();
 
         }
 

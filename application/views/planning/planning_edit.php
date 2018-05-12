@@ -8,7 +8,7 @@ $(document).ready(function()
 <div id="page-wrapper" class="manage-wishes">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Manage Planning</h1>
+            <h1 class="page-header">Manage Planning&nbsp;<button class='btn btn-success' onclick='µ.planning_edit.trySave();'>Save</button></h1>
 			
 			<select name='date'>
 				<?php 

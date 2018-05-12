@@ -257,8 +257,7 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 
 .planning-edit-child {
     float:left;
-    font-size: 20px;
-    color: #FFF;
+        color: #FFF;
     text-align: center;
     border-radius: 6px;
     padding: 0px;
@@ -350,8 +349,9 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 }
 .planning-edit-session-title 
 {
-    font-size: 20px;  
-
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .planning-edit-session-author 
