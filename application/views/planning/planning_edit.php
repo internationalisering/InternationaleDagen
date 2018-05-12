@@ -31,47 +31,25 @@ $(document).ready(function()
 
 	        <div class="row">
 	            <div class="col-md-12">
-
+    				
 	            	<div class='planning-edit-row-parent' data-row-id="0">
 		            	<div class='planning-edit-info'>
-							<input type='text' class='planning-edit-time'>:<input type='text' class='planning-edit-time'>
+							<input type='text' name='from' class='planning-edit-time'>:<input type='text' name='til' class='planning-edit-time'>
 		            	</div>
  
 						<div  class="planning-edit-sortable planning-edit-sortable-row ">
 						
 						</div>
 					</div>
-					<!--
-	            	<div class='row-parent' data-row-id="0">
-		            	<div class='info'>
-							<input type='text' class='time'>:<input type='text' class='time'>
-		            	</div>
- 
-						<div  class="sortable sortable-row ">
-							<div class='child' data-title='Item 1' data-session-id='1'></div>
-							<div class='child' data-title='Item 1' ></div>
-						</div>
-					</div>-->
 
 
-					<!-- Row 2 -->
-					<div class='planning-edit-row-parent' data-row-id="1">
-						<div class='planning-edit-info'>
-							<input type='text' class='planning-edit-time'>:<input type='text' class='planning-edit-time'>
-		            	</div>
 
-						<div  class="planning-edit-sortable planning-edit-sortable-row ">
-						  <div class='planning-edit-child' data-title='Item 3'>Item 3</div>
-						  <div class='planning-edit-child' data-title='Item 4'>Item 4</div>
-						  <div class='planning-edit-child' data-title='Item 5'>Item 5</div>
-						</div>
-					</div>
-
+				
 					            
 	
 					<div class='planning-edit-row-buttons planning-edit-sortable-row planning-edit-sortable' >
-						<div class="planning-edit-new-child planning-edit-add planning-edit-button">Add Activity</div>
-						<div class="planning-edit-new-child planning-edit-break planning-edit-button">Add Break</div>
+						<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div>
+						<div class='planning-edit-new-child planning-edit-break planning-edit-button'>Add Break</div>
 						<div class='planning-edit-remove-child planning-edit-button'>Remove</div>
 					</div>
 				</div>

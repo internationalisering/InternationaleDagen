@@ -101,7 +101,8 @@ var µ = {
     },
     planning_edit: 
     {
-        currentEdit: null,  
+        currentEdit: null,      
+        lastJson: null,
 
         initialize: function()
         {
@@ -121,7 +122,13 @@ var µ = {
             {
                 var child = $(child);
                 child.attr('title', child.data('title')); // tooltip
-                child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
+                //child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
+
+                var title = child.data('title') || 'nvt';
+                var author = child.data('author') || 'nvt';
+
+
+                child.html(  "<p class='planning-edit-session-title'>"+title+"</p><p class='planning-edit-session-author'>"+author+"</p><span class='planning-edit-child-tick' data-column-id='3'><img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;</span>   ");
 
             })
             µ.planning_edit.setClickableTicks();
@@ -209,7 +216,8 @@ var µ = {
 
 
             $('#modal').modal('hide');
-            µ.planning_edit.currentEdit.data('title', session.titel);
+            µ.planning_edit.currentEdit.attr('data-session-id', session.id);
+            µ.planning_edit.currentEdit.attr('data-title', session.titel);
             µ.planning_edit.currentEdit.attr('data-mandatory-classes', mandatoryClasses.join('|'));
             µ.planning_edit.updateChildren();
         },
@@ -260,7 +268,7 @@ var µ = {
 
         addRow: function()
         {
-            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' class='planning-edit-time'>:<input type='text' class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
+            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' name='from' class='planning-edit-time'>:<input type='text' name='til'   class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
             µ.planning_edit.updateRowIds();
         },
         updateRowIds: function()
@@ -327,7 +335,7 @@ var µ = {
         addAddButton: function()
         {
             $('.planning-edit-row-buttons').html('');
-            $('.planning-edit-row-buttons').append("<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div><div class='planning-edit-new-child planning-edit-break planning-edit-button'>Add Break</div><div class='planning-edit-remove-child planning-edit-button'>Remove</div>");
+            $('.planning-edit-row-buttons').append("<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div><div class='planning-edit-new-child planning-edit-child-break planning-edit-button'>Add Break</div><div class='planning-edit-remove-child planning-edit-button'>Remove</div>");
             µ.planning_edit.updateSortable();
         },
         getRowChildCount: function(row)
@@ -363,7 +371,7 @@ var µ = {
 
                     if(rowId != 'undefined')
                     {
-                        µ.planning_edit.addItem(rowId, $(child).hasClass('planning-edit-break')); // Voeg element toe. Boolean = al dan niet break
+                        µ.planning_edit.addItem(rowId, $(child).hasClass('planning-edit-child-break')); // Voeg element toe. Boolean = al dan niet break
 
                     }
 
@@ -401,6 +409,73 @@ var µ = {
                 })
             });
             µ.planning_edit.updateChildren();
+
+        },
+
+        toJson: function()
+        {
+            var list = [];
+
+            $('.planning-edit-row-parent').each(function(index, row) // Voor elke rij
+            {   
+                var row  = $(row);
+                var from = row.find('input[name=from]').val(); 
+                var til  = row.find('input[name=til]').val(); 
+                var children = [];
+
+                var childrenCount = 0;
+
+                row.find('.planning-edit-child').each(function(index2, child)
+                {
+                    var child = $(child);
+                    var type = 'activity';
+                    if(child.hasClass('planning-edit-child-break'))
+                        type = 'break';
+
+
+                    if(type =='activity')
+                    {
+                        var sessionId = child.data('session-id');
+
+
+                        if(!sessionId)
+                        {
+                            child.css('background-color', 'red');
+                        }
+
+
+
+                        children.push({
+                            type: type,
+                            sessionId: child.data('session-id'),
+                        })
+                    } else 
+                    {
+                        children.push({
+                            type: type,
+                            break: child.data('break'),
+                        })
+                    }
+
+                    childrenCount++;
+                })
+
+
+
+                if(childrenCount)
+                {
+                    list.push({
+                        'from': from,
+                        'til': til,
+                        'children': children
+                    });
+                }
+
+
+
+            })
+            console.log(list);
+            return true;
 
         }
 
