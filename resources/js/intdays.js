@@ -464,12 +464,13 @@ var µ = {
 
                         if(allowedClasses.length == 0)
                             allowedClasses = [];
+                        
 
                         if(!sessionId)
                         {
                             child.css('background-color', 'red');
                         }
-
+ 
 
 
                         children.push({
