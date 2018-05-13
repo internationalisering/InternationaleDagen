@@ -7,7 +7,7 @@
 	<table class='table table-striped table-bordered table-hover'>
 		<tr>
 			<th>Break: </th>
-			<td><span id='session-title'></span></td>
+			<td><input type='text' name='break' id='breakReason' value='<?= $breakReason; ?>'></td>
 		</tr>
 	
 	</table>
@@ -15,6 +15,5 @@
 </div>
 
 <div class="modal-footer"> 
-    <button type="button" class="btn btn-default planning-edit-button-back">Change session</button>
     <button type="button" class="btn btn-success planning-edit-button-ok">Confirm</button>
 </div>

@@ -121,20 +121,35 @@ var µ = {
             $('.planning-edit-child').each(function(index, child)
             {
                 var child = $(child);
-                child.attr('title', child.data('title')); // tooltip
-                //child.html( child.data('title') + '<div class="planning-edit-child-tick">v</div>' );
-
-                var title = child.attr('data-title') || 'nvt';
-                var author = child.attr('data-author') || 'nvt';
-                var mandatoryClassesText = child.attr('data-mandatory-classes-text') || '';
                 var childWidth = parseInt(child.css('width'));
 
-                child.html(  "<p class='planning-edit-session-title'>"+title+"</p>"
-                            + "<p class='planning-edit-session-author'>"+author + ": " + mandatoryClassesText +"</p>"
-                            + "<span class='planning-edit-child-tick' data-column-id='3'>"
-                              + "<img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;"
-                            + "</span>   ");
+                if(!child.hasClass('planning-edit-child-break')) // ACTIVITY
+                {
+                    child.attr('title', child.data('title')); // tooltip
 
+                    var title = child.attr('data-title') || 'nvt';
+                    var author = child.attr('data-author') || 'nvt';
+                    var mandatoryClassesText = child.attr('data-mandatory-classes-text') || '';
+
+                    child.html(  "<p class='planning-edit-session-title'>"+title+"</p>"
+                                + "<p class='planning-edit-session-author'>"+author + ": " + mandatoryClassesText +"</p>"
+                                + "<span class='planning-edit-child-tick' data-column-id='3'>"
+                                  + "<img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;"
+                                + "</span>   ");
+
+                } else { // BREAK
+
+
+                    child.attr('title', child.data('title')); // tooltip
+
+                    var breakReason = child.attr('data-break') || 'Nog niet ingevuld';
+
+                    child.html(  "<p class='planning-edit-session-title'>Break: "+breakReason+"</p>"
+                                + "<p class='planning-edit-session-author'>&nbsp;</p>"
+                                + "<span class='planning-edit-child-tick' data-column-id='3'>"
+                                  + "<img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;"
+                                + "</span>   ");
+                }      
                 
                 //child.find('.planning-edit-session-title').css('font-size', childWidth + 'px');
                 //child.find('.planning-edit-session-title').css('font-size', '100%' );
@@ -163,9 +178,13 @@ var µ = {
             µ.planning_edit.currentEdit = column;
 
             var isBreak = $(column).hasClass('planning-edit-child-break');
+            var breakReason = "";
+            if(isBreak)
+                breakReason = ($(column).data('break') || '');
+
 
             $.ajax({
-                url: site_url() + "/planning/editColumn/" + isBreak, 
+                url: site_url() + "/planning/editColumn/" + isBreak + "/" + breakReason, 
                 success: function(result)
                 {
                     $('#modal-content').html(result);
@@ -180,6 +199,12 @@ var µ = {
                         $('#search-session').hide();
                         $('#session-settings').show();
                         µ.planning_edit.getSessionInfo(sessionId);
+                    }
+
+                    if(isBreak)
+                    {
+                        $('.planning-edit-button-ok').show().click(µ.planning_edit.confirmSessionBreak);
+
                     }
 
                 }
@@ -215,10 +240,18 @@ var µ = {
                 }
             });
         },
+        confirmSessionBreak: function()
+        {
+            $('#modal').modal('hide');
+            µ.planning_edit.currentEdit.attr('data-break', $('#breakReason').val());
+            µ.planning_edit.updateChildren();
+
+        },
         confirmSession: function(session)
         {
-            // Geeft array van alle checked checkboxes
+            $('#modal').modal('hide');
 
+            
             var mandatoryClassesId = [];
             var mandatoryClassesText = [];            
 
@@ -230,16 +263,14 @@ var µ = {
             })
 
 
-            console.log(session); 
 
-            $('#modal').modal('hide');
             µ.planning_edit.currentEdit.attr('data-session-id', session.id);
             µ.planning_edit.currentEdit.attr('data-title', session.titel);
             µ.planning_edit.currentEdit.attr('data-author', session.gebruiker.voornaam + ' ' + session.gebruiker.achternaam);
             
             µ.planning_edit.currentEdit.attr('data-mandatory-classes', mandatoryClassesId.join('|'));
             µ.planning_edit.currentEdit.attr('data-mandatory-classes-text', mandatoryClassesText.join(', '));
-            
+      
             µ.planning_edit.updateChildren();
         },
         getSessionInfo: function(sessionId)
@@ -420,7 +451,7 @@ var µ = {
                 
                 row.children().each(function(i, child)
                 {
-                    var calculatedWidth = ( (row.parent().width()/2)/childrenCount)-((childrenCount-1)*6);
+                    var calculatedWidth = ( (row.parent().width()/2/childrenCount) - 6*childrenCount) ;
 
                     child = $(child);
 
@@ -460,16 +491,22 @@ var µ = {
                     if(type =='activity')
                     {
                         var sessionId = child.data('session-id');
-                        var allowedClasses = child.data('mandatory-classes').split("|")
 
-                        if(allowedClasses.length == 0)
+
+                        var allowedClasses = child.data('mandatory-classes');
+
+                        if(allowedClasses)
+                            allowedClasses = allowedClasses.split('|');
+                        else
                             allowedClasses = [];
                         
 
-                        if(!sessionId)
-                        {
-                            child.css('background-color', 'red');
-                        }
+                        if(sessionId)
+                        
+                            child.css('background-color', '');
+                        else 
+                            child.css('background-color', 'darkblue');
+                        
  
 
 
@@ -482,9 +519,17 @@ var µ = {
 
                     } else {
 
+                        var breakReason = child.data('break');
+
+                        if(breakReason)
+                            child.css('background-color', '');
+                        else 
+                            child.css('background-color', '#D15700');
+
+
                         children.push({
                             type: type,
-                            break: child.data('break'),
+                            break: (breakReason || ''),
                         })
                     }
 
