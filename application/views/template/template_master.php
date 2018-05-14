@@ -32,6 +32,9 @@
     <!-- Jquery UI CSS -->
     <link href="<?= base_url(); ?>/resources/css/jquery-ui.min.css" rel="stylesheet">
     
+    <!-- jQuery hour picker -->
+    <link href="<?= base_url(); ?>/resources/css/jquery.ui.timepicker.css" rel="stylesheet">
+
     <!-- International Days CSS -->
     <link href="<?= base_url(); ?>/resources/css/intdays.css" rel="stylesheet">
     
@@ -87,6 +90,9 @@
     <script src="<?= base_url(); ?>/resources/js/dataTables.bootstrap.min.js"></script>
     <script src="<?= base_url(); ?>/resources/js/dataTables.responsive.js"></script>
     
+    <!-- jQuery hour picker -->
+    <script src="<?= base_url(); ?>/resources/js/jquery.ui.timepicker.js"></script>
+
     <!-- International Days JavaScript -->
     <script src="<?= base_url(); ?>/resources/js/intdays.js"></script>
 

@@ -116,6 +116,12 @@ var µ = {
                 stop: µ.planning_edit.resizeItems
             }).disableSelection();
         },
+        setTimepickers: function()
+        {
+            $('[name=from]').timepicker().on('change', µ.planning_edit.validateHours);
+
+            $('[name=til]').timepicker().on('change', µ.planning_edit.validateHours);
+        },
         updateChildren: function()
         {
             $('.planning-edit-child').each(function(index, child)
@@ -305,7 +311,47 @@ var µ = {
                 }   
             });
         },
+        calculateSecondsBetweenHours: function(hourFrom, hourTil)
+        {
+            var timeStart = new Date("01/01/2000 " + hourFrom).getTime();
+            var timeEnd = new Date("01/01/2000 " + hourTil).getTime();
 
+            return (timeEnd - timeStart)/1000;
+        },
+
+        validateHours: function()
+        {
+            µ.planning_edit.updateRowIds();
+
+            // huidige FROM vergelijken met huidige TIL
+            $('.planning-edit-row-parent').each(function(index, row)
+            {
+                var row = $(row);
+
+                var currentFrom = row.find('[name=from]');
+                var currentTil  = row.find('[name=til]' );
+
+                var difference = µ.planning_edit.calculateSecondsBetweenHours(currentFrom.val(), currentTil.val());
+
+                currentTil.css('background-color', (difference<0 ? 'red': '' ) );
+
+            });
+
+
+            // vorige TIL vergelijken met huidige FROM
+            $('.planning-edit-row-parent[data-row-id!=0]').each(function(index, row)
+            {
+                var rowId = parseInt($(row).data('row-id'));
+
+                var previousTil = $('.planning-edit-row-parent[data-row-id='+(rowId-1)+']').find('[name=til]').val();
+                var currentFrom = $(row).find('[name=from]').val();
+
+                var difference = µ.planning_edit.calculateSecondsBetweenHours(previousTil, currentFrom);
+
+                $(row).find('[name=from]').css('background-color', (difference<0 ? 'red': '' ) );
+                
+            });
+        },
         editSessionSelectSession: function()
         {
             var sessionId = $(this).data('session-id');
@@ -320,7 +366,7 @@ var µ = {
 
         addRow: function()
         {
-            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' name='from' class='planning-edit-time'>:<input type='text' name='til'   class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
+            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' name='from' class='planning-edit-time'> - <input type='text' name='til'   class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
             µ.planning_edit.updateRowIds();
         },
         updateRowIds: function()
@@ -368,6 +414,8 @@ var µ = {
                 var rowId = $(row).data('row-id');
                 µ.planning_edit.toggleInfo( rowId, µ.planning_edit.getRowChildCount( $(row).find('.planning-edit-sortable') ) );
             });
+
+            µ.planning_edit.setTimepickers();
         },
         toggleInfo: function(rowId, bool)
         {

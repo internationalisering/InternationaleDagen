@@ -20,7 +20,7 @@ $(document).ready(function()
 						
 				foreach ($datumsBereik as $datumKey => $datum)
 				{ 
-					echo "<option value='{$datum->format('Y-m-d')}'>".$datum->format('d M Y')      ; 
+					echo "<option value='{$datum->format('Y-m-d')}'>".$datum->format('d M Y'); 
 				}
 				?>
 			</select>
@@ -34,7 +34,7 @@ $(document).ready(function()
     				
 	            	<div class='planning-edit-row-parent' data-row-id="0">
 		            	<div class='planning-edit-info'>
-							<input type='text' name='from' class='planning-edit-time'>:<input type='text' name='til' class='planning-edit-time'>
+							<input type='text' name='from' class='planning-edit-time'> - <input type='text' name='til' class='planning-edit-time'>
 		            	</div>
  
 						<div  class="planning-edit-sortable planning-edit-sortable-row ">
