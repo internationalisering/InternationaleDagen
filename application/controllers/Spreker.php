@@ -18,6 +18,8 @@ class Spreker extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
+
+	
 	
 	
 }
