@@ -720,7 +720,7 @@ var µ = {
               data: {planning: planning},
               success: function(result){ 
 
-                    $('#modal-content').html('<h1>Succesvol opgeslagen!</h1>');
+                    $('#modal-content').html('<div style="padding: 15px;"><p>Succesvol opgeslagen!</p></div>');
                     console.log(result);
                     $('#modal').modal();
                     if(callback)

@@ -15,7 +15,7 @@
 
 <div class="modal-footer"> 
 	<?php if($planned){ ?>
-     	<button type="button" class="btn btn-success" data-dismiss="modal" onclick='window.location = window.location;'>Close</button>
+     	<button type="button" class="btn btn-success" data-dismiss="modal" onclick='window.location = site_url()+"/planning/edit/";'>Close</button>
   	 	
     <?php } else { ?>
 		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
