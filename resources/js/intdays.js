@@ -106,7 +106,8 @@ var µ = {
     {
         sortableActive: null,
         currentEdit: null,      
-        lastJson: null,
+        
+        
 
         initialize: function(sortableActive)
         {
@@ -116,10 +117,18 @@ var µ = {
             µ.planning_edit.resizeItems();
             µ.planning_edit.checkExcessRows();
             µ.planning_edit.validateItems();
-
         },
-
-
+        markAsDefinitive: function(bool=0)
+        {
+            $.ajax({
+                url: site_url() + "/planning/markAsDefinitive/" + parseInt(bool), 
+                success: function(result)
+                {
+                    $('#modal-content').html(result);
+                    $('#modal').modal();
+                }
+            });
+        },
         updateSortable: function()
         {
 
@@ -138,9 +147,10 @@ var µ = {
         },
         setTimepickers: function()
         {
-            $('[name=from]').timepicker().on('change', µ.planning_edit.validateHours);
 
-            $('[name=til]').timepicker().on('change', µ.planning_edit.validateHours);
+            $('[name=from]').not('.hasTimepicker').timepicker().on('change', µ.planning_edit.validateHours);
+
+            $('[name=til]').not('.hasTimepicker').timepicker().on('change', µ.planning_edit.validateHours);
         },
         updateChildren: function()
         {
@@ -154,10 +164,10 @@ var µ = {
                 {
                     child.attr('title', child.data('title')); // tooltip
 
-                    var title = child.attr('data-title') || 'nvt';
+                    var title = child.attr('data-title') || '';
                     var author = child.attr('data-author') || '';
                     author += ': ';
-                    var mandatoryClassesText = child.attr('data-mandatory-classes-text') || 'Geen verplichte klassen';
+                    var mandatoryClassesText = child.attr('data-mandatory-classes-text') || '';
                     var maxAmount = child.attr('data-max-amount') || '';
                     var aantalStudenten = child.attr('data-max-amount') || 'test';
 
@@ -235,6 +245,21 @@ var µ = {
 
                     $('#max-amount').val(column.attr('data-max-amount'));
 
+                    // instellen van mandatory classes
+                    var mandatoryClasses = ($(column).attr('data-mandatory-classes')).split('|');
+                    $('#mandatory-classes').find('input[type=checkbox]').each(function(index, checkbox)
+                    {
+                        var checkbox = $(checkbox);
+
+
+                        $(mandatoryClasses).each(function(i, classId)
+                        {
+                            if(checkbox.val() == classId)
+                                checkbox.attr('checked', '1');
+
+                        });
+
+                    });
 
                     if(isBreak)
                     {
@@ -349,8 +374,11 @@ var µ = {
         },
         showDate: function(date)
         {
-            µ.planning_edit.trySave();
-            window.location.replace( site_url() + '/planning/edit/' + date);
+
+            if(µ.planning_edit.sortableActive)
+                µ.planning_edit.trySave(function(){ window.location.replace( site_url() + '/planning/edit/' + date); });
+            else 
+                window.location.replace( site_url() + '/planning/edit/' + date);
         },
         validateHours: function()
         {
@@ -361,13 +389,20 @@ var µ = {
             {
                 var row = $(row);
 
+
+
                 var currentFrom = row.find('[name=from]');
                 var currentTil  = row.find('[name=til]' );
 
-                var difference = µ.planning_edit.calculateSecondsBetweenHours(currentFrom.val(), currentTil.val());
+                // check if visible
 
-                currentTil.css('background-color', (difference<300 ? 'red': '' ) );
+                if(currentFrom.parent().css('display') != 'none')
+                {
 
+                    var difference = µ.planning_edit.calculateSecondsBetweenHours(currentFrom.val(), currentTil.val());
+
+                    currentTil.css('background-color', (difference<300 ? 'red': '' ) );
+                }
             });
 
 
@@ -381,10 +416,14 @@ var µ = {
 
                 var difference = µ.planning_edit.calculateSecondsBetweenHours(previousTil, currentFrom);
 
-                $(row).find('[name=from]').css('background-color', (difference<0 ? 'red': '' ) );
-                
+                $(row).find('[name=from]').css('background-color', (difference<0 ? 'red': '' ) ).attr('difference', difference);
+                if(difference<0)
+                {
+                    console.log(difference, previousTil, currentFrom, rowId);
+                }
             });
         },
+
         editSessionSelectSession: function()
         {
             var sessionId = $(this).data('session-id');
@@ -399,7 +438,11 @@ var µ = {
 
         addRow: function()
         {
-            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''><div class='planning-edit-info'><input type='text' name='from' class='planning-edit-time'> - <input type='text' name='til'   class='planning-edit-time'></div><div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
+            $('.planning-edit-row-buttons').before("<div class='planning-edit-row-parent' data-row-id=''>"
+                    + "<div class='planning-edit-info'>"
+                        + "<input type='text' name='from' class='planning-edit-time'> - <input type='text' name='til' class='planning-edit-time'>"
+                    + "</div>"
+                + "<div  class='planning-edit-sortable planning-edit-sortable-row'></div></div>");       
             µ.planning_edit.updateRowIds();
         },
         updateRowIds: function()
@@ -447,8 +490,9 @@ var µ = {
                 var rowId = $(row).data('row-id');
                 µ.planning_edit.toggleInfo( rowId, µ.planning_edit.getRowChildCount( $(row).find('.planning-edit-sortable') ) );
             });
-
             µ.planning_edit.setTimepickers();
+            µ.planning_edit.toggleInfo(0, true);
+
         },
         toggleInfo: function(rowId, bool)
         {
@@ -560,15 +604,13 @@ var µ = {
 
                 if(child.hasClass('planning-edit-child-break'))
                 {
-
+             
                 } else {
                     if(child.attr('data-session-id'))
                         child.css('background-color', '');
                     else 
                         child.css('background-color', 'darkblue');
                 }
-
-              
 
             })
         },
@@ -599,7 +641,7 @@ var µ = {
                         type = 'break';
 
 
-                    if(type =='activity')
+                    if(type == 'activity')
                     {
                         var sessionId = child.attr('data-session-id');
                         var maxHoeveelheid = child.attr('data-max-amount');
@@ -667,7 +709,7 @@ var µ = {
             return planning[0];
 
         },
-        trySave: function()
+        trySave: function(callback = null)
         {
             var planning = JSON.stringify(µ.planning_edit.toJson());
             console.log(planning);
@@ -678,9 +720,15 @@ var µ = {
               data: {planning: planning},
               success: function(result){ 
 
-                    $('#modal-content').html(result);
+                    $('#modal-content').html('<h1>Succesvol opgeslagen!</h1>');
+                    console.log(result);
                     $('#modal').modal();
+                    if(callback)
+                    {
+                        callback();
+                    }
               },
+
                error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status, xhr.responseText);
                 console.log(thrownError);

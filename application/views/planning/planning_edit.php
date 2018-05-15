@@ -9,10 +9,16 @@ $(document).ready(function()
 <div id="page-wrapper" class="manage-wishes">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Manage Planning&nbsp;<button class='btn btn-success' onclick='µ.planning_edit.trySave();'>Save</button></h1>
+            <h1 class="page-header">Manage Planning&nbsp;
+            	<?php if(!$editie->gepland) {?>
+            	<button class='btn btn-success' onclick='µ.planning_edit.trySave();'>Save</button>
+            	<button class='btn btn-danger' onclick='µ.planning_edit.trySave(µ.planning_edit.markAsDefinitive);'>Mark as definitive version</button>
+            	<?php } ?>
+            </h1>
+
 
 			<div class="alert alert-warning" role="alert" id='editing-finished'>
-			 	The planning has been finished. Editing is not possible at this time.
+			 	The planning has been finalized. Editing is not possible at this time.
 			</div>
 
 			<ul class="nav nav-tabs">
@@ -52,11 +58,16 @@ $(document).ready(function()
 							if(date('Y-m-d', strtotime($row->starttijd)) == $huidigeDatum)
 							{
 								$rowCount++;
+								$hourFrom = date('H:i', strtotime($row->starttijd));
+								$hourTil  = date('H:i', strtotime($row->eindtijd));
+
 			            		?>
 								<div class="planning-edit-row-parent" data-row-id="<?= $rowCount ?>">
 					            	<div class="planning-edit-info" style="">
-										<input type="text" name="from" class="planning-edit-time"> - <input type="text" name="til" class="planning-edit-time hasTimepicker">
+										<input type="text" name="from" class="planning-edit-time" value='<?= ($hourFrom != '23:59' ? $hourFrom : '') ?>'> - 
+										<input type="text" name="til"  class="planning-edit-time" value='<?= ($hourTil != '23:59' ? $hourTil : '') ?>'>
 				            		</div>
+									<div class="planning-edit-sortable planning-edit-sortable-row ui-sortable">
 
 
 
@@ -77,16 +88,16 @@ $(document).ready(function()
 									 	$mandatoryClasses     = substr($mandatoryClasses, 0, -1);
 										$mandatoryClassesText = substr($mandatoryClassesText, 0, -2);
 
-
-										?>
-										<div class="planning-edit-sortable planning-edit-sortable-row ui-sortable">
-																			
+									
+										?>	
+																													
 											<div data-title="<?= isset($column->session)? $column->session->titel : 'Nog geen sessie ingesteld' ?>"
-												 class="planning-edit-child ui-sortable-handle" 
+												 class="planning-edit-child <?= ($column->pauze != null ? 'planning-edit-child-break' : '')  ?> ui-sortable-handle" 
 												 title=""
 												 data-test="<?= $column->planningRijId;?>" 
 												 data-max-amount="<?= $column->maxHoeveelheid; ?>"
 												 data-session-id="<?= $column->sessieId; ?>"
+												 data-break="<?= $column->pauze; ?>"
 												 data-author="<?= (isset($column->session->gebruiker) ? $column->session->gebruiker->voornaam . ' ' . $column->session->gebruiker->achternaam  : 'nvt')?>" 
 												 data-mandatory-classes="<?= $mandatoryClasses ?>" 
 												 data-mandatory-classes-text="<?= $mandatoryClassesText ?>"
@@ -94,13 +105,14 @@ $(document).ready(function()
 												<p class="planning-edit-session-title"></p>
 												<p class="planning-edit-session-author"></p>
 												<span class="planning-edit-child-tick" data-column-id="3">
-													<img class="img-16" src="http://localhost/InternationaleDagen//resources/images/tick.png">
+													<img class="img-16" src="<?= base_url(); ?>/resources/images/tick.png">
 												&nbsp;</span>  
 											</div>
-										</div>
 									 <?php 
 									} ?>
 								</div>
+							</div>
+
 								<?php 
 							}
 						}
@@ -110,7 +122,7 @@ $(document).ready(function()
 	            			?>
 								<div class="planning-edit-row-parent" data-row-id="0">
 					            	<div class="planning-edit-info" style="">
-										<input type="text" name="from" class="planning-edit-time"> - <input type="text" name="til" class="planning-edit-time hasTimepicker">
+										<input type="text" name="from" class="planning-edit-time"> - <input type="text" name="til" class="planning-edit-time">
 				            		</div>
 		            				<div class="planning-edit-sortable planning-edit-sortable-row ui-sortable">
 		            				
@@ -125,7 +137,6 @@ $(document).ready(function()
 
 					
 						            
-		
 						<div class='planning-edit-row-buttons planning-edit-sortable-row planning-edit-sortable' >
 							<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div>
 							<div class='planning-edit-new-child planning-edit-break planning-edit-button'>Add Break</div>

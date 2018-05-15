@@ -31,7 +31,12 @@ class Classgroup_model extends CI_Model {
     {
        $this->db->where('planningKolomId', $columnId);
        return $this->db->get('klasgroep')->result();
-       
+    }
+
+    function insert($classgroup)
+    {
+        $this->db->insert('klasgroep', $classgroup);
+        return $this->db->insert_id();
     }
 }
 ?>

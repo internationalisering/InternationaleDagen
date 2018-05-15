@@ -58,6 +58,8 @@ class Planning extends CI_Controller {
             } else if($user->typeId = 4){
                 $partials = array('template_menu' => 'login-beheerder/template_menu.php', 'template_pagina' => 'planning/planning_home');
             }
+
+
 			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
 		} else 
@@ -154,6 +156,19 @@ class Planning extends CI_Controller {
 		$this->load->view('planning/planning_help.php', array());
 
 	}
+	public function markAsDefinitive($bool = false)
+	{
+		if($bool)
+		{
+			$this->load->model('edition_model');
+			$edition = $this->edition_model->getLastEdition();
+
+			$this->edition_model->setPlanned($edition->id, true);
+		}			
+
+		$this->load->view('planning/planning_ajax_beheerder_definitive.php', array('planned'=>$bool));
+	}
+
 
 	public function editSave()
 	{
@@ -204,6 +219,11 @@ class Planning extends CI_Controller {
 				$from = $row['from'];
 				$til  = $row['til' ];
 
+				if(trim($from) == '' || $from == '00:00')
+					$from = '23:59';
+				if(trim($til) == '' || $til == '00:00')
+					$til = '23:59';
+
 
 				$rowAdd = new stdClass();
 				$rowAdd->starttijd = "$date $from";
@@ -227,12 +247,27 @@ class Planning extends CI_Controller {
 						$columnAdd->maxHoeveelheid = (int)$column['maxHoeveelheid'];
 					}
 
+					if($column['type'] == 'break')
+					{
+						$columnAdd->pauze = " " . $column['break'] ;
+					}
 
 
-					$this->column_model->insert($columnAdd);
+					$columnAdd->id = $this->column_model->insert($columnAdd);
 
 
-					// TODO: ALLOWED CLASSES !!
+					// Voeg de klasgroepen toe 
+					if(isset($column['allowedClasses']))
+						foreach($column['allowedClasses'] as $allowedClass)
+						{
+							$classgroup = new stdClass();
+							$classgroup->planningKolomId = $columnAdd->id;
+							$classgroup->klasId = $allowedClass;
+
+							$this->classgroup_model->insert($classgroup);
+
+						}
+
 				}
 			}
 		}
@@ -256,13 +291,13 @@ class Planning extends CI_Controller {
 			$data['titel'] = 'International Days';
 			$data['editie'] = $this->edition_model->getLastEdition();
 			$data['huidigeDatum'] = $data['editie']->startdatum;
+			$data['verantwoordelijke'] = 'Tom Van den Rul';
 
 			if($datum)
 			{
 				$geldigeDatum = explode('-', $datum);
 				if(checkdate($geldigeDatum[1], $geldigeDatum[2], $geldigeDatum[0]))
 				{
-
 					$data['huidigeDatum'] = $datum;
 				}
 			}
