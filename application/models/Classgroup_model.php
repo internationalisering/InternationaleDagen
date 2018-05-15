@@ -17,8 +17,21 @@ class Classgroup_model extends CI_Model {
      */
     function get($id) {
         $this->db->where('id', $id);
-        $query = $this->db->get('Classgroup');
+        $query = $this->db->get('klasgroep');
         return $query->row();
+    }
+
+    function deleteByColumnId($columnId)
+    {
+        $this->db->where('planningKolomId', $columnId);
+        $this->db->delete('klasgroep');
+    }
+    
+    function getByColumnId($columnId)
+    {
+       $this->db->where('planningKolomId', $columnId);
+       return $this->db->get('klasgroep')->result();
+       
     }
 }
 ?>

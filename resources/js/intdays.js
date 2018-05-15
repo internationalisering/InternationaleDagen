@@ -10,6 +10,9 @@ var µ = {
             })
 
             µ.planning_view.addAddButton();
+            µ.planning_edit.updateRowIds();
+            µ.planning_edit.setTimepickers();
+
         },
 
         viewColumn: function(columnId)
@@ -101,20 +104,37 @@ var µ = {
     },
     planning_edit: 
     {
+        sortableActive: null,
         currentEdit: null,      
         lastJson: null,
 
-        initialize: function()
+        initialize: function(sortableActive)
         {
+            µ.planning_edit.sortableActive = sortableActive;
+
             µ.planning_edit.updateSortable();
             µ.planning_edit.resizeItems();
+            µ.planning_edit.checkExcessRows();
+            µ.planning_edit.validateItems();
+
         },
+
+
         updateSortable: function()
         {
+
+       
             $( ".planning-edit-sortable" ).sortable({
                 connectWith: ".planning-edit-sortable",
                 stop: µ.planning_edit.resizeItems
             }).disableSelection();
+
+            if(! µ.planning_edit.sortableActive )
+            {
+                $( ".planning-edit-sortable" ).sortable("disable")
+                $('#editing-finished').show();
+            }
+            
         },
         setTimepickers: function()
         {
@@ -124,6 +144,7 @@ var µ = {
         },
         updateChildren: function()
         {
+
             $('.planning-edit-child').each(function(index, child)
             {
                 var child = $(child);
@@ -134,11 +155,15 @@ var µ = {
                     child.attr('title', child.data('title')); // tooltip
 
                     var title = child.attr('data-title') || 'nvt';
-                    var author = child.attr('data-author') || 'nvt';
-                    var mandatoryClassesText = child.attr('data-mandatory-classes-text') || '';
+                    var author = child.attr('data-author') || '';
+                    author += ': ';
+                    var mandatoryClassesText = child.attr('data-mandatory-classes-text') || 'Geen verplichte klassen';
+                    var maxAmount = child.attr('data-max-amount') || '';
+                    var aantalStudenten = child.attr('data-max-amount') || 'test';
+
 
                     child.html(  "<p class='planning-edit-session-title'>"+title+"</p>"
-                                + "<p class='planning-edit-session-author'>"+author + ": " + mandatoryClassesText +"</p>"
+                                + "<p class='planning-edit-session-author'>"+author + mandatoryClassesText  + ". Studenten:  " + aantalStudenten +"</p>"
                                 + "<span class='planning-edit-child-tick' data-column-id='3'>"
                                   + "<img class='img-16' src='"+base_url()+"/resources/images/tick.png'/>&nbsp;"
                                 + "</span>   ");
@@ -162,6 +187,8 @@ var µ = {
 
             })
             µ.planning_edit.setClickableTicks();
+            µ.planning_edit.validateItems();
+
         },
         setClickableTicks: function()
         {
@@ -187,8 +214,7 @@ var µ = {
             var breakReason = "";
             if(isBreak)
                 breakReason = ($(column).data('break') || '');
-
-
+       
             $.ajax({
                 url: site_url() + "/planning/editColumn/" + isBreak + "/" + breakReason, 
                 success: function(result)
@@ -207,10 +233,12 @@ var µ = {
                         µ.planning_edit.getSessionInfo(sessionId);
                     }
 
+                    $('#max-amount').val(column.attr('data-max-amount'));
+
+
                     if(isBreak)
                     {
                         $('.planning-edit-button-ok').show().click(µ.planning_edit.confirmSessionBreak);
-
                     }
 
                 }
@@ -268,6 +296,7 @@ var µ = {
                 mandatoryClassesText.push( check.data('class') );
             })
 
+            µ.planning_edit.currentEdit.attr('data-max-amount', $('#max-amount').val());
 
 
             µ.planning_edit.currentEdit.attr('data-session-id', session.id);
@@ -318,7 +347,11 @@ var µ = {
 
             return (timeEnd - timeStart)/1000;
         },
-
+        showDate: function(date)
+        {
+            µ.planning_edit.trySave();
+            window.location.replace( site_url() + '/planning/edit/' + date);
+        },
         validateHours: function()
         {
             µ.planning_edit.updateRowIds();
@@ -333,7 +366,7 @@ var µ = {
 
                 var difference = µ.planning_edit.calculateSecondsBetweenHours(currentFrom.val(), currentTil.val());
 
-                currentTil.css('background-color', (difference<0 ? 'red': '' ) );
+                currentTil.css('background-color', (difference<300 ? 'red': '' ) );
 
             });
 
@@ -434,10 +467,14 @@ var µ = {
         },
         addAddButton: function()
         {
-            $('.planning-edit-row-buttons').html('');
-            $('.planning-edit-row-buttons').append("<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div><div class='planning-edit-new-child planning-edit-child-break planning-edit-button'>Add Break</div><div class='planning-edit-remove-child planning-edit-button'>Remove</div>");
+            if(µ.planning_edit.sortableActive)
+            {
+                $('.planning-edit-row-buttons').html('');
+                $('.planning-edit-row-buttons').append("<div class='planning-edit-new-child planning-edit-add planning-edit-button'>Add Activity</div><div class='planning-edit-new-child planning-edit-child-break planning-edit-button'>Add Break</div><div class='planning-edit-remove-child planning-edit-button'>Remove</div>");
+            }
             µ.planning_edit.updateSortable();
         },
+
         getRowChildCount: function(row)
         {
             var count = 0;
@@ -447,7 +484,6 @@ var µ = {
                 if(object.hasClass('planning-edit-child'))
                     count++;
             });
-
             return count;
         },
         removeButtons: function()
@@ -462,12 +498,14 @@ var µ = {
         
         resizeItems: function()
         {
+            µ.planning_edit.validateItems();
+
             // Kijken of er nieuw item toegevoegd is
             $('.planning-edit-sortable-row div').each(function(index, child)
             {
                 if($(child).hasClass('planning-edit-new-child'))
                 {
-                    var rowId = $(child).parent().parent().data('row-id');
+                    var rowId = $(child).parent().parent().attr('data-row-id');
 
                     if(rowId != 'undefined')
                     {
@@ -514,14 +552,39 @@ var µ = {
             µ.planning_edit.updateChildren();
 
         },
+        validateItems: function()
+        {
+            $('.planning-edit-child').each(function(index, child)
+            {
+                var child = $(child);
 
+                if(child.hasClass('planning-edit-child-break'))
+                {
+
+                } else {
+                    if(child.attr('data-session-id'))
+                        child.css('background-color', '');
+                    else 
+                        child.css('background-color', 'darkblue');
+                }
+
+              
+
+            })
+        },
         toJson: function()
         {
-            var list = [];
+            µ.planning_edit.validateItems();
+                       
+                        
+            var planning = [];
+            var rows = [];
+            var date; 
 
             $('.planning-edit-row-parent').each(function(index, row) // Voor elke rij
             {   
                 var row  = $(row);
+                date = row.parent().data('date');
                 var from = row.find('input[name=from]').val(); 
                 var til  = row.find('input[name=til]').val(); 
                 var children = [];
@@ -538,10 +601,11 @@ var µ = {
 
                     if(type =='activity')
                     {
-                        var sessionId = child.data('session-id');
+                        var sessionId = child.attr('data-session-id');
+                        var maxHoeveelheid = child.attr('data-max-amount');
 
 
-                        var allowedClasses = child.data('mandatory-classes');
+                        var allowedClasses = child.attr('data-mandatory-classes');
 
                         if(allowedClasses)
                             allowedClasses = allowedClasses.split('|');
@@ -549,18 +613,13 @@ var µ = {
                             allowedClasses = [];
                         
 
-                        if(sessionId)
-                        
-                            child.css('background-color', '');
-                        else 
-                            child.css('background-color', 'darkblue');
-                        
  
 
 
                         children.push({
                             type: type,
-                            sessionId: child.data('session-id'),
+                            maxHoeveelheid: maxHoeveelheid,
+                            sessionId: child.attr('data-session-id'),
                             allowedClasses: allowedClasses
                         })
 
@@ -588,23 +647,45 @@ var µ = {
 
                 if(childrenCount)
                 {
-                    list.push({
+                    rows.push({
                         'from': from,
                         'til': til,
-                        'children': children
+                        'columns': children
                     });
                 }
 
-
+                
 
             })
-            console.log(list);
-            return true;
+            planning.push(
+            {
+                'date': date,
+                'rows': rows
+
+            });
+
+            return planning[0];
 
         },
         trySave: function()
         {
-            µ.planning_edit.toJson();
+            var planning = JSON.stringify(µ.planning_edit.toJson());
+            console.log(planning);
+
+            $.ajax({
+              type: "POST",
+              url: site_url()+'/planning/editSave',
+              data: {planning: planning},
+              success: function(result){ 
+
+                    $('#modal-content').html(result);
+                    $('#modal').modal();
+              },
+               error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status, xhr.responseText);
+                console.log(thrownError);
+              }
+            });
 
         }
 

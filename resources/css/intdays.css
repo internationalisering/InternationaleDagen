@@ -368,4 +368,17 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
     float:right;
     display:inline-block;
 }
+.planning-input-number
+{
+    width: 64px;
+}
 
+#editing-finished
+{
+    display:none;
+}
+
+.nav-tabs > li
+{
+    cursor: pointer;
+}

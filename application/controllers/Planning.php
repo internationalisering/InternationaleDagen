@@ -49,15 +49,15 @@ class Planning extends CI_Controller {
 				}
 			}
 			
-                        if($user->typeId = 1){
-                            $partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
-                        } else if($user->typeId = 2){
-                            $partials = array('template_menu' => 'login-docent/template_menu.php', 'template_pagina' => 'planning/planning_home');
-                        } else if($user->typeId = 3){
-                            $partials = array('template_menu' => 'login-spreker/template_menu.php', 'template_pagina' => 'planning/planning_home');
-                        } else if($user->typeId = 4){
-                            $partials = array('template_menu' => 'login-beheerder/template_menu.php', 'template_pagina' => 'planning/planning_home');
-                        }
+            if($user->typeId = 1){
+                $partials = array('template_menu' => 'login-student/template_menu.php', 'template_pagina' => 'planning/planning_home');
+            } else if($user->typeId = 2){
+                $partials = array('template_menu' => 'login-docent/template_menu.php', 'template_pagina' => 'planning/planning_home');
+            } else if($user->typeId = 3){
+                $partials = array('template_menu' => 'login-spreker/template_menu.php', 'template_pagina' => 'planning/planning_home');
+            } else if($user->typeId = 4){
+                $partials = array('template_menu' => 'login-beheerder/template_menu.php', 'template_pagina' => 'planning/planning_home');
+            }
 			$data['verantwoordelijke'] = 'Tom Van den Rul';
 			$this->template->load('template/template_master', $partials, $data);
 		} else 
@@ -155,14 +155,156 @@ class Planning extends CI_Controller {
 
 	}
 
-	public function edit()
+	public function editSave()
+	{
+		// laden van alles
+		$this->load->model('row_model');
+		$this->load->model('column_model');
+		$this->load->model('edition_model');
+		$this->load->model('presence_model');
+		$this->load->model('classgroup_model');
+
+		// Ophalen gegevens
+		$planning = $this->input->post('planning');
+		$planning = (array)json_decode($planning, true);
+
+		echo '<pre>' . var_export($planning, true) . '</pre>';
+
+		if(isset($planning['date']))
+		{
+			$date = $planning['date'];
+			$edition = $this->edition_model->getLastEdition();
+
+			// Stap 1: alle rijen/velden etc clearen op deze dag
+			// Eerst de rij id's verkregen met deze datum
+			// Daarna alle aanwezigheden met deze id's verwijderen
+			// Daarna alle mandatory klasgroepen met deze id's verwijderen
+			// Daarna de kolom verwijderen
+			// Daarna de rij verwijderen 
+			$rows = $this->row_model->getByDate($edition, $date );
+
+			foreach($rows as $row)
+			{
+				$columns = $this->column_model->getByRowId($row->id);
+
+				foreach($columns as $column)
+				{
+					$this->presence_model->deleteByColumnId($column->id);
+					$this->classgroup_model->deleteByColumnId($column->id);
+
+					$this->column_model->deleteById($column->id);
+				}
+				$this->row_model->deleteById($row->id);
+			}
+
+			// Stap 2: alle rijen toevoegen in de database
+
+			foreach($planning['rows'] as $row)
+			{
+				$from = $row['from'];
+				$til  = $row['til' ];
+
+
+				$rowAdd = new stdClass();
+				$rowAdd->starttijd = "$date $from";
+				$rowAdd->eindtijd  = "$date $til";
+				$rowAdd->editieId  = $edition->id;
+
+				$rowId = $this->row_model->insert($rowAdd);
+				// Rij is nu toegevoegd. Nu alle tiles toevoegen.
+
+				foreach($row['columns'] as $column)
+				{
+					$columnAdd = new stdClass();
+					
+					$columnAdd->planningRijId = $rowId;
+
+					if(isset($column['sessionId']) && (int)$column['sessionId'] != 0)
+						$columnAdd->sessieId = (int)$column['sessionId'];
+
+					if(isset($column['maxHoeveelheid']))
+					{
+						$columnAdd->maxHoeveelheid = (int)$column['maxHoeveelheid'];
+					}
+
+
+
+					$this->column_model->insert($columnAdd);
+
+
+					// TODO: ALLOWED CLASSES !!
+				}
+			}
+		}
+	}
+
+	public function edit($datum = null)
 	{
 		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
 		{
 			$this->load->model('edition_model');
-			
+			$this->load->model('class_model');
+			$this->load->model('classgroup_model');
+			$this->load->model('row_model');
+			$this->load->model('session_model');
+			$this->load->model('class_model');
+			$this->load->model('column_model');
+			$this->load->model('user_model');
+			$this->load->model('presence_model');
+
+
 			$data['titel'] = 'International Days';
 			$data['editie'] = $this->edition_model->getLastEdition();
+			$data['huidigeDatum'] = $data['editie']->startdatum;
+
+			if($datum)
+			{
+				$geldigeDatum = explode('-', $datum);
+				if(checkdate($geldigeDatum[1], $geldigeDatum[2], $geldigeDatum[0]))
+				{
+
+					$data['huidigeDatum'] = $datum;
+				}
+			}
+
+
+
+			// Alle kolommen
+			$data['edition'] = $this->edition_model->getLastEdition();
+			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
+
+
+			$user = $this->authex->getUserInfo();
+
+
+			foreach($data['rows'] as $row)
+			{
+
+				// alle kolommen ophalen
+				$row->columns = $this->column_model->getByRowId($row->id);
+				  
+				// Voor elke kolom de sessie ophalen, indien deze ingevuld is
+				foreach($row->columns as $kolom)
+				{
+					if($kolom->sessieId != null)
+					{
+						$kolom->session = $this->session_model->get($kolom->sessieId);
+
+						// Voor elke sessie de gebruiker ophalen 
+						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
+
+						$kolom->session->klasgroepen = $this->classgroup_model->getByColumnId($kolom->id);	
+						
+						foreach($kolom->session->klasgroepen as $klasgroep)
+						{
+							$klasgroep->klas = $this->class_model->get($klasgroep->klasId);
+						}					
+					}
+				}
+				
+			}
+			
+			
 
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'planning/planning_edit.php');
 

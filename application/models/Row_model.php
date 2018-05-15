@@ -28,7 +28,26 @@ class Row_model extends CI_Model {
         $this->db->order_by('starttijd', 'asc');
         $query = $this->db->get('planningRij');
         return $query->result();
-        
+    }
+
+
+    function getByDate($edition, $date)
+    {
+        $this->db->where('date(starttijd)', $date);
+        $this->db->where('editieId', $edition->id);
+        return $this->db->get('planningRij')->result();
+    }
+
+    function deleteById($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('planningRij');
+    }
+
+    function insert($row)
+    {
+        $this->db->insert('planningRij', $row);
+        return $this->db->insert_id();
     }
 }
 ?>

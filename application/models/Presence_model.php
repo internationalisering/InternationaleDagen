@@ -74,5 +74,12 @@ class Presence_model extends CI_Model {
         }
         return $list;
     }
+
+    function deleteByColumnId($columnId)
+    {
+        $this->db->where('planningKolomId', $columnId);
+
+        $this->db->delete('aanwezigheid');
+    }
 }
 ?>
