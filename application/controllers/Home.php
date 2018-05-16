@@ -47,6 +47,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(1)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-student/template_menu', 'template_pagina' => 'login-student/student_home');
+			$data['edition'] = $this->edition_model->getLastEdition();
 
 			$this->template->load('template/template_master', $partials, $data);
 		}
@@ -64,6 +65,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(2)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-docent/template_menu', 'template_pagina' => 'login-docent/docent_home');
+			$data['edition'] = $this->edition_model->getLastEdition();
 
 			$this->template->load('template/template_master', $partials, $data);
 		}
@@ -81,6 +83,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(3)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-spreker/template_menu', 'template_pagina' => 'login-spreker/spreker_home');
+			$data['edition'] = $this->edition_model->getLastEdition();
 
 			$this->template->load('template/template_master', $partials, $data);
 		}
@@ -98,6 +101,7 @@ class Home extends CI_Controller {
 		if($this->authex->checkLoginRedirectByType(4)){
 			$data['titel'] = 'International Days';
 			$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_home');
+			$data['edition'] = $this->edition_model->getLastEdition();
 
 			$this->template->load('template/template_master', $partials, $data);
 		}
