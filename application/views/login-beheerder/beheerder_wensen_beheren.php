@@ -1,4 +1,13 @@
 <?php
+/**
+ * @file beheerder_wensen_beheren.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de beheerder de wensen wil beheren.
+ * 
+ * @see Wensen
+ */
+
 function createQuestionLi($q){
     if($q->actief){
         echo '<li id="wq-' . $q->id . '">';

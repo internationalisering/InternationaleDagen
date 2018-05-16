@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file logout_home.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de gebruiker niet ingelogd is.
+ * 
+ * @see Home
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-lg-12">

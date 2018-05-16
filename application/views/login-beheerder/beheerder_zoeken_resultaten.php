@@ -1,4 +1,13 @@
 <?php
+/**
+ * @file beheerder_zoeken_resultaten.php
+ * @author Brend Simons
+ * 
+ * Pagina die alle zoekresultaten oplijst.
+ * 
+ * @see Zoeken
+ */
+
 function calculateAllTotal($models){
     $i = 0;
     

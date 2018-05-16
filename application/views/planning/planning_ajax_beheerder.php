@@ -53,6 +53,12 @@
 
 				</td>
 			</tr>
+			<tr>
+				<th>Max amount</th>
+				<td >
+					<p><input type='number' id='max-amount' class='planning-input-number'></p>
+				</td>
+			</tr>
 		</table>
 
 	</div>

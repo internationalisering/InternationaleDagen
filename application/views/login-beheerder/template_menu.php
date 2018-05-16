@@ -68,7 +68,14 @@
                     <a href="<?= site_url(); ?>/zoeken"><i class="fas fa-search"></i> Search</a>
                 </li>
                 <li>
+<<<<<<< HEAD
                     <a href="<?= site_url(); ?>/tables"><i class="fas fa-database"></i> Manage Extra Tables</a>
+=======
+                    <a href="<?= site_url(); ?>/certificates"><i class="fas fa-certificate"></i> Certificates</a>
+                </li>
+                <li>
+                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+>>>>>>> ee80704e5908beb80551b2e693580801da1aefcd
                 </li>
             </ul>
         </div>

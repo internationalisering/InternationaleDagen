@@ -76,5 +76,18 @@ class Edition_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    function setPlanned($editionId, $bool)
+    {
+        $bool = (int) $bool;
+
+        $edition = new stdClass();
+        $edition->gepland = $bool;
+
+
+        $this->db->where('id', $editionId);
+
+        $this->db->update('editie', $edition);
+    }
 }
 ?>

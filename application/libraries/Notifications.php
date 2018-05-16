@@ -1,10 +1,22 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Notifications
+ * @author Brend Simons
+ * 
+ * Notifications-klasse voor het weergeven van notificaties
+ */
 class Notifications{
     
     private $notification = null;
     
+    /**
+     * Maakt een nieuwe notificatie aan.
+     * 
+     * @param msg Het bericht dat weergegeven moet worden.
+     * @param type De css class die aan die notification gegeven moet worden.
+     * @param cookie Boolean moet er een cookie moet aangemaakt worden, of niet.
+     */
     public function createNotification($msg, $type = "success", $cookie = true){
         if($cookie){
             set_cookie("notification", json_encode(array("msg" => $msg, "type" => $type)), '3600');
@@ -13,6 +25,9 @@ class Notifications{
         }
     }
     
+    /**
+     * Toont al dan niet een notificatie.
+     */
     public function buildNotification(){
         $notification = get_cookie("notification");
         

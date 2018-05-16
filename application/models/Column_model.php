@@ -25,7 +25,19 @@ class Column_model extends CI_Model {
     {
         $this->db->where('planningRijId', $rowId);
         return $this->db->get('planningKolom')->result();
-        
+    }
+
+    function deleteById($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('planningKolom');
+    }
+
+    function insert($column)
+    {
+        $this->db->insert('planningKolom', $column);
+        return $this->db->insert_id();
+
     }
 }
 ?>
