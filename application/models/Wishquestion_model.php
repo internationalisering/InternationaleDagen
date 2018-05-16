@@ -10,8 +10,9 @@ class WishQuestion_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
     /**
-     * Geeft terug de vraag met id=$id uit de tabel wensVraag
+     * Haal de vraag met een bepaald id op.
      * @param $id Het opgegeven id
      * @return De opgevraagde vraag
      */
@@ -21,6 +22,11 @@ class WishQuestion_model extends CI_Model {
         return $query->row();
     }
     
+    /**
+     * Haal alle vragen op.
+     * 
+     * @return Alle vragen uit de database.
+     */
     function getAllQuestions(){
         $this->load->model("formuliertype_model");
         $this->load->model("wishanswerlist_model");
@@ -38,6 +44,11 @@ class WishQuestion_model extends CI_Model {
         return $result;
     }
     
+    /**
+     * Haal alle vragen op die zichtbaar zijn voor de spreker.
+     * 
+     * @return Alle zichtbare vragen.
+     */
     function getAllQuestionsVisible(){
         $this->load->model("formuliertype_model");
         $this->load->model("wishanswerlist_model");
@@ -56,6 +67,11 @@ class WishQuestion_model extends CI_Model {
         return $result;
     }
     
+    /**
+     * Haal alle vragen op die zichtbaar zijn voor de spreker met de bijbehorende antwoorden.
+     * 
+     * @return Alle zichtbare vragen met antwoorden.
+     */
     function getAllQuestionsVisibleWithAllQuestionAnswers(){
         $this->load->model("formuliertype_model");
         $this->load->model("wishanswerlist_model");
@@ -74,6 +90,11 @@ class WishQuestion_model extends CI_Model {
         return $result;
     }
     
+    /**
+     * Verwijder een vraag.
+     * 
+     * @param $id Id van de te verwijderen vraag.
+     */
     function deleteQuestion($id){
         $q = new stdClass();
         $q->verwijderd = 1;
@@ -81,6 +102,11 @@ class WishQuestion_model extends CI_Model {
         $this->db->update('wensVraag', $q);
     }
     
+    /**
+     * Pas een vraag aan in de database.
+     * 
+     * @param $q Vraag object met alle parameters voor in de database.
+     */
     function updateQuestion($q){
         $this->wishanswerlist_model->deleteAllAnswersByQuestion($q->id);
         
@@ -102,6 +128,11 @@ class WishQuestion_model extends CI_Model {
         $this->db->update('wensVraag', $question);
     }
     
+    /**
+     * Voeg een vraag toe aan de database
+     * 
+     * @param $q Vraag object met alle parameters voor in de database.
+     */
     function insertQuestion($q){
         $question = new stdClass();
         $question->naam = $q->naam;

@@ -10,6 +10,7 @@ class User_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
     /**
      * Geeft terug de gebruiker met id=$id uit de tabel gebruiker
      * @param $id Het opgegeven id
@@ -30,6 +31,11 @@ class User_model extends CI_Model {
         return $user;
     }
     
+    /**
+     * Haalt alle gebruiker op uit de database.
+     * 
+     * @return Alle gebruikers
+     */
     function getAllUsers(){
         $this->load->model("gebruikertype_model");
         
@@ -43,7 +49,14 @@ class User_model extends CI_Model {
         
         return $result;
     }
-
+    
+    /**
+     * Haalt de gebruiker op met een bepaalde email en wachtwoord combinatie.
+     * 
+     * @param $email Email adres van de gebruiker
+     * @param $password Wachtwoord van de gebruiker
+     * @return Een gebruiker
+     */
     function getUser($email, $password){
         // geef gebruiker-object met $email en $wachtwoord EN actief = 1
         $this->db->where('email', $email);
@@ -62,7 +75,12 @@ class User_model extends CI_Model {
             return null;
         }
     }
-
+    
+    /**
+     * Update de laatst ingelogd timestamp.
+     * 
+     * @param $id Id van de gebruiker
+     */
     function updateLastLogin($id){
         // pas tijd laatstAangemeld aan
         $user = new stdClass();
@@ -71,6 +89,11 @@ class User_model extends CI_Model {
         $this->db->update('gebruiker', $user);
     }
     
+    /**
+     * Voegt een nieuwe gebruiker toe aan de database.
+     * 
+     * @param $user Gebruiker die toegevoegd moet worden.
+     */
     function insert($user){
         if($user->email == "" || $user->voornaam == "" || $user->achternaam == ""){
             return -1;
@@ -82,6 +105,11 @@ class User_model extends CI_Model {
         return $this->db->insert_id();
     }
     
+    /**
+     * Update een gebruiker.
+     * 
+     * @param $user Gebruiker die geupdate moet worden.
+     */
     function update($user){
         $check = $this->getUserFromEmail($user->email);
         
