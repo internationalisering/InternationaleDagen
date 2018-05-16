@@ -4,7 +4,7 @@
 
 <form class="col-md-4 col-md-offset-4 upload" action="<?php echo site_url();?>/csv/importcsv" method="post" enctype="multipart/form-data" name="form1" id="form1">
 
-    <table>
+    <table class="import">
         <tr>
             <td> Choose your file: </td>
             <td>
@@ -83,49 +83,3 @@
 </form>
 
 </div>
-
-<style>
-
-.upload {
-    position: absolute;
-    top: 30%;
-    right:0;
-    left:0;
-    background-color: #f9f9f9;
-    padding: 2%;
-    width: 600px;
-    border-radius: 25px;
-}
-
-#icon {
-  width: 4%;
-}
-
-#typeUser {
-  padding: 3%;
-  margin-left: -15px;
-}
-
-#kolomnamen {
-  padding: 1%;
-}
-
-#OpslaanAls {
-  margin-top: 15px;
-  width: 98%;
-  border: solid 1px #000;
-  padding: 1%;
-}
-
-select {
-  margin-left: 62px;
-}
-
-#help {
-  margin-top: 140px;
-}
-
-</style>
-<script>
-  
-</script>
