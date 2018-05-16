@@ -104,6 +104,7 @@ class Home extends CI_Controller {
 	}
 
 	/**
+	 * @author Vincent Duchateau
 	 * @see login-beheerder/template_menu.php
 	 * @see template_master.php
 	 * @see Edition_model::getAllEditions
@@ -127,6 +128,7 @@ class Home extends CI_Controller {
 	}
 
 	/**
+	 * @author Vincent Duchateau
 	 * @see login-beheerder/template_menu.php
 	 * @see login-beheerder/homepagina_bewerk_home.php
 	 * @see template_master.php
@@ -152,6 +154,7 @@ class Home extends CI_Controller {
 	}
 
 	/**
+	 * @author Vincent Duchateau
 	 * @see login-beheerder/template_menu.php
 	 * @see login-beheerder/beheerder_editie_lijst.php
 	 * @see template_master.php
@@ -182,6 +185,7 @@ class Home extends CI_Controller {
 
 
 	/**
+	 * @author Vincent Duchateau
 	 * @see login-beheerder/template_menu.php
 	 * @see template_master.php
 	 * @see Edition_model::insert

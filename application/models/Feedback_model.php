@@ -12,6 +12,7 @@ class Feedback_model extends CI_Model {
     }
     /**
      * Geeft terug de feedback met id=$id uit de tabel feedback
+     * @author Tom Van Den Rul
      * @param $id Het opgegeven id
      * @return De opgevraagde feedback
      */
@@ -23,10 +24,10 @@ class Feedback_model extends CI_Model {
     }
 
     /**
-     * 
-     * 
-     * 
-     * 
+     * Gaat na of feedback al gegeven is of niet 
+     * @author Tom Van Den Rul
+     * @param $sessieId = id van de sessie
+     * @param $gebruikerId = id van de gebruiker
      */
 
     function exists($sessieId, $gebruikerId)
@@ -38,11 +39,11 @@ class Feedback_model extends CI_Model {
     }
 
     /**
-     * 
-     * 
-     * 
-     * 
-     * 
+     * Maakt nieuwe feedback aan 
+     * @author Tom Van Den Rul
+     * @param $sessieId = id van de huidige sessie 
+     * @param $gebruikerId= id van de gebruiker
+     * @param $feedback = feedback die gegeven wordt
      */
 
     function set($sessieId, $gebruikerId, $feedback)
@@ -59,9 +60,11 @@ class Feedback_model extends CI_Model {
     }
 
     /**
-     * 
-     * 
-     * s
+     * Update de desbetreffende feedback
+     * @author Tom Van Den Rul  
+     * @param $sessieId = id van de sessie
+     * @param $gebruiker = id van de gebruiker
+     * @param $feedback = gegeven feedback
      */
 
     function update($sessieId, $gebruikerId, $feedback)
@@ -74,8 +77,11 @@ class Feedback_model extends CI_Model {
     }
 
     /**
-     * 
-     * 
+     * Creeërt nieuwe feedback voor een sessie
+     * @author Tom Van Den Rul
+     * @param $sessieId = id van de sessie
+     * @param $gebruikerId = id van de gebruiker
+     * @param $feedback = inhoud van de feedback
      */
 
     function create($sessieId, $gebruikerId, $feedback)
@@ -86,8 +92,10 @@ class Feedback_model extends CI_Model {
     }
 
     /**
-     * 
-     * 
+     * Verwijdert huidige feedback
+     * @author Tom Van Den Rul
+     * @param $sessieId = id van de sessie 
+     * @param $gebruikerId = id van de gebruiker
      */
 
     function clear($sessieId, $gebruikerId)

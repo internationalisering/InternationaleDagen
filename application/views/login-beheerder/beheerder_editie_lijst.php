@@ -1,8 +1,8 @@
 <div id="page-wrapper" class="page-wrapper-fullpage">
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="welcomenav">List of editions</h3>
+    <div class="col-lg-12">
+            <h1 class="page-header">List of editions</h1>
         </div>
     </div>
 
@@ -34,7 +34,7 @@
 
         </div>
     </div>
-<h3 class="welcomenav">Add a new edition </h3>
+<h1 class="page-header">Add a new edition </h1>
 <div class="col-lg-12 col-md-12" id="newEdition">
 
 <form action="<?= site_url()?>/home/editieToevoegen" method="POST">

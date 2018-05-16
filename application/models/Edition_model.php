@@ -50,6 +50,7 @@ class Edition_model extends CI_Model {
 
     /**
      * Wijzigt de pagina-inhoud waarbij id=$id en inhoud van de pagina=$inhoud uit te tabel editie
+     * @author Vincent Duchateau
      * @return Een gewijzigde pagina 
      */
 
@@ -64,6 +65,7 @@ class Edition_model extends CI_Model {
 
     /**
      * Voegt een nieuwe editie toe aan de tabel editie
+     * @author Vincent Duchateau
      * @return Een nieuwe editie
      */
 
@@ -104,7 +106,13 @@ class Edition_model extends CI_Model {
         return $query->result();
     }
 
-
+    /**
+     * Slaat de planning definitief op voor de huidge editie 
+     * @author Tom Van Den Rul
+     * @param $bool geeft een int 1 of 0 terug 
+     * @param $editionId = id van de huidige editions
+     * 
+     */
 
     function setPlanned($editionId, $bool)
     {

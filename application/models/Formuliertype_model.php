@@ -22,7 +22,8 @@ class FormulierType_model extends CI_Model {
     }
     
     /**
-     * 
+     * Geeft alle types van formulieren terug
+     * @author Brend Simons
      */
     function getAllTypes(){
         $query = $this->db->get('formulierType');
