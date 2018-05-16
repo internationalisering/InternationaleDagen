@@ -21,9 +21,25 @@ $(document).ready(function()
     </div>
     <div class="row intro">
         <div class="col-lg-12 col-md-12">
+        	  	<H4>Legenda</H4>
+	                <table class='legenda'>
+	               		<tr>
+	               			<th>Enrolled</th>
+	               			<th bgcolor='#2BA100'></th>
+
+	               		</tr>
+	               		<tr>
+	               			<th>Activity</th>
+	               			<th bgcolor='#3794fe'></th>
+	               		</tr>
+	               		<tr>
+	               			<th>Break</th>
+	               			<th bgcolor='#FF7300'></th>
+	               		</tr>
+	               	</table>
             <div class="planning-flexbox">
        			<?php 
-                if($edition->gepland)
+                if($edition->gepland || $isDocent)
                 {
 
 	                $datumsBereik = new DatePeriod (
@@ -127,6 +143,12 @@ $(document).ready(function()
 	                        }
 	                    }
 	                }
+
+               ?>
+
+             
+
+    	        <?php
 	            } else { ?>
 					<div class="alert alert-warning" role="alert">
 				  	The planning has not been finalized. Check back in a few days.

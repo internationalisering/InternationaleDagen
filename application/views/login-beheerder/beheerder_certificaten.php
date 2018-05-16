@@ -39,36 +39,12 @@
 
 </div>
 
-<style>
-    #card {
-        padding: 2%;
-        margin-bottom: 10px;
-        background-color: #007bff;
-        color: #ffffff;
-        border-radius: 15px 50px 30px;
-        width: 50%;
-    }
-
-    #print {
-        background-color: orange;
-        color: #ffffff;
-        border: none;
-        padding: 1%;
-        margin-bottom: 10px;
-        border-radius: 15px 50px 30px;
-    }
-
-    #print:hover {
-        background-color: red; 
-    }
-</style>
-
 <script type="text/javascript">
     $(function () {
     $("#print").click(function () {
         var contents = $("#printArea").html();
         var frame1 = $('<iframe />');
-        frame1[0].name = "frame1";
+        frame1[0].namess = "frame1";
         frame1.css({ "position": "absolute", "top": "-1000000px" });
         $("body").append(frame1);
         var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
@@ -84,5 +60,5 @@
             frame1.remove();
         }, 500);
     });
-});
+    });
 </script>
