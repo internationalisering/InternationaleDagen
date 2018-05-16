@@ -11,7 +11,7 @@
  */
 function sendEmail($to, $subject, $message){
     $CI =& get_instance();
-     
+    
     $config = Array(
         'protocol' => 'smtp',
         'smtp_host' => 'ssl://smtp.googlemail.com',
