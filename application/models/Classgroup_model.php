@@ -27,7 +27,8 @@ class Classgroup_model extends CI_Model {
      * 
      * @param $columnId Het id van de te verwijderen kolom
      */
-    function deleteByColumnId($columnId){
+    function deleteByColumnId($columnId)
+    {
         $this->db->where('planningKolomId', $columnId);
         $this->db->delete('klasgroep');
     }
