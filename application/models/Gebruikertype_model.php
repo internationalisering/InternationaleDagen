@@ -57,7 +57,13 @@ class GebruikerType_model extends CI_Model {
         return 1;
     }
     
-    
+    /**
+     * Zoekt naar desbetreffende klasse in de tabel
+     * @param $text is de zoekterm
+     * @param $previousEditions kan men aanvinken om te zoeken in vorige edities
+     * @param $columns zoekt naar de kolommen van de tabel kolom
+     * @return Verschillende zoekresultaten
+     */
     function search($text, $previousEditions, $columns){
         $this->db->from('gebruikerType');
         

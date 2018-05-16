@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * @class Tables
  * @author Quinten van Casteren
+ * @author Vincent Duchateau
  * 
  * Controller-klasse voor het aanpassen van de hulptabellen
  */

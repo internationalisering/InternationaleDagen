@@ -1,6 +1,6 @@
 <?php
 /**
- * @class Csvs_model
+ * @class Csv_model
  * Model-klasse voor CSV-bestanden te importeren
  */
 if (!defined('BASEPATH'))
@@ -14,6 +14,7 @@ class Csv_model extends CI_Model
 
     /**
      * Haalt all gebruikers op
+     * @author Vincent Duchateau
      * @return Alle gebruikers
      */
     function get_gebruikers() {
@@ -27,6 +28,7 @@ class Csv_model extends CI_Model
 
     /**
      * Voegt all rijen toe van de CSV aan de tabel gebruiker
+     * @author Vincent Duchateau
      * @param $data is de inhoud die wordt toegevoegd aan de kolom gebruiker
      * @return Toevoeging van rijen van het CSV-bestand aan de tabel gebruiker
      */
