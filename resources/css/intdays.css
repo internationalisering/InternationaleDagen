@@ -218,7 +218,11 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
     width: 100%;
 }
 
-
+.legenda > tr > td,th
+{
+	padding:15px;
+	border: 1px solid grey;
+}
 .planning-date 
 {
     display: inline-block;

@@ -46,8 +46,9 @@ class Planning extends CI_Controller {
 			$data['edition'] = $this->edition_model->getLastEdition();
 			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
 
-
 			$user = $this->authex->getUserInfo();
+
+			$data['isDocent'] = $this->authex->isDocent();
 
 
 			foreach($data['rows'] as $row)
