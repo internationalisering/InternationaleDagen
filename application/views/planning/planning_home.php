@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file planning_home.php
+ * 
+ * Homepagina van de planning>
+ */
+?>
 <script>
 $(document).ready(function()
 {

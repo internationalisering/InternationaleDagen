@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file planning_ajax_beheerder.php
+ * 
+ * Ajaxpagina voor de beheerder.
+ */
+?>
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal">&times;</button>
 	<h4 class="modal-title">Instellen activiteit</h4>

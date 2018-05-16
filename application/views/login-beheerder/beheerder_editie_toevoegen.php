@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file beheerder_editie_toevoegen.php
+ * 
+ * Pagina waar de beheerder de edities kan toevoegen.
+ */
+?>
 <form role="form" method="POST">
   <table>
     <tr>

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file beheerder_gebruiker_import.php
+ * 
+ * Pagina waar de beheerder gebruikers kan importeren.
+ */
+?>
 <div id="page-wrapper">
 
 <h1 class="page-header"><?php echo $h1; ?></h1>

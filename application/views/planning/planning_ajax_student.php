@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file planning_ajax_student.php
+ * 
+ * Ajaxpagina voor de student.
+ */
+?>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <h4 class="modal-title"><?= $column->sessie->titel; ?></h4>

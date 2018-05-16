@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file beheerder_editie_lijst.php
+ * 
+ * Pagina waar de beheerder alle edities kan bekijken.
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
 
     <div class="row">

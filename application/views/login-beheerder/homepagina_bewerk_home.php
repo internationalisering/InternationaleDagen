@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file homepagina_bewerk_home.php
+ * 
+ * Pagina waar de beheerder de homepagina kan aanpassen.
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="bewerk">
 

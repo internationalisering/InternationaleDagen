@@ -2,6 +2,7 @@
 /**
  * @file logout_home.php
  * @author Brend Simons
+ * @mainpage Commentaar bij Project27_1718
  * 
  * Pagina die te zien is wanneer de gebruiker niet ingelogd is.
  * 

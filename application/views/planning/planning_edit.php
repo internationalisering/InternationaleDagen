@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file planning_edit.php
+ * 
+ * Pagina om de planning aan te passen.
+ */
+?>
 <script>
 $(document).ready(function()
 {

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file planning_ajax_spreker.php
+ * 
+ * Ajaxpagina voor de spreker.
+ */
+?>
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <h4 class="modal-title"><?= $column->sessie->titel; ?></h4>

@@ -1,3 +1,10 @@
+<?php
+/**
+ * @file beheerder_certificaten.php
+ * 
+ * Pagina waar de beheerder certificaten kan opvragen.
+ */
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
