@@ -133,7 +133,7 @@ class Tables extends CI_Controller {
          * Past het type aan dat id als id heeft. Als id="new" zal er een nieuw type aangemaakt worden. Hierna word men verdergestuurt naar Tables.
          * 
          * @see Gebruikertype_model::insert
-         * @see Gebruikertype::update
+         * @see Gebruikertype_model::update
          */
         public function changeType(){
             $id = $this->input->post('id');
@@ -156,7 +156,7 @@ class Tables extends CI_Controller {
          * Past de language aan dat id als id heeft. Als id="new" zal er een nieuwe language aangemaakt worden. Hierna word men verdergestuurt naar Tables.
          * 
          * @see Language_model::insert
-         * @see Language::update
+         * @see Language_model::update
          */
         public function changeLanguage(){
             $id = $this->input->post('id');
@@ -179,7 +179,8 @@ class Tables extends CI_Controller {
          * Past de class aan dat id als id heeft. Als id="new" zal er een nieuwe class aangemaakt worden. Hierna word men verdergestuurt naar Tables.
          * 
          * @see Class_model::insert
-         * @see Class::update
+         * @see Class_model::update
+         * @see Edition_model::getLastEdition
          */
         public function changeClass(){
              $this->load->model("edition_model");
