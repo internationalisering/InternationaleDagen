@@ -338,7 +338,6 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 
 }
 
-
 .planning-edit-child-break
 {
     background-color: #FF8C08;
@@ -386,3 +385,118 @@ table tr.custom-even.row2, table tr.custom-odd.row2{
 {
     cursor: pointer;
 }
+
+.editietable {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-family: 'Verdana';
+}
+
+.editietable, .editietable th, .editietable td {
+    border: 1px solid black;
+    padding: 1%;
+}
+
+.editietable a, .editietable a:hover {
+        text-decoration: none;
+    color: #ffffff;
+}
+
+tr:last-child {
+  border: none;
+}
+
+input {
+  padding: 1%;
+  width: 200px;
+  margin-bottom: 5px;
+}
+
+#editie {
+  width: 40%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}
+
+#editie a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+#groupButton {
+    padding: 2%;
+}
+
+#newEdition {
+    padding: 2%;
+    margin-bottom: 40px;
+}
+
+#card {
+    padding: 2%;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 15px 50px 30px;
+    width: 50%;
+}
+
+#print {
+    background-color: orange;
+    color: #ffffff;
+    border: none;
+    padding: 1%;
+    margin-bottom: 10px;
+    border-radius: 15px 50px 30px;
+}
+
+#print:hover {
+    background-color: red; 
+}
+
+.upload {
+    position: absolute;
+    top: 30%;
+    right:0;
+    left:0;
+    background-color: #f9f9f9;
+    padding: 2%;
+    width: 600px;
+    border-radius: 25px;
+}
+
+#icon {
+  width: 4%;
+}
+
+#typeUser {
+  padding: 3%;
+  margin-left: -15px;
+}
+
+#kolomnamen {
+  padding: 1%;
+}
+
+#OpslaanAls {
+  margin-top: 15px;
+  width: 98%;
+  border: solid 1px #000;
+  padding: 1%;
+}
+
+select {
+  margin-left: 62px;
+}
+
+#help {
+  margin-top: 140px;
+}
+
+.import {
+    border: #fff;
+}
+

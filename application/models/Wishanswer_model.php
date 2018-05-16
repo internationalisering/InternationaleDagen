@@ -10,6 +10,7 @@ class WishAnswer_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
     /**
      * Geeft terug het antwoord met id=$id uit de tabel WishAnswer
      * @param $id Het opgegeven id
@@ -21,6 +22,12 @@ class WishAnswer_model extends CI_Model {
         return $query->row();
     }
     
+     /**
+     * Haal alle antwoorden van een gebruiker op.
+     * 
+     * @param $userid Id van de gebruiker.
+     * @return De antwoorden
+     */
     function getAnswersByUser($userid){
         $this->db->where('gebruikerId', $userid);
         $this->db->where('verwijderd', '0');
@@ -28,6 +35,11 @@ class WishAnswer_model extends CI_Model {
         return $query->result();
     }
     
+    /**
+     * Verwijder alle antwoorden van een gebruiker.
+     * 
+     * @param $userid Id van de gebruiker.
+     */
     function deleteAllAnswersByUser($userId){
         $a = new stdClass();
         $a->verwijderd = 1;
@@ -35,6 +47,13 @@ class WishAnswer_model extends CI_Model {
         $this->db->update('wensAntwoord', $a);
     }
     
+    /**
+     * Voeg een antwoord toe.
+     * 
+     * @param $userid Id van de gebruiker.
+     * @param $wensvraagId Id van de vraag.
+     * @param $resultaat Antwoord.
+     */
     function insertAnswer($userId, $wensvraagId, $resultaat){
         $this->load->model('edition_model');
         
