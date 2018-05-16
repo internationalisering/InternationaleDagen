@@ -76,7 +76,7 @@ class Tables extends CI_Controller {
         /**
          * Zendt de beheerder door naar een pagina waarin hij zijn type kan aanpassen in een form.
          * 
-         * @param $code De Id van het geselecteerde type. Dit is "new" voor een nieuw type.
+         * @param $code De Id van het geselecteerde type.
          * @see login-beheerder/template_menu.php
          * @see edit_tables.php
          * @see Gebruikertype_model::get
@@ -86,14 +86,11 @@ class Tables extends CI_Controller {
 		
 		$data['titel'] = 'International Days';
                 
-                if($code != "new"){
+                
                     $this->load->model('gebruikertype_model');
                     $template = $this->gebruikertype_model->get($code);
                         
                     $data['template'] = $template;
-                } else {
-                    $data['template'] = NULL;
-                }
                 
                 $data['type'] = "Type";
                 

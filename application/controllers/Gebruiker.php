@@ -204,6 +204,7 @@ class Gebruiker extends CI_Controller {
 
 			$data['titel'] = 'International Days';
 			$data['h1'] = 'Please upload a file in CSV format';
+			$data['verantwoordelijke'] = 'Vincent Duchateau';
 
 			$data['gebruiker'] = $this->csv_model->get_gebruikers();
 			$data['type'] = $this->gebruikertype_model->getAllTypes();
@@ -258,7 +259,8 @@ class Gebruiker extends CI_Controller {
 					}
 
 					$data['titel'] = 'International Days';
-		    	    $data['types'] = $this->gebruikertype_model->getAllTypes();
+					$data['types'] = $this->gebruikertype_model->getAllTypes();
+					$data['verantwoordelijke'] = 'Vincent Duchateau';
 		    	    $data['user'] = $user;
 		    	    $data['h1'] = "New User";
 		    		$partials = array('template_menu' => 'login-beheerder/template_menu', 'template_pagina' => 'login-beheerder/beheerder_gebruiker_bewerk');

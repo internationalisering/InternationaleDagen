@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @class Csv
  * @author Vincent Duchateau
  * 
- * Controller-klasse voor het beheren en verzenden van emails
+ * Controller-klasse voor het importeren van gebruikers door middel van een CSV-bestand
  */
 
 class Csv extends CI_Controller {
@@ -20,11 +20,13 @@ class Csv extends CI_Controller {
         /**
          * Upload en importeert de gekozen csv file naar een bepaald pad. Daarna worden we terug geredirect naar de Gebruiker controller.
          * 
-         * @see show_templates.php
-         * @see beheerder_template_menu.php
+         * @see login-beheerder/gebruiker-import.php
+         * @see login-beheerder/template_menu.php
+         * @see template_master.php
          * @see Csv_model::insert_csv
          * @see Csvimport
          */
+        
     public function importcsv() {
     	$data['error'] = '';
         $type = $this->input->post('type');
