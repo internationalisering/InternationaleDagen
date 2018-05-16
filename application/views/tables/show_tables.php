@@ -25,7 +25,6 @@
                           } ?>
                         </tbody>
                       </table>
-            <p><a class="btn btn-lg btn-success btn-block" href="<?=site_url() ?>/tables/edittype/new">New type</a></p>
             <table width="100%" class="table table-striped table-bordered table-hover" id="tabel-languages">
                         <thead>
                           <tr>
