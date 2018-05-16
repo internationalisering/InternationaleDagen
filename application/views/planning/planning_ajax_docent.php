@@ -32,7 +32,7 @@
           <button 
             type="button" 
             title="Als docent kan je je inschrijven als surveillant. Je bent de verantwoordelijke tijdens de lezing en zorgt voor het nemen van aanwezigheden."
-            onclick='withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
+            onclick='µ.planning_view.withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
             class="btn btn-danger" 
            >Withdraw
           </button>
@@ -42,7 +42,7 @@
           <button 
             type="button" 
             title="Als docent kan je je inschrijven als surveillant. Je bent de verantwoordelijke tijdens de lezing en zorgt voor het nemen van aanwezigheden."
-            onclick='enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
+            onclick='µ.planning_view.enroll(<?= $column->id ?>); $(this).addClass("disabled");' 
             class="btn btn-warning"  
            >Enroll
           </button>

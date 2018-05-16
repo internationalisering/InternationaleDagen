@@ -54,6 +54,20 @@
 				</td>
 			</tr>
 			<tr>
+				<th>Invigilators</th>
+				<td id='invigilators'>
+					<?php
+					/*foreach($invigilators as $invigilator)
+					{
+						$name = $invigilator->voornaam . ' ' . $invigilator->achternaam;
+						$id = $invigilator->id;
+						echo "<p><input type='checkbox' name='invigilator[]' class='planning-input-checkbox' data-invigilator='$name' value='$id'/> $name</p>";
+					}*/
+					?>
+
+				</td>
+			</tr>
+			<tr>
 				<th>Max amount</th>
 				<td >
 					<p><input type='number' id='max-amount' class='planning-input-number'></p>

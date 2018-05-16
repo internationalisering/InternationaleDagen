@@ -9,9 +9,7 @@ var µ = {
                 µ.planning_view.viewColumn(columnId);
             })
 
-            µ.planning_view.addAddButton();
-            µ.planning_edit.updateRowIds();
-            µ.planning_edit.setTimepickers();
+
 
         },
 
@@ -224,7 +222,9 @@ var µ = {
             var breakReason = "";
             if(isBreak)
                 breakReason = ($(column).data('break') || '');
-       
+        
+      
+
             $.ajax({
                 url: site_url() + "/planning/editColumn/" + isBreak + "/" + breakReason, 
                 success: function(result)
@@ -234,6 +234,22 @@ var µ = {
 
                     $('#search-button').click(µ.planning_edit.editSessionSearchSubmit);
 
+
+
+                    var presentUsers = JSON.parse($(column).attr('data-presence'));
+
+                    console.log(presentUsers);
+
+                    $('#invigilators').html('');
+                    $(presentUsers).each(function(i, user)
+                    {                       
+                     $('#invigilators').append('<p><input class="planning-input-checkbox" type="checkbox" /> ' + 'test' + '</p>');
+
+
+                    });
+                      
+
+                    
                     // Kijken of currentEdit al een sessie-id heeft. Zo ja: info opzoeken, zo nee: zoekformulier toenen
                     var sessionId = µ.planning_edit.currentEdit.data('session-id');
                     if(sessionId)
@@ -246,21 +262,25 @@ var µ = {
                     $('#max-amount').val(column.attr('data-max-amount'));
 
                     // instellen van mandatory classes
-                    var mandatoryClasses = ($(column).attr('data-mandatory-classes')).split('|');
-                    $('#mandatory-classes').find('input[type=checkbox]').each(function(index, checkbox)
+                    var mandatoryClasses = ($(column).attr('data-mandatory-classes'));
+
+                    if(mandatoryClasses)
                     {
-                        var checkbox = $(checkbox);
-
-
-                        $(mandatoryClasses).each(function(i, classId)
+                        mandatoryClasses = mandatoryClasses.split('|');
+                        $('#mandatory-classes').find('input[type=checkbox]').each(function(index, checkbox)
                         {
-                            if(checkbox.val() == classId)
-                                checkbox.attr('checked', '1');
+                            var checkbox = $(checkbox);
+
+
+                            $(mandatoryClasses).each(function(i, classId)
+                            {
+                                if(checkbox.val() == classId)
+                                    checkbox.attr('checked', '1');
+
+                            });
 
                         });
-
-                    });
-
+                    }
                     if(isBreak)
                     {
                         $('.planning-edit-button-ok').show().click(µ.planning_edit.confirmSessionBreak);
@@ -335,7 +355,6 @@ var µ = {
         },
         getSessionInfo: function(sessionId)
         {
-            
             $.ajax({
                 url: site_url() + "/planning/getSessionInfo/" + sessionId, 
                 success: function(result)
@@ -654,13 +673,14 @@ var µ = {
                         else
                             allowedClasses = [];
                         
-
- 
+                        var aanwezigheden = JSON.parse(child.attr('data-presence'));
+                        console.log(aanwezigheden);
 
 
                         children.push({
                             type: type,
                             maxHoeveelheid: maxHoeveelheid,
+                            aanwezigheden: aanwezigheden,
                             sessionId: child.attr('data-session-id'),
                             allowedClasses: allowedClasses
                         })

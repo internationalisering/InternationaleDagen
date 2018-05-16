@@ -67,7 +67,7 @@ $(document).ready(function()
 										<input type="text" name="from" class="planning-edit-time" value='<?= ($hourFrom != '23:59' ? $hourFrom : '') ?>'> - 
 										<input type="text" name="til"  class="planning-edit-time" value='<?= ($hourTil != '23:59' ? $hourTil : '') ?>'>
 				            		</div>
-									<div class="planning-edit-sortable planning-edit-sortable-row ui-sortable">
+									<div class="planning-edit-sortable planning-edit-sortable-row ui-sortable">	
 
 
 
@@ -95,8 +95,10 @@ $(document).ready(function()
 												 class="planning-edit-child <?= ($column->pauze != null ? 'planning-edit-child-break' : '')  ?> ui-sortable-handle" 
 												 title=""
 												 data-test="<?= $column->planningRijId;?>" 
+												 data-column-id="<?= $column->id ?>"
 												 data-max-amount="<?= $column->maxHoeveelheid; ?>"
 												 data-session-id="<?= $column->sessieId; ?>"
+												 data-presence='<?= isset($column->aanwezigheden) ? json_encode($column->aanwezigheden) : "[]"; ?>'
 												 data-break="<?= $column->pauze; ?>"
 												 data-author="<?= (isset($column->session->gebruiker) ? $column->session->gebruiker->voornaam . ' ' . $column->session->gebruiker->achternaam  : 'nvt')?>" 
 												 data-mandatory-classes="<?= $mandatoryClasses ?>" 

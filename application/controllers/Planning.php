@@ -54,8 +54,6 @@ class Planning extends CI_Controller {
 						{	
 							if($klasgroep = $gebruikerKlas)
 								$kolom->verplicht = true;
-
-							
 						}
 					}
 				}
@@ -90,7 +88,9 @@ class Planning extends CI_Controller {
 			$this->load->model('session_model');
 			$this->load->model('presence_model');
 			$this->load->model('feedback_model');
-			$this->load->model('User_model');
+			$this->load->model('user_model');
+			$this->load->model('class_model');
+			$this->load->model('classgroup_model');
 
 
 			$data = array();
@@ -102,6 +102,7 @@ class Planning extends CI_Controller {
 			
 
 			$data['aantalIngeschreven'] = $this->presence_model->getColumnCount($data['column']->id);
+
 			$data['ingeschreven'] 		= $this->presence_model->isEnrolled( $data['column']->id, $user->id);
 	
 			
@@ -111,7 +112,18 @@ class Planning extends CI_Controller {
 			}	
 			else if($this->authex->isStudent())
 			{
-				$data['feedback'] 			= $this->feedback_model->get($data['column']->sessie->id, $user->id);
+				$data['column']->verplichteKlasgroepen = $this->classgroup_model->getByColumnId($data['column']->id);
+				$data['column']->verplicht = false;
+
+				$gebruikerKlas = $this->class_model->get($this->authex->getUserInfo()->klasId);
+				foreach($data['column']->verplichteKlasgroepen as $klasgroep)
+				{	
+					if($klasgroep = $gebruikerKlas)
+						$data['column']->verplicht = true;
+				}
+
+
+				$data['feedback'] = $this->feedback_model->get($data['column']->sessie->id, $user->id);
 				$this->load->view('planning/planning_ajax_student.php', $data);
 			} else if($this->authex->isDocent())
 			{
@@ -128,6 +140,36 @@ class Planning extends CI_Controller {
 				$this->load->view('planning/planning_ajax_docent.php', $data);
 			}
 		}
+	}
+	public function getcolumnInfo($columnId = null)
+	{
+		$obj = array();
+		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
+		{
+			$columnId = (int)$columnId;
+			$this->load->model('presence_model');
+			$this->load->model('user_model');
+
+			if($columnId)
+			{
+				$aanwezigheden = $this->presence_model->getEnrolledStudents($columnId);
+				$obj['aanwezigheden'] = array();
+				foreach($aanwezigheden as $aanwezigheid)
+				{
+					// hide info 
+					$userFull =  $this->user_model->get($aanwezigheid);
+					$user = new stdClass();
+					$user->id = $userFull->id;
+					$user->voornaam = $userFull->voornaam;
+					$user->achternaam = $userFull->achternaam;
+
+					$relation = $this->presence_model->getEnrolledStatus($columnId, $user->id);
+
+					$obj['aanwezigheden'][] = array('user'=>$user, 'surveillant'=>$relation->surveillant, 'geselecteerd'=>$relation->geselecteerd);
+				}
+			}
+		}
+		echo json_encode($obj);
 	}
 	public function getSessionInfo($sessionId = null)
 	{
@@ -195,12 +237,12 @@ class Planning extends CI_Controller {
 		$planning = $this->input->post('planning');
 		$planning = (array)json_decode($planning, true);
 
-		echo '<pre>' . var_export($planning, true) . '</pre>';
 
 		if(isset($planning['date']))
 		{
 			$date = $planning['date'];
 			$edition = $this->edition_model->getLastEdition();
+
 
 			// Stap 1: alle rijen/velden etc clearen op deze dag
 			// Eerst de rij id's verkregen met deze datum
@@ -209,13 +251,13 @@ class Planning extends CI_Controller {
 			// Daarna de kolom verwijderen
 			// Daarna de rij verwijderen 
 			$rows = $this->row_model->getByDate($edition, $date );
-
 			foreach($rows as $row)
 			{
 				$columns = $this->column_model->getByRowId($row->id);
 
 				foreach($columns as $column)
 				{
+					
 					$this->presence_model->deleteByColumnId($column->id);
 					$this->classgroup_model->deleteByColumnId($column->id);
 
@@ -223,7 +265,6 @@ class Planning extends CI_Controller {
 				}
 				$this->row_model->deleteById($row->id);
 			}
-
 			// Stap 2: alle rijen toevoegen in de database
 
 			foreach($planning['rows'] as $row)
@@ -277,9 +318,22 @@ class Planning extends CI_Controller {
 							$classgroup->klasId = $allowedClass;
 
 							$this->classgroup_model->insert($classgroup);
-
 						}
 
+					// Voeg aanwezigen toe 
+					if(isset($column['aanwezigheden']))
+						foreach($column['aanwezigheden'] as $aanwezigheid)
+						{	
+						
+							$aanwezigheid2 = new stdClass();
+							$aanwezigheid2->planningKolomId = $columnAdd->id;
+							$aanwezigheid2->gebruikerId = $aanwezigheid['gebruikerId'];
+							$aanwezigheid2->surveillant = $aanwezigheid['surveillant'];
+							$aanwezigheid2->geselecteerd = $aanwezigheid['geselecteerd'];
+
+							$this->presence_model->insert($aanwezigheid2);
+
+						}
 				}
 			}
 		}
@@ -336,6 +390,14 @@ class Planning extends CI_Controller {
 					if($kolom->sessieId != null)
 					{
 						$kolom->session = $this->session_model->get($kolom->sessieId);
+
+						$aanwezigheden = $this->presence_model->getEnrolledStudents($kolom->id);
+						$kolom->aanwezigheden = array();
+						foreach($aanwezigheden as $aanwezigheid)
+						{
+							$kolom->aanwezigheden[] = $this->presence_model->getEnrolledStatus($kolom->id, $aanwezigheid);
+						}
+
 
 						// Voor elke sessie de gebruiker ophalen 
 						$kolom->session->gebruiker = $this->user_model->get($kolom->session->gebruikerId);
@@ -431,6 +493,7 @@ class Planning extends CI_Controller {
 
 		$data['classes'] = 		$this->class_model->getAll();
 		$data['breakReason'] =  $breakReason;
+		
 
 		if( $isBreak == 'true')
 			$this->load->view('planning/planning_ajax_beheerder_break.php', $data);

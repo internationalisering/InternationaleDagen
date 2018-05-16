@@ -22,7 +22,8 @@
         class="btn btn-info">Feedback
       </button>
 
-    <?php if($ingeschreven){?>
+    <?php if(!$column->verplicht){  ?>
+    <?php if($ingeschreven ){?>
       <button 
         type="button" 
         onclick='µ.planning_view.withdraw(<?= $column->id ?>); $(this).addClass("disabled");'
@@ -39,6 +40,6 @@
        >Enroll
       </button>
 
-    <?php } ?>
+    <?php } } ?>
     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 </div>
