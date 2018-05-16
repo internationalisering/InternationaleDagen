@@ -13,7 +13,13 @@
         <div class="col-lg-12 col-md-12">
             
             
-            
+        <?php
+            if($edition != null){
+                echo nl2br($edition->homepagina);
+            }else{
+                echo "There's currently no edition going on!";
+            }
+            ?>
         </div>
     </div>
 </div>
