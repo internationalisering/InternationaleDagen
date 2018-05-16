@@ -26,6 +26,44 @@ class Class_model extends CI_Model {
         return $this->db->get('klas')->result();
     }
 
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Voegt de klas $template toe aan de tabel klas.
+     * @param $template De opgegeven klas
+     * @return Een True signaal
+     */
+    function insert($template){
+        $this->db->insert('klas', $template);
+        return 1;
+    }
+    
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Verandert de klas waar id=$template->id in de tabel klas.
+     * @param $template De opgegeven klas
+     * @return Een True signaal
+     */
+    function update($template){
+        $this->db->where('id', $template->id);
+        $this->db->update('klas', $template);
+        return 1;
+    }
+    
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Verwijdert de klas waar id=$id in de tabel klas.
+     * @param $id Het id van de te verwijderen klas.
+     * @return Een True signaal
+     */
+    function remove($id){
+        $this->db->where('id', $id);
+        $this->db->delete('klas');
+        return 1;
+    }
+    
     function search($text, $previousEditions, $columns){
         $this->db->from('klas');
         

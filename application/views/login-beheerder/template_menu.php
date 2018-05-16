@@ -68,7 +68,7 @@
                     <a href="<?= site_url(); ?>/zoeken"><i class="fas fa-search"></i> Search</a>
                 </li>
                 <li>
-                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                    <a href="<?= site_url(); ?>/tables"><i class="fas fa-database"></i> Manage Extra Tables</a>
                 </li>
             </ul>
         </div>

@@ -32,6 +32,32 @@ class GebruikerType_model extends CI_Model {
         return $query->result();
     }
     
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Voegt het gebruikertype $template toe aan de tabel mailtype.
+     * @param $template Het opgegeven gebruikertype
+     * @return Een True signaal
+     */
+    function insert($template){
+        $this->db->insert('gebruikerType', $template);
+        return 1;
+    }
+    
+    /**
+     * @author Quinten Van Casteren
+     * 
+     * Verandert het gebruikertype waar id=$template->id in de tabel gebruikerType.
+     * @param $template Het opgegeven gebruikertype
+     * @return Een True signaal
+     */
+    function update($template){
+        $this->db->where('id', $template->id);
+        $this->db->update('gebruikerType', $template);
+        return 1;
+    }
+    
+    
     function search($text, $previousEditions, $columns){
         $this->db->from('gebruikerType');
         
