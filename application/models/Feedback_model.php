@@ -22,6 +22,13 @@ class Feedback_model extends CI_Model {
     	return $this->db->get('feedback')->row();
     }
 
+    /**
+     * 
+     * 
+     * 
+     * 
+     */
+
     function exists($sessieId, $gebruikerId)
     {
     	$this->db->where('sessieId', $sessieId);
@@ -29,6 +36,14 @@ class Feedback_model extends CI_Model {
     	
     	return $this->db->get('feedback')->row();
     }
+
+    /**
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
 
     function set($sessieId, $gebruikerId, $feedback)
     {
@@ -43,6 +58,12 @@ class Feedback_model extends CI_Model {
     	}
     }
 
+    /**
+     * 
+     * 
+     * s
+     */
+
     function update($sessieId, $gebruikerId, $feedback)
     {
         $this->db->where('sessieId', $sessieId);
@@ -52,12 +73,22 @@ class Feedback_model extends CI_Model {
         $this->db->update('feedback', $data);
     }
 
+    /**
+     * 
+     * 
+     */
+
     function create($sessieId, $gebruikerId, $feedback)
     {
         $data = array('sessieId'=>$sessieId, 'gebruikerId'=>$gebruikerId, 'inhoud'=>$feedback);
 
         $this->db->insert('feedback', $data);
     }
+
+    /**
+     * 
+     * 
+     */
 
     function clear($sessieId, $gebruikerId)
     {

@@ -21,6 +21,9 @@ class FormulierType_model extends CI_Model {
         return $query->row();
     }
     
+    /**
+     * 
+     */
     function getAllTypes(){
         $query = $this->db->get('formulierType');
         return $query->result();
