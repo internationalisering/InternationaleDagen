@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">International Days</a>
+        <a class="navbar-brand" href="<?= site_url(); ?>/">International Days</a>
     </div>
     <!-- /.navbar-header -->
 
