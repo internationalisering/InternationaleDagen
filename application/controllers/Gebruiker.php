@@ -19,7 +19,7 @@ class Gebruiker extends CI_Controller {
      * @see login-beheerder/template_menu.php
      * @see User_model::getAllUsers
      * @see Authex
-     * @see template.master.php
+     * @see template_master.php
      */
 	public function index(){
 		if($this->authex->checkLoginRedirectByType(4)){

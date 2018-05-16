@@ -27,6 +27,7 @@ class Csv_model extends CI_Model
 
     /**
      * Voegt all rijen toe van de CSV aan de tabel gebruiker
+     * @param $data is de inhoud die wordt toegevoegd aan de kolom gebruiker
      * @return Toevoeging van rijen van het CSV-bestand aan de tabel gebruiker
      */
     function insert_csv($data) {
