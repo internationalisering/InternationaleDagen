@@ -7,7 +7,8 @@
 	<?php if($planned){ ?>
 		<p>This planning has now been marked as definitive.</p>
 	<?php } else { ?>
-		<p>Are you sure you want to mark this planning as definitive? You will no longer be able to edit this page.</p>
+		<p>Are you sure you want to mark this planning as definitive? You will no longer be able to edit this page. Neither will you be able to select invigilators.</p>
+		<p>After submitting this form, students will be able to enroll.</p>
 	<?php } ?>
 
 

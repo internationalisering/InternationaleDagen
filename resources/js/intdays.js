@@ -243,10 +243,12 @@ var µ = {
                     $('#invigilators').html('');
                     $(presentUsers).each(function(i, user)
                     {                       
-                     $('#invigilators').append('<p><input class="planning-input-checkbox" type="checkbox" /> ' + 'test' + '</p>');
-
-
-                    });
+                        if(user.surveillant)
+                            if(user.geselecteerd)
+                                $('#invigilators').append('<p><input class="planning-input-checkbox" type="checkbox" id="'+user.gebruikerId+'" checked/> ' + user.naam  + '</p>');
+                            else 
+                                $('#invigilators').append('<p><input class="planning-input-checkbox" type="checkbox" id="'+user.gebruikerId+'" /> ' + user.naam  + '</p>');
+                  });
                       
 
                     
@@ -341,8 +343,32 @@ var µ = {
                 mandatoryClassesText.push( check.data('class') );
             })
 
+            var currentPresence = µ.planning_edit.currentEdit.attr('data-presence');
+            if(currentPresence)
+                currentPresence = JSON.parse(currentPresence);            
+            else 
+                currentPresence = [];
+
+
+
+            $('#invigilators input[type=checkbox]').each(function(index, object)
+            { 
+                $(currentPresence).each(function(index, users)
+                {
+
+                    if(users.gebruikerId == $(object).attr('id'))
+                    {
+                        users.geselecteerd = ($(object).is(':checked')?1:0);
+                    }
+                });
+            });
+
+            currentPresence = JSON.stringify(currentPresence);
+
+            console.log(currentPresence);
             µ.planning_edit.currentEdit.attr('data-max-amount', $('#max-amount').val());
 
+            µ.planning_edit.currentEdit.attr('data-presence', currentPresence);
 
             µ.planning_edit.currentEdit.attr('data-session-id', session.id);
             µ.planning_edit.currentEdit.attr('data-title', session.titel);
@@ -672,9 +698,11 @@ var µ = {
                             allowedClasses = allowedClasses.split('|');
                         else
                             allowedClasses = [];
-                        
-                        var aanwezigheden = JSON.parse(child.attr('data-presence'));
-                        console.log(aanwezigheden);
+
+                        var aanwezigheden = [];
+                        if(child.attr('data-presence'))
+                            aanwezigheden = JSON.parse(child.attr('data-presence'));   
+                         
 
 
                         children.push({
