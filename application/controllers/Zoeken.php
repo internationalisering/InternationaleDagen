@@ -12,6 +12,14 @@ class Zoeken extends CI_Controller {
         parent::__construct();
     }
 	
+	/**
+     * Toont de zoekpagina aan de beheerder.
+     * 
+     * @see beheerder_zoeken.php
+     * @see login-beheerder/template_menu.php
+     * @see Authex
+     * @see template.master.php
+     */
 	public function index(){
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
@@ -22,6 +30,13 @@ class Zoeken extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Lijst de zoekresultaten op.
+     * 
+     * @see Zoeken::search
+     * @see beheerder_zoeken_resultaten.php
+     * @see Authex
+     */
 	public function zoek(){
 		if($this->authex->checkLoginRedirectByType(4)){
 			$data['models'] = $this->search($this->input->get("text"), $this->input->get("previousEditions") == "1");
@@ -30,6 +45,11 @@ class Zoeken extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Zoekt in alle tabellen naar de zoekterm.
+     * 
+     * @return Lijst met alle models en de zoekresultaten per model.
+     */
 	private function search($text, $previousEditions){
 		$models = array(
 			array(
@@ -50,7 +70,7 @@ class Zoeken extends CI_Controller {
 			array(
 				"name" => "User Type",
 				"modelName" => "gebruikerType_model",
-				"url" => base_url() . "/blabla/blabla/{id}", // <-----------------------------------------------------------
+				"url" => base_url() . "/tables/edittype/{id}",
 				"columns" => array(
 					"naam"
 				),
@@ -88,7 +108,7 @@ class Zoeken extends CI_Controller {
 			array(
 				"name" => "Class",
 				"modelName" => "class_model",
-				"url" => base_url() . "/blabla/blabla/{id}", // <-----------------------------------------------------------
+				"url" => base_url() . "/tables/editclass/{id}",
 				"columns" => array(
 					"klasgroep"
 				),
@@ -132,7 +152,7 @@ class Zoeken extends CI_Controller {
 			array(
 				"name" => "Language",
 				"modelName" => "language_model",
-				"url" => base_url() . "/blabla/blabla/{id}", // <-----------------------------------------------------------
+				"url" => base_url() . "/tables/editlanguage/{id}",
 				"columns" => array(
 					"naam"
 				),

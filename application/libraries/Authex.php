@@ -17,14 +17,25 @@ class Authex {
         
         $CI->load->model('user_model');
     }
-
+    
+    /**
+     * Activeerd een gebruiker
+     * 
+     * @param id Id van de gebruiker die geactiveerd moet worden.
+     * @see User_model::activate
+     */
     function activate($id){
         // nieuwe gebruiker activeren
         $CI = & get_instance();
         
         $CI->user_model->activate($id);
     }
-
+    
+    /**
+     * Haalt alle data op van de ingelogde gebruiker
+     * 
+     * @return Object met data van de ingelogde gebruiker
+     */
     function getUserInfo(){
         // geef gebruiker-object als gebruiker aangemeld is
         $CI = & get_instance();
@@ -42,6 +53,11 @@ class Authex {
         }
     }
     
+    /**
+     * Checkt ofdat de gebruiker is ingelogd.
+     * 
+     * @return Boolean met ofdat de gebruiker is ingelogd of niet.
+     */
     function isLoggedIn(){
         // gebruiker is aangemeld als sessievariabele user_id bestaat
         $CI = & get_instance();
@@ -53,6 +69,11 @@ class Authex {
         }
     }
     
+    /**
+     * Stuur de gebruiker door naar de homepagina wanneer de gebruiker ingelogd is.
+     * 
+     * @return Boolean met ofdat de gebruiker is ingelogd of niet.
+     */
     function checkLoginRedirectToHome(){
         if($this->isLoggedIn()){
             redirect('/home/' . strtolower($this->getUserInfo()->type->naam));
@@ -62,6 +83,10 @@ class Authex {
         }
     }
     
+    /**
+     * Stuur de gebruiker door naar de login pagina of een 404 pagina wanneer de gebruiker niet ingelogd is als de juiste gebruiker.
+     * 
+     */
     function checkLoginRedirectByType($typeId = NULL){
         if($this->isLoggedIn()){
             if(count(func_get_args()) == 0){
@@ -78,6 +103,15 @@ class Authex {
         }
     }
     
+    /**
+     * Probeer de gebruiker in te loggen door middel van een email en wachtwoord.
+     * 
+     * @param email Email adres van de gebruiker.
+     * @param password Wachtwoord van de gebruiker.
+     * @see User_model::getUser
+     * @see User_model::updateLastLogin
+     * @return 1 als de login succesvol is, -1 als de gebruiker niet gevonden is en -2 wanneer de gebruiker nog niet geactiveerd is.
+     */
     function login($email, $password){
         // gebruiker aanmelden met opgegeven email en wachtwoord
         $CI = & get_instance();
@@ -95,34 +129,46 @@ class Authex {
         }
     }
     
+    /**
+     * Logt de gebruiker uit.
+     * 
+     */
     function logout(){
         // afmelden, dus sessievariabele wegdoen
         $CI = & get_instance();
         
         $CI->session->unset_userdata('user_id');
     }
-
-    function isStudent()
-    {
+    
+    /**
+     * Check ofdat de gebruiker een student is.
+     */
+    function isStudent(){
         $CI = & get_instance();
         return $this->getUserInfo()->typeId == 1;
     }
-
-    function isDocent()
-    {
+    
+    /**
+     * Check ofdat de gebruiker een docent is.
+     */
+    function isDocent(){
         $CI = & get_instance();
         return $this->getUserInfo()->typeId == 2;
     }
-    function isSpreker()
-    {
+    
+    /**
+     * Check ofdat de gebruiker een spreker is.
+     */
+    function isSpreker(){
         $CI = & get_instance();
         return $this->getUserInfo()->typeId == 3;
     }
-    function isBeheerder()
-    {
+    
+    /**
+     * Check ofdat de gebruiker een beheerder is.
+     */
+    function isBeheerder(){
         $CI = & get_instance();
         return $this->getUserInfo()->typeId == 4;
     }
-
-
 }

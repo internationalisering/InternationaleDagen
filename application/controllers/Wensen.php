@@ -97,6 +97,8 @@ class Wensen extends CI_Controller {
 	/**
      * Slaat het aangepaste formulier van de beheerder op.
      * 
+     * @see Wensen::removeQuestionsFromDB
+     * @see Wensen::addAndUpdateQuestionsToDB
      * @see beheerder_wensen_beheren.php
      * @see login-beheerder/template_menu.php
      * @see WishQuestion_model::getAllQuestions
@@ -122,6 +124,11 @@ class Wensen extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Zoekt een bepaalde question in een array via het id.
+     * 
+     * @return Question object
+     */
 	private function getInQuestionByID($inQuestions, $id){
 		foreach($inQuestions as $inq){
 			if($inq['id'] == $id){
@@ -132,6 +139,12 @@ class Wensen extends CI_Controller {
 		return null;
 	}
 	
+	/**
+	 * Verwijderd een lijst met questions uit de database.
+     * 
+     * @see Wensen::getInQuestionByID
+     * @see WishQuestion_model::deleteQuestion
+     */
 	private function removeQuestionsFromDB($dbQuestions, $inQuestions){
 		foreach($dbQuestions as $dbq){
 			if($this->getInQuestionByID($inQuestions, $dbq->id) == null){
@@ -140,6 +153,12 @@ class Wensen extends CI_Controller {
 		}
 	}
 	
+	/**
+	 * Voegt een question toe of past een question aan in de dabatase.
+     * 
+     * @see WishQuestion_model::insertQuestion
+     * @see WishQuestion_model::updateQuestion
+     */
 	private function addAndUpdateQuestionsToDB($inQuestions){
 		$order = 0;
 		
