@@ -20,9 +20,13 @@ class Class_model extends CI_Model {
         $query = $this->db->get('klas');
         return $query->row();
     }
-        
-    function getAll()
-    {
+    
+    /**
+     * Haalt alle klassen op uit de database
+     * 
+     * @return Alle klassen
+     */
+    function getAll(){
         return $this->db->get('klas')->result();
     }
 

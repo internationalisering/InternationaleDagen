@@ -10,6 +10,7 @@ class Classgroup_model extends CI_Model {
     function __construct() {
         parent::__construct();
     }
+    
     /**
      * Geeft terug de classgroup met id=$id uit de tabel classgroup
      * @param $id Het opgegeven id
@@ -20,21 +21,35 @@ class Classgroup_model extends CI_Model {
         $query = $this->db->get('klasgroep');
         return $query->row();
     }
-
-    function deleteByColumnId($columnId)
-    {
+    
+    /**
+     * Verwijderd alle klasgroepen bij een kolom id.
+     * 
+     * @param $columnId Het id van de te verwijderen kolom
+     */
+    function deleteByColumnId($columnId){
         $this->db->where('planningKolomId', $columnId);
         $this->db->delete('klasgroep');
     }
     
-    function getByColumnId($columnId)
-    {
+    /**
+     * Geeft alle klasgroepen met een bepaalde kolom id.
+     * 
+     * @param $columnId Het id van de te zoeken kolom
+     * @return De opgevraagde kolommen
+     */
+    function getByColumnId($columnId){
        $this->db->where('planningKolomId', $columnId);
        return $this->db->get('klasgroep')->result();
     }
-
-    function insert($classgroup)
-    {
+    
+    /**
+     * Voegt een klasgroep toe aan de database.
+     * 
+     * @param $$classgroup De toe te voegen klasgroep.
+     * @return Het id van de toegevoegde klasgroep.
+     */
+    function insert($classgroup){
         $this->db->insert('klasgroep', $classgroup);
         return $this->db->insert_id();
     }
