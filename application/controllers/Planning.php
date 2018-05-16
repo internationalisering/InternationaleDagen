@@ -45,6 +45,18 @@ class Planning extends CI_Controller {
 						// Voor elke sessie kijken of de ingelogde gebruiker ingeschreven is voor deze sessie
 						$kolom->ingeschreven = $this->presence_model->isEnrolled($kolom->id, $user->id);
 
+						// Of kijken of de ingelogde gebruiker hier verplicht aanwezig moet zijn 
+						$kolom->verplichteKlasgroepen = $this->classgroup_model->getByColumnId($kolom->id);
+						$kolom->verplicht = false;
+
+						$gebruikerKlas = $this->class_model->get($this->authex->getUserInfo()->klasId);
+						foreach($kolom->verplichteKlasgroepen as $klasgroep)
+						{	
+							if($klasgroep = $gebruikerKlas)
+								$kolom->verplicht = true;
+
+							
+						}
 					}
 				}
 			}

@@ -74,22 +74,43 @@ $(document).ready(function()
                                         ?> 
                                             <?php 
 
+                                            if(isset($column->session))
+                                            {
                                             ?>
-                                            <div class='planning-child planning-child-activity planning-child-activity-<?= ($column->ingeschreven?'':'not-')?>enrolled' data-column-id=<?= $column->id ?>>
+                                            <div class='planning-child planning-child-activity planning-child-activity-<?= ($column->ingeschreven || $column->verplicht ?'':'not-')?>enrolled' data-column-id=<?= $column->id ?>>
                                                 <div class='planning-session'>
                                                     <p class='planning-session-title'><?= $column->session->titel ?></p>
                                                     <p class='planning-session-author'>
                                                         <?= $column->session->gebruiker->voornaam ?>
                                                         <?= $column->session->gebruiker->achternaam ?>
-                                                    </p>  
+
+                                                    </p> 
+                                                    <p class='planning-session-author'><?= ($column->verplicht ? 'Verplicht voor uw klas!':'' ) ?>  
+                                                    	<span class='planning-child-tick' data-column-id=<?= $column->id ?>>
+                                                        	<img class='img-16' src='<?= base_url() ?>/resources/images/tick.png'/>
+                                                    	</span>
+                                                    </p> 
 
 
-                                                    <span class='planning-child-tick' data-column-id=<?= $column->id ?>>
-                                                        <img class='img-16' src='<?= base_url() ?>/resources/images/tick.png'/>&nbsp;
-                                                    </span>
+                                                 
                                                 </div>
                                             </div>
-                                        <?php      
+                                            <?php 
+                                            }
+                                            else 
+                                            {	
+                                            	?>
+                                           		<div class='planning-child planning-child-activity planning-child-activity-not-enrolled' data-column-id='0'>
+                                                	<div class='planning-session'>
+	                                                    <p class='planning-session-title'>Nog geen sessie ingesteld</p>
+	                                                    <p class='planning-session-author'>
+	                                                        &nbsp;
+	                                                    </p>  
+                                                	</div>
+                                           		</div>
+                                            	<?php 
+                                            }
+                                        
                                     }
                                 }
                             }  
