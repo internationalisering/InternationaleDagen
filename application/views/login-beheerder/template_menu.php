@@ -23,7 +23,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?= site_url(); ?>/">International Days</a>
+        <a class="navbar-brand" href="<?= site_url(); ?>/home">International Days</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -47,7 +47,7 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
-                    <a href="/"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a>
+                    <a href="<?= site_url(); ?>/home"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
                     <a href="<?= site_url(); ?>/gebruiker"><i class="fas fa-users"></i> Manage Users</a>
