@@ -103,6 +103,13 @@ class Home extends CI_Controller {
 		}
 	}
 
+	/**
+	 * @see login-beheerder/template_menu.php
+	 * @see template_master.php
+	 * @see Edition_model::getAllEditions
+	 * @see login-beheerder/beheerder_editie_lijst.php
+	 */
+
 	public function homepagina_lijst() {
 		if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
@@ -119,6 +126,15 @@ class Home extends CI_Controller {
 		}
 	}
 
+	/**
+	 * @see login-beheerder/template_menu.php
+	 * @see login-beheerder/homepagina_bewerk_home.php
+	 * @see template_master.php
+	 * @see Edition_model::get
+	 * @param $id De Id van de geselecteerde editie. 
+	 * 
+	 */
+
 	public function homepagina_view($id) {
 	    if($this->authex->checkLoginRedirectByType(4)){
 			$this->load->model('edition_model');
@@ -134,6 +150,13 @@ class Home extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 		}
 	}
+
+	/**
+	 * @see login-beheerder/template_menu.php
+	 * @see login-beheerder/beheerder_editie_lijst.php
+	 * @see template_master.php
+	 * @see Edition_model::wijzigPagina 
+	 */
 
 	public function homepagina_update() {
 		if($this->authex->checkLoginRedirectByType(4)){
@@ -156,6 +179,15 @@ class Home extends CI_Controller {
 
 		}
 	}
+
+
+	/**
+	 * @see login-beheerder/template_menu.php
+	 * @see template_master.php
+	 * @see Edition_model::insert
+	 * @param $edition Een nieuwe rij wordt toegevoegd aan de database. 
+	 * @see home/homepagina_lijst.php 
+	 */
 
 	public function editieToevoegen() {
 		if($this->authex->checkLoginRedirectByType(4)){

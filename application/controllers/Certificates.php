@@ -1,11 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * @class Certificates
+ * @author Vincent Duchateau
+ * 
+ * Controller-klasse voor het afdrukken van aanwezigheidscertificaten voor de sprekers.
+ */
 class Certificates extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
     }
+
+    /**
+     * Zendt de beheerder door naar een pagina met alle aanwezigheidscertificaten. Daarna heeft hij of zij de kans om deze certificaten af te drukken. 
+     * 
+     * @see login-beheerder/beheerder_certificaten.php
+     * @see User_model::getAllUsersSortByName
+     * @see Edition_model::getLastEdition
+     * @see template_master.php
+     * 
+     */
     
 	public function index(){
         if($this->authex->checkLoginRedirectByType(4)) {
@@ -27,8 +42,5 @@ class Certificates extends CI_Controller {
 			$this->template->load('template/template_master', $partials, $data);
 
         }
-
-		//Convert to PDF nog uitwerken
     }
-
 }
