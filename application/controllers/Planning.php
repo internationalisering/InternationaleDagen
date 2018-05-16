@@ -1,12 +1,35 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * @class Planning
+ * @author Tom Van den Rul
+ * 
+ * Controller klasse voor het beheren en het bekijken van de planning
+ */
 
 class Planning extends CI_Controller {
 	
 	public function __construct(){
         parent::__construct();
     }
-    
+    /**
+     * Laat de student, de docent en de spreker de planning bekijken.
+     * @author Tom Van den Rul
+     * @see login-student/template_menu.php
+     * @see login-docent/template_menu.php
+     * @see login-spreker/template_menu.php
+     * @see Class_model::get
+     * @see Row_model::getByEdition
+     * @see Session_model::get
+     * @see Class_model::get 
+     * @see Edition_model::getLastEdition
+     * @see Column_model::getByRowId
+     * @see User_model::get
+     * @see Presence_model::isEnrolled
+     * @see Authex 
+     * @see template.master
+     * 
+     */
 	public function index(){
 		if($this->authex->isLoggedIn()){
 			$this->load->model('class_model');
@@ -65,8 +88,6 @@ class Planning extends CI_Controller {
                 $partials = array('template_menu' => 'login-docent/template_menu.php', 'template_pagina' => 'planning/planning_home');
             } else if($user->typeId = 3){
                 $partials = array('template_menu' => 'login-spreker/template_menu.php', 'template_pagina' => 'planning/planning_home');
-            } else if($user->typeId = 4){
-                $partials = array('template_menu' => 'login-beheerder/template_menu.php', 'template_pagina' => 'planning/planning_home');
             }
 
 
@@ -79,11 +100,28 @@ class Planning extends CI_Controller {
 		}
 	}
 
+	 /**
+     * Laat de student, de docent en de spreker het detailvenster van een activiteit bekijken.
+	 * @author Tom Van den Rul
+     * @param $columnId is de id van de kolom van waar de gebruiker de details wilt bekijken 
+	 * @see Column_model::get
+	 * @see Session_model::get
+	 * @see Presence_model::getColumnCount
+	 * @see Presence_model::isEnrolled
+	 * @see Feedback_model::get
+	 * @see User_model::get
+	 * @see Class_model::get
+	 * @see Classgroup_model::getByColumnId
+     * @see Authex 
+     * @see template.master
+     * 
+     */
 	public function viewColumn($columnId=null)
 	{
 		if($this->authex->isLoggedIn())
 		{
 			if($columnId == null) die;
+
 			$this->load->model('column_model');
 			$this->load->model('session_model');
 			$this->load->model('presence_model');
@@ -140,39 +178,25 @@ class Planning extends CI_Controller {
 				$this->load->view('planning/planning_ajax_docent.php', $data);
 			}
 		}
-	}
-	public function getcolumnInfo($columnId = null)
-	{
-		$obj = array();
-		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
-		{
-			$columnId = (int)$columnId;
-			$this->load->model('presence_model');
-			$this->load->model('user_model');
+	}	 
 
-			if($columnId)
-			{
-				$aanwezigheden = $this->presence_model->getEnrolledStudents($columnId);
-				$obj['aanwezigheden'] = array();
-				foreach($aanwezigheden as $aanwezigheid)
-				{
-					// hide info 
-					$userFull =  $this->user_model->get($aanwezigheid);
-					$user = new stdClass();
-					$user->id = $userFull->id;
-					$user->voornaam = $userFull->voornaam;
-					$user->achternaam = $userFull->achternaam;
 
-					$relation = $this->presence_model->getEnrolledStatus($columnId, $user->id);
-
-					$obj['aanwezigheden'][] = array('user'=>$user, 'surveillant'=>$relation->surveillant, 'geselecteerd'=>$relation->geselecteerd);
-				}
-			}
-		}
-		echo json_encode($obj);
-	}
+	 /**
+     * Haalt de gegevens van een bepaalde sessie op zoals taal, studiegebied, auteur ... Print vervolgens een JSON object uit. Deze methode dient voor Ajax calls te maken vanuit javascript.
+ 	 * @author Tom Van den Rul
+     * @param $sessionId is de id van de kolom van waar de gebruiker de details wilt bekijken 
+	 * @see Session_model::get
+	 * @see User_model::get
+	 * @see Language_model::get
+     * @see Authex 
+     * @see template.master
+     * 
+     */
 	public function getSessionInfo($sessionId = null)
 	{
+		if(!$this->authex->isLoggedIn() || !$this->authex->isBeheerder())
+			die;
+		
 
 		if($sessionId)
 		{
@@ -186,6 +210,8 @@ class Planning extends CI_Controller {
 
 				// Sessie zoeken
 				$session = $this->session_model->get( $sessionId );
+				if(!$session)
+					die(json_encode(array()));
 
 				// Taal invullen
 				$session->taal = $this->language_model->get( $session->taalId );
@@ -204,29 +230,59 @@ class Planning extends CI_Controller {
 		}
 	}
 
+	/**
+     * Toont een modal voor de hulpfunctie van de planning.
+	 * @author Tom Van den Rul
+     * @see Authex 
+     * @see template.master
+     */
 	public function help()
 	{
-
-		$this->load->view('planning/planning_help.php', array());
-
+		if($this->authex->isLoggedIn())
+			$this->load->view('planning/planning_help.php', array());
 	}
-	public function markAsDefinitive($bool = false)
+
+	/**
+     * Toont een modal voor de hulpfunctie van de planning.
+	 * @author Tom Van den Rul
+	 * @param $status - wanneer deze true is, wordt de database aangepast. Anders wordt er een bevestigingspagina getoond.
+     * @see Authex 
+     * @see template.master
+     */
+    public function markAsDefinitive($status = false)
 	{
-		if($bool)
+		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
 		{
-			$this->load->model('edition_model');
-			$edition = $this->edition_model->getLastEdition();
+			if($status)
+			{
+				$this->load->model('edition_model');
+				$edition = $this->edition_model->getLastEdition();
 
-			$this->edition_model->setPlanned($edition->id, true);
-		}			
+				$this->edition_model->setPlanned($edition->id, true);
+			}			
+			$this->load->view('planning/planning_ajax_beheerder_definitive.php', array('planned'=>$status));
 
-		$this->load->view('planning/planning_ajax_beheerder_definitive.php', array('planned'=>$bool));
+		}
 	}
 
+	/**
+     * Via een Ajax /call wordt deze methode opgeroepen. Er wordt een json object meegegeven met daarin de planning.
+	 * @author Tom Van den Rul
+	 * @see Row_model::getByDate
+	 * @see Column_model::getByRowId
+	 * @see Column_model::deleteById
+	 * @see Classgroup_model::deleteByColumnId
+	 * @see Row_model:::deleteByColumnId
+	 * @see Presence_model::deleteByColumnId
+	 * @see Column_model::insert
+     * @see Classgroup_model::insert
+     * @see Presence_model::insert
+     * @see Authex 
+     * @see template.master
+     */
 
 	public function editSave()
 	{
-		// laden van alles
 		$this->load->model('row_model');
 		$this->load->model('column_model');
 		$this->load->model('edition_model');
@@ -235,14 +291,14 @@ class Planning extends CI_Controller {
 
 		// Ophalen gegevens
 		$planning = $this->input->post('planning');
-		$planning = (array)json_decode($planning, true);
+		if(!$planning) die;
 
+		$planning = (array)json_decode($planning, true);
 
 		if(isset($planning['date']))
 		{
 			$date = $planning['date'];
 			$edition = $this->edition_model->getLastEdition();
-
 
 			// Stap 1: alle rijen/velden etc clearen op deze dag
 			// Eerst de rij id's verkregen met deze datum
@@ -338,7 +394,23 @@ class Planning extends CI_Controller {
 			}
 		}
 	}
-
+	/**
+     * Via deze pagina kan de beheerder de planning bewerken
+	 * @author Tom Van den Rul
+	 * @param $datum geeft mee welke datum de beheerder wilt aanpassen
+	 * @see Row_model::getByDate
+	 * @see Edition_model::getLastEdition
+	 * @see Row_model::getByEdition
+	 * @see Class_model::get
+	 * @see Classgroup::getByColumnId
+	 * @see Column_model::getByRowId
+	 * @see Session_model::get
+	 * @see Presence_model::getEnrolledStudents
+	 * @see Presence_model::getEnrolledStatus
+	 * @see User
+     * @see Authex 
+     * @see template.master
+     */
 	public function edit($datum = null)
 	{
 		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
@@ -348,7 +420,6 @@ class Planning extends CI_Controller {
 			$this->load->model('classgroup_model');
 			$this->load->model('row_model');
 			$this->load->model('session_model');
-			$this->load->model('class_model');
 			$this->load->model('column_model');
 			$this->load->model('user_model');
 			$this->load->model('presence_model');
@@ -371,8 +442,7 @@ class Planning extends CI_Controller {
 
 
 			// Alle kolommen
-			$data['edition'] = $this->edition_model->getLastEdition();
-			$data['rows'] = $this->row_model->getByEdition( $data['edition'] );
+			$data['rows'] = $this->row_model->getByEdition( $data['editie'] );
 
 
 			$user = $this->authex->getUserInfo();
@@ -395,7 +465,9 @@ class Planning extends CI_Controller {
 						$kolom->aanwezigheden = array();
 						foreach($aanwezigheden as $aanwezigheid)
 						{
-							$kolom->aanwezigheden[] = $this->presence_model->getEnrolledStatus($kolom->id, $aanwezigheid);
+							$gebruiker = $this->presence_model->getEnrolledStatus($kolom->id, $aanwezigheid);
+							$gebruiker->naam = $this->user_model->get($aanwezigheid)->voornaam . ' ' .  $this->user_model->get($aanwezigheid)->achternaam; 
+							$kolom->aanwezigheden[] = $gebruiker;		
 						}
 
 
@@ -426,7 +498,16 @@ class Planning extends CI_Controller {
 		}
 
 	}
-
+	/**
+     * Via deze methode kan een student/docent zich inschrijven als respectievelijk iemand die lezing bijwoont of als surveillant
+	 * @author Tom Van den Rul
+	 * @param $columnId geeft mee welke kolom de student/docent zich mee wilt inschrijven
+	 * @see Presence_model::isEnrolled
+	 * @see Presence_model::enroll
+	 * @see User
+     * @see Authex 
+     * @see template.master
+     */
 	public function enroll($columnId=null)
 	{
 		$this->load->model('presence_model');
@@ -446,14 +527,18 @@ class Planning extends CI_Controller {
 
 				$this->presence_model->enroll($columnId, $user->id, $this->authex->isDocent());
 				die("1");
-
-
 			}
-
-
-
 		}
 	}
+	/**
+     * Via deze methode kan een student/docent zich uitschrijven als respectievelijk iemand die lezing bijwoont of als surveillant
+	 * @author Tom Van den Rul
+	 * @param $columnId geeft mee welke kolom de student/docent zich mee wilt uitschrijven
+	 * @see Presence_model::enroll
+	 * @see User
+     * @see Authex 
+     * @see template.master
+     */
 
 	public function withdraw($columnId)
 	{
@@ -467,38 +552,62 @@ class Planning extends CI_Controller {
 			die("1");
 		}
 	}
-
+	/**
+     * Via deze methode kan een student feedback geven op een lezing
+	 * @author Tom Van den Rul
+	 * @param $sessionId geeft mee welke sessie de student feedback voor wilt geven
+	 * @see Feedback_model::set
+	 * @see Feedback_model::clear
+	 * @see User
+     * @see Authex 
+     * @see template.master
+     */
 	public function feedback($sessionId)
 	{
-		$userId = $this->authex->getUserInfo()->id;
-		$this->load->model('feedback_model');
-		if($this->authex->isLoggedIn())
+		if($this->authex->isLoggedIn() && $this->authex->isStudent())
 		{
-			$feedback = $this->input->post('feedback');
-			
-			if($feedback != null && trim($feedback) != "")
+			$userId = $this->authex->getUserInfo()->id;
+			$this->load->model('feedback_model');
+			if($this->authex->isLoggedIn())
 			{
-				$this->feedback_model->set($sessionId, $userId, $feedback);
-				die($feedback);
-			} else {
-				$this->feedback_model->clear($sessionId, $userId);
+				$feedback = $this->input->post('feedback');
+				
+				if($feedback != null && trim($feedback) != "")
+				{
+					$this->feedback_model->set($sessionId, $userId, $feedback);
+					die($feedback);
+				} else {
+					$this->feedback_model->clear($sessionId, $userId);
+				}
 			}
 		}  
 	}
-
+	/**
+     * Via deze methode krijgt de beheerder het juiste scherm te zien bij het bewerken van een activiteit. 
+	 * @author Tom Van den Rul
+	 * @param $isBreak duidt aan of het een pauze is of een activiteit
+	 * @param $breakReason duidt aan wat de reden van pauze is, indien van toepassing.
+	 * @see Class_model::getAll
+	 * @see User
+     * @see Authex 
+     * @see template.master
+     */
 	public function editColumn($isBreak=false, $breakReason = "")
 	{
-		$data = array();
-		$this->load->model('class_model');
+		if($this->authex->isLoggedIn() && $this->authex->isBeheerder())
+		{
+			$data = array();
+			$this->load->model('class_model');
 
-		$data['classes'] = 		$this->class_model->getAll();
-		$data['breakReason'] =  $breakReason;
-		
+			$data['classes'] = 		$this->class_model->getAll();
+			$data['breakReason'] =  $breakReason;
+			
 
-		if( $isBreak == 'true')
-			$this->load->view('planning/planning_ajax_beheerder_break.php', $data);
-		else 
-			$this->load->view('planning/planning_ajax_beheerder.php', $data);
+			if( $isBreak == 'true')
+				$this->load->view('planning/planning_ajax_beheerder_break.php', $data);
+			else 
+				$this->load->view('planning/planning_ajax_beheerder.php', $data);
+		}
 
 	}
 
