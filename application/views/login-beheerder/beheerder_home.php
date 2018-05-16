@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file beheerder_home.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de gebruiker ingelogd is als beheerder.
+ * 
+ * @see Home
+ */
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">

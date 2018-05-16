@@ -1,4 +1,13 @@
 <?php
+/**
+ * @file beheerder_gebruiker_bekijk.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de beheerder een gebruiker wil bekijken.
+ * 
+ * @see Gebruiker
+ */
+
 function getAnswersForQuestion($myAnswers, $question){
     $arr = [];
     

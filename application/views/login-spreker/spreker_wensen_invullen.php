@@ -1,4 +1,13 @@
 <?php
+/**
+ * @file spreker_wensen_invullen.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de spreker wensen wil invullen.
+ * 
+ * @see Wensen
+ */
+ 
 function buildOptions($q, $str, $answers){
     $i = 0;
     $str = str_replace("{qid}", $q->id, $str);

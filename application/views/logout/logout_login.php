@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file logout_login.php
+ * @author Brend Simons
+ * 
+ * Pagina waarop de gebruiker kan inloggen.
+ * 
+ * @see Login
+ */
+?>
 <div id="page-wrapper" class="page-wrapper-fullpage">
     <div class="row">
         <div class="col-md-2"></div>

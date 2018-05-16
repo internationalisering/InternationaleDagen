@@ -1,3 +1,11 @@
+<?php
+/**
+ * @file template_master.php
+ * @author Brend Simons
+ * 
+ * Basis layout voor elke pagina.
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

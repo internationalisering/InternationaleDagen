@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file beheerder_gebruiker_verwijder.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de beheerder een gebruiker wil verwijderen.
+ * 
+ * @see Gebruiker
+ */
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">

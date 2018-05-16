@@ -1,3 +1,13 @@
+<?php
+/**
+ * @file beheerder_gebruiker_lijst.php
+ * @author Brend Simons
+ * 
+ * Pagina die te zien is wanneer de beheerder een lijst met gebruikers wil bekijken.
+ * 
+ * @see Gebruiker
+ */
+?>
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">

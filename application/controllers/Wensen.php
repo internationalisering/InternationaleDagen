@@ -32,6 +32,18 @@ class Wensen extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Toont een pagina waarop de spreker zijn wensen kan invullen.
+     * 
+     * @see spreker_wensen_invullen.php
+     * @see login-beheerder/template_menu.php
+     * @see WishAnswer_model::deleteAllAnswersByUser
+     * @see WishAnswer_model::insertAnswer
+     * @see WishAnswer_model::getAnswersByUser
+     * @see WishQuestion_model::getAllQuestionsVisible
+     * @see Authex
+     * @see template.master.php
+     */
 	public function invullen(){
 		if($this->authex->checkLoginRedirectByType(3)){
 			$submit = $this->input->post('submit');
@@ -60,6 +72,16 @@ class Wensen extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Toont een pagina waarop de beheerdere de wensen kan beheren.
+     * 
+     * @see beheerder_wensen_beheren.php
+     * @see login-beheerder/template_menu.php
+     * @see WishQuestion_model::getAllQuestions
+     * @see FormulierType_model::getAllTypes
+     * @see Authex
+     * @see template.master.php
+     */
 	public function beheer(){
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
@@ -72,6 +94,16 @@ class Wensen extends CI_Controller {
 		}
 	}
 	
+	/**
+     * Slaat het aangepaste formulier van de beheerder op.
+     * 
+     * @see beheerder_wensen_beheren.php
+     * @see login-beheerder/template_menu.php
+     * @see WishQuestion_model::getAllQuestions
+     * @see FormulierType_model::getAllTypes
+     * @see Authex
+     * @see template.master.php
+     */
 	public function beheeropslaan(){
 		if($this->authex->checkLoginRedirectByType(4)){
 		    $data['titel'] = 'International Days';
